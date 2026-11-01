@@ -85,33 +85,41 @@ public final class BenchmarkMain {
     private static void consume(Search.Result r) { sink += r.totalHits() + (r.hits().isEmpty() ? 0 : r.hits().getFirst().id()); }
     public static Map<String, Object> compression(IndexSnapshot index) throws IOException {
         var output = new TreeMap<String, Object>();
+        Long expectedChecksum = null;
         for (boolean compressed : List.of(false, true)) {
             var bytes = new ByteArrayOutputStream(); var out = new DataOutputStream(bytes);
-            long start = System.nanoTime(); long integers = 0;
+            long start = System.nanoTime();
             for (String term : new TreeSet<>(index.terms())) {
+                if (compressed) SegmentCodec.writeVar(out, index.postings(term).size()); else out.writeInt(index.postings(term).size());
                 long lastId = 0;
                 for (var entry : index.postings(term).entrySet()) {
                     if (compressed) { SegmentCodec.writeVar(out, entry.getKey() - lastId); SegmentCodec.writeVar(out, entry.getValue().size()); }
                     else { out.writeLong(entry.getKey()); out.writeInt(entry.getValue().size()); }
-                    lastId = entry.getKey(); integers += 2;
+                    lastId = entry.getKey();
                     int lastPosition = 0;
                     for (int position : entry.getValue()) {
                         if (compressed) SegmentCodec.writeVar(out, position - lastPosition); else out.writeInt(position);
-                        lastPosition = position; integers++;
+                        lastPosition = position;
                     }
                 }
             }
             long encode = System.nanoTime() - start;
             byte[] data = bytes.toByteArray(); long checksum = 0;
             start = System.nanoTime(); var in = new DataInputStream(new ByteArrayInputStream(data));
-            if (compressed) { for (long i = 0; i < integers; i++) checksum += SegmentCodec.readVar(in); }
-            else {
-                for (String term : new TreeSet<>(index.terms())) for (var entry : index.postings(term).entrySet()) {
-                    checksum += in.readLong(); int tf = in.readInt(); checksum += tf;
-                    for (int i = 0; i < tf; i++) checksum += in.readInt();
+            while (in.available() > 0) {
+                long df = compressed ? SegmentCodec.readVar(in) : in.readInt(), id = 0;
+                for (long posting = 0; posting < df; posting++) {
+                    id = compressed ? id + SegmentCodec.readVar(in) : in.readLong();
+                    long tf = compressed ? SegmentCodec.readVar(in) : in.readInt(); checksum += id + tf;
+                    long position = 0;
+                    for (long i = 0; i < tf; i++) {
+                        position = compressed ? position + SegmentCodec.readVar(in) : in.readInt(); checksum += position;
+                    }
                 }
             }
             long decode = System.nanoTime() - start; sink += checksum;
+            if (expectedChecksum != null && checksum != expectedChecksum) throw new IOException("Postings codecs disagree");
+            expectedChecksum = checksum;
             output.put(compressed ? "deltaVarint" : "fixedWidth", Map.of("bytes", data.length, "encodeNanos", encode, "decodeNanos", decode));
         }
         return output;
