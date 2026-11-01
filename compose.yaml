@@ -1,0 +1,48 @@
+services:
+  worker0:
+    build: .
+    command: [dev.searchforge.distributed.WorkerMain, '0', '3', '8080', /data, /tmp/ready]
+    ports: ['127.0.0.1:8091:8080']
+    volumes: [shard0:/data]
+    healthcheck:
+      test: [CMD, java, -cp, /app/searchforge.jar, dev.searchforge.distributed.HealthCheck, 'http://127.0.0.1:8080']
+      interval: 10s
+      timeout: 5s
+      retries: 3
+  worker1:
+    build: .
+    command: [dev.searchforge.distributed.WorkerMain, '1', '3', '8080', /data, /tmp/ready]
+    ports: ['127.0.0.1:8092:8080']
+    volumes: [shard1:/data]
+    healthcheck:
+      test: [CMD, java, -cp, /app/searchforge.jar, dev.searchforge.distributed.HealthCheck, 'http://127.0.0.1:8080']
+      interval: 10s
+      timeout: 5s
+      retries: 3
+  worker2:
+    build: .
+    command: [dev.searchforge.distributed.WorkerMain, '2', '3', '8080', /data, /tmp/ready]
+    ports: ['127.0.0.1:8093:8080']
+    volumes: [shard2:/data]
+    healthcheck:
+      test: [CMD, java, -cp, /app/searchforge.jar, dev.searchforge.distributed.HealthCheck, 'http://127.0.0.1:8080']
+      interval: 10s
+      timeout: 5s
+      retries: 3
+  coordinator:
+    build: .
+    command: [dev.searchforge.distributed.CoordinatorMain, '8080', /tmp/ready, 'http://worker0:8080', 'http://worker1:8080', 'http://worker2:8080']
+    ports: ['127.0.0.1:8090:8080']
+    depends_on:
+      worker0: {condition: service_healthy}
+      worker1: {condition: service_healthy}
+      worker2: {condition: service_healthy}
+    healthcheck:
+      test: [CMD, java, -cp, /app/searchforge.jar, dev.searchforge.distributed.HealthCheck, 'http://127.0.0.1:8080']
+      interval: 10s
+      timeout: 5s
+      retries: 3
+volumes:
+  shard0:
+  shard1:
+  shard2:

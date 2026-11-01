@@ -1,0 +1,32 @@
+{
+  "status": "COMPLETE",
+  "scoringScope": "all_shards",
+  "missingShards": [],
+  "generations": {
+    "2": 1,
+    "0": 1,
+    "1": 1
+  },
+  "totalHits": 2,
+  "hits": [
+    {
+      "id": 1,
+      "score": 0.940007258491471,
+      "document": {
+        "id": 1,
+        "text": "Distributed search uses an inverted index.",
+        "metadata": {}
+      }
+    },
+    {
+      "id": 2,
+      "score": 0.880006795183505,
+      "document": {
+        "id": 2,
+        "text": "An inverted index maps terms to documents.",
+        "metadata": {}
+      }
+    }
+  ]
+}
+Four-process demo passed. Data and logs retained at C:\Users\arhit\Documents\Codex\2026-11-02\als\work\cluster-demo-18c81f93ae784557a8876592eed161e6
