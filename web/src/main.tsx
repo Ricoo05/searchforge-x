@@ -190,11 +190,11 @@ function App() {
   );
   return (
     <div className="app-shell">
-      <a className="skip-link" href="#search-workspace">
+      <a className="skip-link" href="#search-workspace" tabIndex={0}>
         Skip to search workspace
       </a>
       <header className="topbar">
-        <a className="brand" href="/" aria-label="SearchForge X home">
+        <a className="brand" href="/" aria-label="searchforgex home">
           <span className="brand-mark">
             <Icon name="cube" size={23} />
           </span>
