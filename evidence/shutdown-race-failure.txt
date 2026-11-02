@@ -6,17 +6,17 @@
 [INFO] --------------------------------[ jar ]---------------------------------
 [INFO]
 [INFO] --- clean:3.2.0:clean (default-clean) @ searchforge-x ---
-[INFO] Deleting C:\Users\arhit\Documents\Codex\2026-11-02\als\outputs\searchforge-x\target
+[INFO] Deleting <workspace>\outputs\searchforge-x\target
 [INFO]
 [INFO] --- resources:3.3.1:resources (default-resources) @ searchforge-x ---
-[INFO] skip non existing resourceDirectory C:\Users\arhit\Documents\Codex\2026-11-02\als\outputs\searchforge-x\src\main\resources
+[INFO] skip non existing resourceDirectory <workspace>\outputs\searchforge-x\src\main\resources
 [INFO]
 [INFO] --- compiler:3.13.0:compile (default-compile) @ searchforge-x ---
 [INFO] Recompiling the module because of changed source code.
 [INFO] Compiling 18 source files with javac [debug release 21] to target\classes
 [INFO]
 [INFO] --- resources:3.3.1:testResources (default-testResources) @ searchforge-x ---
-[INFO] skip non existing resourceDirectory C:\Users\arhit\Documents\Codex\2026-11-02\als\outputs\searchforge-x\src\test\resources
+[INFO] skip non existing resourceDirectory <workspace>\outputs\searchforge-x\src\test\resources
 [INFO]
 [INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ searchforge-x ---
 [INFO] Recompiling the module because of changed dependency.
@@ -69,7 +69,7 @@ org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
 [INFO] ------------------------------------------------------------------------
 [ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.2:test (default-test) on project searchforge-x: There are test failures.
 [ERROR]
-[ERROR] See C:\Users\arhit\Documents\Codex\2026-11-02\als\outputs\searchforge-x\target\surefire-reports for the individual test results.
+[ERROR] See <workspace>\outputs\searchforge-x\target\surefire-reports for the individual test results.
 [ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
 [ERROR] -> [Help 1]
 [ERROR]
