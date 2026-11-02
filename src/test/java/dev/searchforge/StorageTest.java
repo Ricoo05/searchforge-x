@@ -21,6 +21,22 @@ class StorageTest {
   }
 
   @Test
+  void invalidGenerationIsRejectedBeforePublishingFiles() throws Exception {
+    var analyzer = new Analyzer();
+    try (var store = new GenerationStore(directory)) {
+      assertThrows(
+          IOException.class,
+          () -> store.commit(new IndexSnapshot(List.of(new Document(1, "invalid")), analyzer, 0)));
+      try (var files = Files.list(directory)) {
+        assertEquals(List.of("writer.lock"), files.map(p -> p.getFileName().toString()).toList());
+      }
+      assertEquals(0, store.recover(analyzer).generation());
+      store.commit(new IndexSnapshot(List.of(new Document(1, "valid")), analyzer, 1));
+      assertEquals("valid", store.recover(analyzer).documents().get(1L).text());
+    }
+  }
+
+  @Test
   void restartPreservesMetadataPostingsUpdatesAndDeletion() throws Exception {
     try (var e = open(directory)) {
       e.update(

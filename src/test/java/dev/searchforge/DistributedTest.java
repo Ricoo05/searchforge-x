@@ -415,6 +415,9 @@ class DistributedTest {
           List.of(
               "null",
               "{}",
+              "{\"query\":\"fox\",\"offset\":0.9,\"limit\":10,\"timeoutMillis\":1000}",
+              "{\"query\":\"fox\",\"offset\":0,\"limit\":10.9,\"timeoutMillis\":1000}",
+              "{\"query\":\"fox\",\"offset\":0,\"limit\":10,\"timeoutMillis\":1000.9}",
               "{\"query\":\"AND fox\",\"offset\":0,\"limit\":10,\"timeoutMillis\":1000}",
               "{\"query\":\"fox\",\"query\":\"cat\",\"offset\":0,\"limit\":10,\"timeoutMillis\":1000}")) {
         var request =
@@ -432,6 +435,45 @@ class DistributedTest {
               .POST(HttpRequest.BodyPublishers.ofString("{}"))
               .build();
       assertEquals(415, client.send(plain, HttpResponse.BodyHandlers.discarding()).statusCode());
+    }
+  }
+
+  @Test
+  void fractionalDocumentIdsCannotOverwriteOrDeleteIntegerIds() throws Exception {
+    try (var engine = new SearchEngine();
+        var server = new JsonServer("127.0.0.1", 0);
+        var client = HttpClient.newHttpClient()) {
+      engine.update(List.of(new Document(1, "original")), Set.of());
+      server.post(
+          "/ingest",
+          Protocol.Batch.class,
+          batch -> Map.of("generation", engine.update(batch.upserts(), batch.deletes())));
+      server.start();
+      for (String body :
+          List.of(
+              "{\"upserts\":[{\"id\":1.9,\"text\":\"replacement\",\"metadata\":{}}],\"deletes\":[]}",
+              "{\"upserts\":[],\"deletes\":[1.9]}")) {
+        var request =
+            HttpRequest.newBuilder(URI.create("http://127.0.0.1:" + server.port() + "/ingest"))
+                .timeout(Duration.ofSeconds(5))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(body))
+                .build();
+        assertEquals(
+            400, client.send(request, HttpResponse.BodyHandlers.discarding()).statusCode());
+        assertEquals(1, engine.snapshot().generation());
+        assertEquals("original", engine.snapshot().documents().get(1L).text());
+      }
+      var valid =
+          HttpRequest.newBuilder(URI.create("http://127.0.0.1:" + server.port() + "/ingest"))
+              .timeout(Duration.ofSeconds(5))
+              .header("Content-Type", "application/json")
+              .POST(
+                  HttpRequest.BodyPublishers.ofString(
+                      "{\"upserts\":[{\"id\":2,\"text\":\"valid\",\"metadata\":{}}],\"deletes\":[]}"))
+              .build();
+      assertEquals(200, client.send(valid, HttpResponse.BodyHandlers.discarding()).statusCode());
+      assertEquals("valid", engine.snapshot().documents().get(2L).text());
     }
   }
 }
