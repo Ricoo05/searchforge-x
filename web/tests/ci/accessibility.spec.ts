@@ -70,6 +70,8 @@ for (const width of [1440, 390]) {
 test('keyboard navigation and reduced motion', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/');
+  // Wait for React to mount before sending keys to the initially empty page.
+  await expect(page.getByLabel('Search query', { exact: true })).toBeVisible();
   await page.keyboard.press('Tab');
   await expect(page.getByRole('link', { name: /skip/i })).toBeFocused();
   await page.keyboard.press('Enter');

@@ -190,7 +190,7 @@ function App() {
   );
   return (
     <div className="app-shell">
-      <a className="skip-link" href="#search-workspace">
+      <a className="skip-link" href="#search-workspace" tabIndex={0}>
         Skip to search workspace
       </a>
       <header className="topbar">
