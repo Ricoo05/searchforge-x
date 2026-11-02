@@ -29,5 +29,5 @@ behavioral change, validation and limitations in a PR. Never weaken assertions o
 continue-on-error to make CI green. Do not commit credentials, datasets, build directories
 or artificial activity. Be explicit about AI assistance and sources of third-party material.
 
-No root license grant has been selected yet. Do not assume public visibility would provide
-permission to reuse source; the owner must resolve licensing before an open-source release.
+Original project source uses the MIT license in LICENSE. Third-party components and dataset
+material retain their upstream terms; consult THIRD_PARTY_NOTICES.md and DATA_PROVENANCE.md.

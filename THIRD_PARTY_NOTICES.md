@@ -1,7 +1,7 @@
 # Third-party material and license scope
 
-No original-project LICENSE has been chosen. This inventory does not grant a license to
-the project or replace upstream license texts. Preserve notices when distributing binaries.
+Original project source is MIT-licensed; see LICENSE. This inventory does not replace
+upstream licenses or relicense datasets/dependencies. Preserve notices when distributing binaries.
 
 Runtime components: Jackson core/databind/annotations (Apache-2.0, FasterXML), React and
 React DOM (MIT, Meta and contributors), scheduler (MIT), Three.js (MIT, three.js authors).
