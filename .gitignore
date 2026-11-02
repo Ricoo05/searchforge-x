@@ -6,3 +6,10 @@
 /.idea/
 *.iml
 /data/
+
+.env
+.env.*
+!.env.example
+/datasets/
+/web/test-results/
+/web/playwright-report/

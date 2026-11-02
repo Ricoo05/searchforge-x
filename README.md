@@ -1,5 +1,26 @@
 # SearchForge X
 
+[![Java correctness](https://github.com/Ricoo05/searchforge-x/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Ricoo05/searchforge-x/actions/workflows/ci.yml)
+
+SearchForge X makes document retrieval inspectable: you can trace a query from positional
+postings and BM25 through three actual worker processes to ranked, explicitly labeled results.
+Stack: Java 21, React/TypeScript, Three.js, Docker Compose. No hosted search engine handles retrieval.
+Existing Windows/Linux/Docker checks passed; additional portfolio checks are pending execution
+and approved publication. The repository is currently private, so the live badge may require sign-in.
+
+**Try locally:** `docker compose up --build`, then open http://127.0.0.1:8090 and load the
+sample corpus. This command was exercised by GitHub's container job. See [quick start](#run-locally),
+[demo steps](DEMO_VERIFICATION.md), [CI evidence](CI_VALIDATION_REPORT.md) and
+[publication status](FINAL_GITHUB_STATUS.md). There is no public hosted backend.
+
+```mermaid
+flowchart LR
+  Browser[React search / document studio] --> Coordinator[Java coordinator]
+  Coordinator --> W0[Worker 0 + persistent shard]
+  Coordinator --> W1[Worker 1 + persistent shard]
+  Coordinator --> W2[Worker 2 + persistent shard]
+```
+
 A custom Java 21 document-search engine with positional indexing, Boolean/phrase queries,
 BM25 ranking, persistent generations and a real three-worker coordinator. Built with AI
 assistance as an inspectable engineering and learning project.
