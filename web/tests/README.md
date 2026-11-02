@@ -1,5 +1,10 @@
 # Browser evidence reproduction
 
+The current automated CI suite uses Playwright against disposable Compose services in
+Chromium, Firefox and WebKit. See ../../QUALITY_CHECKS.md for setup and coverage, and
+../../QUALITY_VALIDATION.md for executed results. The CUA procedure below reproduces
+the earlier interactive visual evidence.
+
 These checks use the documented CUA browser API, with an isolated backend at 8290.
 They do not require browser access to production data and refuse writes through another
 preview origin. The normal preview at 5273 points to production and must not be used for
