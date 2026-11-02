@@ -27,5 +27,6 @@ service and personal interview competency are separate, unfulfilled claims.
 Provisional requested readiness rubric: correctness 22/25; tests/CI 18/20; reproducibility
 13/15; documentation/evidence 14/15; security/hygiene 6/10; demo accessibility 7/10; presentation
 4/5 = **84/100**. This self-assessment uses the requested portfolio-readiness rubric, not the
-earlier engine-depth rubric. Finite scanning, no full formatter/SAST
-and no restricted hosted demo limit the score. Personal competence is unassessed.
+earlier engine-depth rubric. This historical score predates the formatter, CodeQL,
+container CVE and expanded browser gates in QUALITY_CHECKS.md. No restricted hosted demo
+is deployed. Personal competence is unassessed.
