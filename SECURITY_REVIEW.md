@@ -21,7 +21,7 @@ are configured; executed outcomes are recorded in QUALITY_VALIDATION.md. Paid se
 automation is prepared, and the new remote security job passed on b6f22ec. GitHub secret scanning and secret push
 protection are enabled for the public repository.
 
-Licensing: original demo text is original project material; SciFact/BEIR permissions and
+Licensing: demo text is original project material; SciFact/BEIR permissions and
 attribution are recorded and dataset files are excluded. THIRD_PARTY_NOTICES.md identifies
 runtime/dev license families; it is not an exhaustive executable redistribution audit.
 Original project source now has an MIT LICENSE under the owner’s instruction to finish licensing

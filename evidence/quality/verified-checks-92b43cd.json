@@ -1,0 +1,511 @@
+{
+  "sourceCommit": "92b43cd",
+  "runs": [
+    {
+      "id": 41476169720,
+      "url": "https://github.com/Ricoo05/searchforge-x/actions/runs/41476169720",
+      "commit": "92b43cd860ed87aef47366ee40e1a4db18dab04e",
+      "conclusion": "success",
+      "jobs": [
+        {
+          "name": "image-security",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run docker build --pull -t searchforge:scan .",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run aquasecurity/trivy-action@a9c7b0f06e461e9d4b4d1711f154ee024b8d7ab8",
+              "conclusion": "success"
+            },
+            {
+              "name": "Enforce no HIGH or CRITICAL image vulnerabilities",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run aquasecurity/trivy-action@a9c7b0f06e461e9d4b4d1711f154ee024b8d7ab8",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "test (ubuntu-latest)",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run npm ci --no-audit --no-fund",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run npm run format:check",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run npm run build",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run mvn --batch-mode --no-transfer-progress clean verify",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run java -jar target/searchforge-x-0.1.0-SNAPSHOT.jar",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m unittest discover -s scripts -p 'test_*.py'",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "containers",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run docker compose up --build -d --wait",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python scripts/container_smoke.py --seed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run docker compose stop worker1",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python scripts/container_smoke.py --missing-shard 1",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run docker compose start worker1",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python scripts/container_smoke.py",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run npm ci --no-audit --no-fund",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run npx playwright install --with-deps chromium firefox webkit",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run npx playwright test",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run docker compose logs --no-color",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run docker compose down --volumes",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "security",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python scripts/portfolio_security.py secrets",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m pip install -r scripts/requirements-quality.txt",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m ruff format --check scripts",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m ruff check scripts",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m compileall -q scripts",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run npm ci --no-audit --no-fund",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run npm audit --audit-level=low",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run mvn --batch-mode --no-transfer-progress org.apache.maven.plugins:maven-dependency-plugin:3.8.1:list -DoutputFile=target/dependency-audit.txt",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python scripts/portfolio_security.py dependencies",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "test (windows-latest)",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run npm ci --no-audit --no-fund",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run npm run format:check",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run npm run build",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run mvn --batch-mode --no-transfer-progress clean verify",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run java -jar target/searchforge-x-0.1.0-SNAPSHOT.jar",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m unittest discover -s scripts -p 'test_*.py'",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 41476169838,
+      "url": "https://github.com/Ricoo05/searchforge-x/actions/runs/41476169838",
+      "commit": "92b43cd860ed87aef47366ee40e1a4db18dab04e",
+      "conclusion": "success",
+      "jobs": [
+        {
+          "name": "CodeQL (python)",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run github/codeql-action/init@793b778da9c9275a0f276522b27cb5fc14bba279",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run github/codeql-action/analyze@793b778da9c9275a0f276522b27cb5fc14bba279",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run github/codeql-action/analyze@793b778da9c9275a0f276522b27cb5fc14bba279",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run github/codeql-action/init@793b778da9c9275a0f276522b27cb5fc14bba279",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "CodeQL (javascript-typescript)",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run github/codeql-action/init@793b778da9c9275a0f276522b27cb5fc14bba279",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run github/codeql-action/analyze@793b778da9c9275a0f276522b27cb5fc14bba279",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run github/codeql-action/analyze@793b778da9c9275a0f276522b27cb5fc14bba279",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run github/codeql-action/init@793b778da9c9275a0f276522b27cb5fc14bba279",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "CodeQL (java-kotlin)",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run github/codeql-action/init@793b778da9c9275a0f276522b27cb5fc14bba279",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run github/codeql-action/analyze@793b778da9c9275a0f276522b27cb5fc14bba279",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run github/codeql-action/analyze@793b778da9c9275a0f276522b27cb5fc14bba279",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run github/codeql-action/init@793b778da9c9275a0f276522b27cb5fc14bba279",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "imageScan": {
+    "CreatedAt": "2026-11-02T15:57:43.015473Z",
+    "imageID": "sha256:a09f7184ae15170abf400351ec9e9687ed4f43e304da3d47384abb70e6da62d1",
+    "severityCounts": {
+      "MEDIUM": 53,
+      "LOW": 4
+    }
+  },
+  "logExcerpts": [
+    "2026-11-02T15:57:18.8491132Z #23 23.18 [INFO] Tests run: 30, Failures: 0, Errors: 0, Skipped: 0",
+    "2026-11-02T15:57:43.1251246Z Image scan: 0 HIGH/CRITICAL findings",
+    "2026-11-02T15:58:27.6664138Z [INFO] Tests run: 30, Failures: 0, Errors: 0, Skipped: 0",
+    "2026-11-02T15:58:29.9379131Z Ran 5 tests in 0.000s",
+    "2026-11-02T15:59:53.8264679Z #24 22.79 [INFO] Tests run: 30, Failures: 0, Errors: 0, Skipped: 0",
+    "2026-11-02T16:02:27.9907977Z   42 passed (1.1m)",
+    "2026-11-02T15:58:15.6699118Z [INFO] Tests run: 30, Failures: 0, Errors: 0, Skipped: 0",
+    "2026-11-02T15:58:20.7070755Z Ran 5 tests in 0.001s"
+  ]
+}
