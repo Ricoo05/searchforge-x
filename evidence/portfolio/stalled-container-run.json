@@ -1,0 +1,11 @@
+{
+  "runId": 41429105232,
+  "testedCommit": "48563c103d4df2767720dc44995df0f39bad1382",
+  "jobId": 125222903936,
+  "observedStatus": "in_progress",
+  "observedStep": "docker compose up --build -d --wait",
+  "observedDurationMinutes": 9,
+  "lastVisibleLog": "#24 22.91 request_error type=IOException (DistributedTest)",
+  "otherJobs": {"Windows": "success", "Ubuntu": "success", "security": "success"},
+  "disposition": "Stalled test build is cancelled and superseded by a bounded HTTP shutdown regression/fix; no success is claimed for this run."
+}

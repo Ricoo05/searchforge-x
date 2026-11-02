@@ -192,5 +192,18 @@ public final class Coordinator implements AutoCloseable {
         public void onError(Throwable error) { if (!rejected) delegate.onError(error); }
         public void onComplete() { if (!rejected) delegate.onComplete(); }
     }
-    @Override public void close() { fanout.close(); client.close(); }
+    @Override public void close() {
+        try { fanout.close(); }
+        finally {
+            // HttpClient.close() may wait indefinitely for a cancelled response body.
+            client.shutdownNow();
+            try {
+                if (!client.awaitTermination(Duration.ofSeconds(5)))
+                    throw new IllegalStateException("HTTP client failed to terminate");
+            } catch (InterruptedException ex) {
+                Thread.currentThread().interrupt();
+                throw new IllegalStateException("Interrupted during HTTP client shutdown", ex);
+            }
+        }
+    }
 }

@@ -10,7 +10,7 @@ WORKDIR /build
 COPY pom.xml .
 COPY src ./src
 COPY --from=web /web/dist ./web/dist
-RUN mvn --batch-mode --no-transfer-progress clean verify
+RUN mvn --batch-mode --no-transfer-progress clean verify || { cat target/surefire-reports/*dump* 2>/dev/null; exit 1; }
 
 FROM eclipse-temurin:21-jre
 WORKDIR /app

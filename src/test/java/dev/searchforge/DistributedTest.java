@@ -171,6 +171,32 @@ class DistributedTest {
             }
         }
     }
+    @Test void stalledResponseBodyDoesNotBlockCoordinatorShutdown() throws Exception {
+        var release = new CountDownLatch(1);
+        var entered = new CountDownLatch(1);
+        var server = com.sun.net.httpserver.HttpServer.create(new InetSocketAddress("127.0.0.1", 0), 0);
+        var handlers = Executors.newCachedThreadPool();
+        server.setExecutor(handlers);
+        server.createContext("/stats", exchange -> {
+            try (exchange) {
+                exchange.sendResponseHeaders(200, 1024);
+                exchange.getResponseBody().write('{'); exchange.getResponseBody().flush();
+                entered.countDown();
+                try { release.await(10, TimeUnit.SECONDS); }
+                catch (InterruptedException ex) { Thread.currentThread().interrupt(); }
+            }
+        });
+        server.start();
+        var coordinator = new Coordinator(List.of(URI.create("http://127.0.0.1:" + server.getAddress().getPort())));
+        try {
+            assertEquals("FAILED", coordinator.search(new Protocol.QueryRequest("fox", 0, 10, 1000)).status());
+            assertTrue(entered.await(2, TimeUnit.SECONDS), "Server must actually start a stalled body");
+            assertTimeoutPreemptively(Duration.ofSeconds(7), coordinator::close);
+        } finally {
+            release.countDown(); server.stop(0); handlers.shutdownNow();
+            assertTrue(handlers.awaitTermination(5, TimeUnit.SECONDS)); coordinator.close();
+        }
+    }
     @Test void boundaryRejectsNullMissingFieldsAndInvalidQuery() throws Exception {
         try (var server = new JsonServer("127.0.0.1", 0); var client = HttpClient.newHttpClient()) {
             server.post("/search", Protocol.QueryRequest.class, request -> {
