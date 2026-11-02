@@ -1,0 +1,32 @@
+Excerpt from GitHub Actions run 41424165028, Windows job 125206611363.
+Tested commit: 00debad358ffdd12be3b0f90d391cc10cc66f960
+https://github.com/Ricoo05/searchforge-x/actions/runs/41424165028
+Only failure/cleanup lines are retained here; the original complete log remains in Actions.
+2026-11-02T09:53:37.5494652Z [ERROR] Tests run: 5, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 9.254 s <<< FAILURE! -- in dev.searchforge.DistributedTest
+2026-11-02T09:53:37.5661561Z [ERROR] dev.searchforge.DistributedTest.fourRealProcessesMatchSingleNodeThenReportWorkerLossAndRecovery -- Time elapsed: 6.811 s <<< ERROR!
+2026-11-02T09:53:37.5686922Z Caused by: java.io.IOException: Failed to delete temp directory C:\Users\RUNNER~1\AppData\Local\Temp\junit-3254642139718108984. The following paths could not be deleted (see suppressed exceptions for details): <root>, coordinator.log, worker0.log, worker2.log
+2026-11-02T09:53:37.6953351Z 	Suppressed: java.nio.file.FileSystemException: C:\Users\RUNNER~1\AppData\Local\Temp\junit-3254642139718108984\coordinator.log: The process cannot access the file because it is being used by another process
+2026-11-02T09:53:37.7466881Z 		Suppressed: java.nio.file.FileSystemException: C:\Users\RUNNER~1\AppData\Local\Temp\junit-3254642139718108984\coordinator.log: The process cannot access the file because it is being used by another process
+2026-11-02T09:53:37.7479976Z 	Suppressed: java.nio.file.FileSystemException: C:\Users\RUNNER~1\AppData\Local\Temp\junit-3254642139718108984\worker0.log: The process cannot access the file because it is being used by another process
+2026-11-02T09:53:37.7675051Z 		Suppressed: java.nio.file.FileSystemException: C:\Users\RUNNER~1\AppData\Local\Temp\junit-3254642139718108984\worker0.log: The process cannot access the file because it is being used by another process
+2026-11-02T09:53:37.7682606Z 	Suppressed: java.nio.file.FileSystemException: C:\Users\RUNNER~1\AppData\Local\Temp\junit-3254642139718108984\worker2.log: The process cannot access the file because it is being used by another process
+2026-11-02T09:53:37.7764218Z 		Suppressed: java.nio.file.FileSystemException: C:\Users\RUNNER~1\AppData\Local\Temp\junit-3254642139718108984\worker2.log: The process cannot access the file because it is being used by another process
+2026-11-02T09:53:37.7805677Z [ERROR] dev.searchforge.DistributedTest.workerRejectsStaleGenerationAfterUpdate -- Time elapsed: 1.151 s <<< ERROR!
+2026-11-02T09:53:37.7839772Z Caused by: java.io.IOException: Failed to delete temp directory C:\Users\RUNNER~1\AppData\Local\Temp\junit-10826678388912221771. The following paths could not be deleted (see suppressed exceptions for details): <root>, worker0.log
+2026-11-02T09:53:38.4037120Z 	Suppressed: java.nio.file.FileSystemException: C:\Users\RUNNER~1\AppData\Local\Temp\junit-10826678388912221771\worker0.log: The process cannot access the file because it is being used by another process
+2026-11-02T09:53:38.4047721Z 		Suppressed: java.nio.file.FileSystemException: C:\Users\RUNNER~1\AppData\Local\Temp\junit-10826678388912221771\worker0.log: The process cannot access the file because it is being used by another process
+2026-11-02T09:53:40.1222714Z [ERROR] Errors:
+2026-11-02T09:53:40.1224250Z [ERROR]   DistributedTest.fourRealProcessesMatchSingleNodeThenReportWorkerLossAndRecovery � JUnit Failed to close extension context
+2026-11-02T09:53:40.1226011Z [ERROR]   DistributedTest.workerRejectsStaleGenerationAfterUpdate � JUnit Failed to close extension context
+2026-11-02T09:53:40.1227727Z [ERROR] Tests run: 29, Failures: 0, Errors: 2, Skipped: 0
+2026-11-02T09:53:40.1233178Z [ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.2:test (default-test) on project searchforge-x:
+2026-11-02T09:53:40.1234053Z [ERROR]
+2026-11-02T09:53:40.1234875Z [ERROR] See D:\a\searchforge-x\searchforge-x\target\surefire-reports for the individual test results.
+2026-11-02T09:53:40.1236014Z [ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+2026-11-02T09:53:40.1236701Z [ERROR] -> [Help 1]
+2026-11-02T09:53:40.1237056Z [ERROR]
+2026-11-02T09:53:40.1237766Z [ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+2026-11-02T09:53:40.1238693Z [ERROR] Re-run Maven using the -X switch to enable full debug logging.
+2026-11-02T09:53:40.1239243Z [ERROR]
+2026-11-02T09:53:40.1240001Z [ERROR] For more information about the errors and possible solutions, please read the following articles:
+2026-11-02T09:53:40.1241605Z [ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

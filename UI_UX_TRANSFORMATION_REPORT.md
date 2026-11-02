@@ -24,6 +24,11 @@ headings, prose and controls. This claim concerns the UI phase. Earlier software
 this continuation includes the executor fix, stronger reliability tests, ingestion,
 diagnostics, packaging and benchmark/evaluation work described elsewhere.
 
+The preserved UI-phase snapshot is commit 00debad. After GitHub upload, Windows CI exposed
+locked temporary logs in DistributedTest cleanup. A subsequent, separate test-harness fix
+uses pipe capture and parent-owned logs after process/reader termination. That later change
+does not alter the UI, production backend or API; it is outside the UI hash-preservation claim.
+
 Six production queries were compared as full JSON objects after installing the packaged
 redesign, including IDs, scores, document text, metadata, ordering, statuses and generations.
 All match. Diagnostics still show seven documents and generations 1, 1, 2. Fixture writes

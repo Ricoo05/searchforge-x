@@ -25,10 +25,13 @@ task was canceled. The queue is detached before cancellation; the strict regress
 repeats 100 times. The original failed verification log remains in evidence/.
 
 Open environment verification: Docker Compose cannot run locally because Docker and WSL are
-absent. GitHub upload was requested; remote verification is pending the first push. CI now
-includes Windows/Linux correctness and actual Compose startup/worker-loss/recovery checks.
-Container/Linux filesystem behavior, real disk-full
-conditions and power-loss safety remain unverified. No hidden failing test is ignored.
+absent. The private repository is https://github.com/Ricoo05/searchforge-x. The first remote
+run (41424165028, commit 00debad) passed Linux correctness and Docker Compose startup,
+ingestion/search, worker-loss partial results and persistent recovery. Windows found a test
+cleanup issue with child-inherited temporary log handles. The harness now drains process
+pipes and writes parent-owned logs after joining readers; close is idempotent. The original
+failure excerpt is retained. All 29 tests pass locally after that fix; its remote rerun is
+pending. Real disk-full conditions and power-loss safety remain unverified.
 
 Important decisions: full immutable generation publication without a WAL; checksums plus
 startup semantic verification; shared-statistics two-phase distributed scoring; explicit
@@ -39,8 +42,8 @@ Known limits: full rebuild/write on batch, boxed in-memory postings, 256 MiB seg
 static sharding, no replicas/global ingestion transaction/authentication/TLS, small experiment
 scope. These prevent claims of production readiness, high availability or broad scalability.
 
-The remaining completion gate is an actual Docker/remote-CI run in a suitable environment,
-followed by resolving any findings. Personal interview readiness is not assessed from
+The remaining completion gate is the Windows CI rerun after the cleanup fix. Personal
+interview readiness is not assessed from
 repository output; independent learning exercises remain the user's separate objective.
 
 UI-specific unforced checks: actual deadline expiry, WebGL context loss and OS-level reduced

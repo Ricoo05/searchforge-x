@@ -15,9 +15,10 @@ FEATURE_PARITY_CHECKLIST.md and UI_UX_TRANSFORMATION_REPORT.md. Backend/API sour
 hash-protected throughout that phase. Current final screenshots are in evidence/ui-after;
 earlier blue UI screenshots are historical. The original production data remains unchanged.
 
-Remaining environment gates: actual Docker Compose verification and remote Windows/Linux CI.
-Neither Docker nor WSL is installed locally. Do not claim either gate passed or install
-system services implicitly. The container definition builds the web assets before Java.
+Remote Linux and Compose startup/worker-loss/recovery passed on the first GitHub run.
+Windows exposed inherited log handles in the test harness; pipe capture replaces direct
+child log redirection and the remote rerun is pending. Consult CHECKPOINT.md. Docker/WSL
+remain absent locally; the container definition builds the web assets before Java.
 The user explicitly requested a GitHub upload. A private Ricoo05/searchforge-x repository is
 the selected destination; consult CHECKPOINT.md for the verified push and CI status.
 

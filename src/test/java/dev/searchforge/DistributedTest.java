@@ -16,10 +16,39 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DistributedTest {
     @TempDir Path directory;
-    record Child(Process process, URI uri) implements AutoCloseable {
-        @Override public void close() throws Exception {
+    static final class Child implements AutoCloseable {
+        final Process process;
+        final URI uri;
+        final Capture capture;
+        final Path log;
+        boolean closed;
+        Child(Process process, URI uri, Capture capture, Path log) {
+            this.process = process; this.uri = uri; this.capture = capture; this.log = log;
+        }
+        URI uri() { return uri; }
+        @Override public synchronized void close() throws Exception {
+            if (closed) return;
             process.destroy();
             if (!process.waitFor(5, TimeUnit.SECONDS)) { process.destroyForcibly(); assertTrue(process.waitFor(5, TimeUnit.SECONDS)); }
+            capture.finish(log);
+            closed = true;
+        }
+    }
+    // Keep OS-inherited child handles away from temporary log files on Windows.
+    // Drain the pipe concurrently, join it, then write a parent-owned diagnostic file.
+    record Capture(Thread reader, ByteArrayOutputStream output) {
+        static Capture start(Process process) {
+            var output = new ByteArrayOutputStream();
+            var reader = Thread.ofVirtual().start(() -> {
+                try (var input = process.getInputStream()) { input.transferTo(output); }
+                catch (IOException ignored) { /* Killing a child may close its pipe during a read. */ }
+            });
+            return new Capture(reader, output);
+        }
+        void finish(Path log) throws Exception {
+            reader.join(5000);
+            assertFalse(reader.isAlive(), "Child log reader did not stop");
+            Files.write(log, output.toByteArray());
         }
     }
     private Child start(String name, Class<?> main, String... args) throws Exception {
@@ -29,16 +58,18 @@ class DistributedTest {
         command.addAll(List.of("-cp", System.getProperty("java.class.path"), main.getName()));
         command.addAll(List.of(args));
         Path log = directory.resolve(name + ".log");
-        var process = new ProcessBuilder(command).redirectErrorStream(true).redirectOutput(log.toFile()).start();
+        var process = new ProcessBuilder(command).redirectErrorStream(true).start();
+        var capture = Capture.start(process);
         long until = System.nanoTime() + TimeUnit.SECONDS.toNanos(15);
         while (System.nanoTime() < until && process.isAlive()) {
             if (Files.exists(ready)) {
                 String port = Files.readString(ready).trim();
-                if (!port.isEmpty()) return new Child(process, URI.create("http://127.0.0.1:" + port));
+                if (!port.isEmpty()) return new Child(process, URI.create("http://127.0.0.1:" + port), capture, log);
             }
             Thread.sleep(20);
         }
         process.destroyForcibly().waitFor();
+        capture.finish(log);
         fail("Child failed startup: " + Files.readString(log)); return null;
     }
     private Child worker(int shard, int port) throws Exception {

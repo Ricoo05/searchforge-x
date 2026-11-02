@@ -1,5 +1,11 @@
 # Executed reliability evidence
 
+Remote follow-up: the first GitHub run passed Linux and Docker startup/worker-loss/recovery.
+Windows found locked temporary child log files during JUnit cleanup. DistributedTest now
+drains child pipes concurrently, joins readers and writes logs from the parent after exit;
+close is idempotent. The 29-test suite passes locally after the fix. The original remote
+failure is retained in evidence/ci/windows-cleanup-failure.txt; see CHECKPOINT.md for rerun status.
+
 Windows 11, Temurin 21.0.13+9, Maven 3.9.9; 12 logical processors, about 16 GiB RAM.
 Latest executed clean Java suite: 29 passed, zero failures/errors/skips. Later packaging
 of unchanged Java with updated UI assets reused those tests using -DskipTests; that
