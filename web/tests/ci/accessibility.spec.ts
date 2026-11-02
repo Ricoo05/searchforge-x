@@ -1,9 +1,13 @@
 import { test, expect } from '@playwright/test';
 import { createRequire } from 'node:module';
+import { readFileSync } from 'node:fs';
 const require = createRequire(import.meta.url);
 
 async function audit(page: import('@playwright/test').Page) {
-  await page.addScriptTag({ path: require.resolve('axe-core/axe.min.js') });
+  // DevTools evaluation leaves the application's strict script CSP intact.
+  await page.evaluate(
+    readFileSync(require.resolve('axe-core/axe.min.js'), 'utf-8'),
+  );
   const violations = await page.evaluate(async () => {
     const axe = (window as any).axe;
     return (
