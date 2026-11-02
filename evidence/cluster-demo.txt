@@ -29,4 +29,4 @@
     }
   ]
 }
-Four-process demo passed. Data and logs retained at C:\Users\arhit\Documents\Codex\2026-11-02\als\work\cluster-demo-18c81f93ae784557a8876592eed161e6
+Four-process demo passed. Data and logs retained at <workspace>\work\cluster-demo-18c81f93ae784557a8876592eed161e6

@@ -1,0 +1,35 @@
+{
+  "baselineSourceRevision": "1646f33e7ad711f48bf5dffd9659dfd94ee60eba",
+  "date": "2026-11-02",
+  "scope": "New regression tests run against baseline production code, then the fixed code",
+  "logs": {
+    "before": [
+      "[ERROR] Tests run: 2, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 1.054 s <<< FAILURE! -- in dev.searchforge.DistributedTest",
+      "org.opentest4j.AssertionFailedError: expected: <400> but was: <200>",
+      "org.opentest4j.AssertionFailedError: expected: <400> but was: <200>",
+      "[ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.028 s <<< FAILURE! -- in dev.searchforge.StorageTest",
+      "org.opentest4j.AssertionFailedError: Expected java.io.IOException to be thrown, but nothing was thrown.",
+      "[ERROR]   DistributedTest.boundaryRejectsNullMissingFieldsAndInvalidQuery:429 expected: <400> but was: <200>",
+      "[ERROR]   DistributedTest.fractionalDocumentIdsCannotOverwriteOrDeleteIntegerIds:462 expected: <400> but was: <200>",
+      "[ERROR]   StorageTest.invalidGenerationIsRejectedBeforePublishingFiles:27 Expected java.io.IOException to be thrown, but nothing was thrown.",
+      "[ERROR] Tests run: 3, Failures: 3, Errors: 0, Skipped: 0",
+      "[INFO] BUILD FAILURE"
+    ],
+    "focusedAfter": [
+      "[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.034 s -- in dev.searchforge.DistributedTest",
+      "[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.030 s -- in dev.searchforge.StorageTest",
+      "[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0",
+      "[INFO] BUILD SUCCESS"
+    ],
+    "fullAfter": [
+      "[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.075 s -- in dev.searchforge.BenchmarkCodecTest",
+      "[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.204 s -- in dev.searchforge.ConcurrencyTest",
+      "[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.996 s -- in dev.searchforge.DistributedTest",
+      "[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.125 s -- in dev.searchforge.EngineTest",
+      "[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.290 s -- in dev.searchforge.QueryExecutorTest",
+      "[INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.803 s -- in dev.searchforge.StorageTest",
+      "[INFO] Tests run: 32, Failures: 0, Errors: 0, Skipped: 0",
+      "[INFO] BUILD SUCCESS"
+    ]
+  }
+}
