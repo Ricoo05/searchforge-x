@@ -19,5 +19,6 @@ are not an independent security certification, SAST coverage or proof of zero vu
 
 Actions use immutable commits and read-only contents permissions, with normal PR triggers.
 Untrusted PR code is not given deployment secrets. No public hosting is configured.
-CodeQL and image CVE scanning are not configured; evaluate them after public visibility and
-available GitHub features are confirmed. Do not enable paid security services implicitly.
+GitHub secret scanning and secret push protection are enabled for this public repository.
+CodeQL and image CVE scanning are not configured; they remain additional checks, not reported
+security passes. No paid security service is enabled.

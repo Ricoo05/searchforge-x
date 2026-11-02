@@ -1,32 +1,42 @@
-# CI validation
+# CI validation — executed results
 
-Baseline remote workflow: **Java correctness**, push/PR triggers. Run
-https://github.com/Ricoo05/searchforge-x/actions/runs/41424775458 tested
-9f9ea636ed3cc2d4ebdb733ccdd86a1fac544581. Windows and Ubuntu each passed 29 Java tests
-and two Python tests, zero skipped. Containers passed build, health, seeded retrieval,
-worker-loss PARTIAL results and persistent recovery. Detailed steps/log excerpts:
-evidence/ci/github-actions-41424775458.json. The initial failed Windows run and its repair
-are retained; no tests were disabled. The subsequent baseline commit changed evidence only.
+Workflow: Java correctness. Triggers: push to main, pull requests and manual dispatch.
+Verified source/test/workflow commit: b6f22eca664feab19237e5b2951a0c7ae4b04c82.
+Run: https://github.com/Ricoo05/searchforge-x/actions/runs/41431024879.
 
-Prepared changes: verified official SHA-pinned checkout v6, Java v5, Node v6, Python v6,
-artifact upload v5; push-to-main/PR/manual triggers; 15â€“25 minute job bounds; full-history
-credential patterns, npm audit and resolved Maven OSV checks; Python compilation; browser
-tests inside the real Compose deployment; failure traces and Surefire artifacts.
-CI has read-only contents permission and no privileged PR trigger. Dependabot covers npm,
-Maven and actions monthly. No critical job uses continue-on-error or suppresses exit codes.
+| Job | Actual result |
+|---|---|
+| test (windows-latest) | PASS: frontend build, 30 Java tests, two Python tests, zero skips |
+| test (ubuntu-latest) | PASS: frontend build, 30 Java tests, two Python tests, zero skips |
+| containers | PASS: image build/tests, health, real ingestion/query, worker loss/recovery, 10 Chromium tests |
+| security | PASS within scope: history credential patterns, npm audit, Maven OSV, Python compilation |
 
-Local new validation: workflow YAML parses with PyYAML 6.0.3, all action refs are 40-digit
-SHAs fetched from their official repositories, all jobs have timeouts. TypeScript/Vite
-build passes. Playwright discovers and executes 10 tests: 10 pass, zero skipped, 38.8 s.
-Both dependency scans and the reachable-history pattern scan pass. git diff --check passes.
+Evidence: evidence/portfolio/github-actions-41431024879.json contains real job/step statuses
+and log excerpts. CI retained Surefire reports and browser reports/failure traces. New tests
+do not intercept responses. The container probe observed COMPLETE → PARTIAL → COMPLETE.
 
-**Updated remote workflow:** https://github.com/Ricoo05/searchforge-x/actions/runs/41429105232
-on 48563c103d4df2767720dc44995df0f39bad1382. Windows, Ubuntu and security have passed;
-containers/browser checks are running. No final success is claimed until completion.
-Main branch protection now requires the two matrix jobs, containers and security with strict
-status checks. Administrators retain bypass; force pushes and branch deletion are disabled.
+Actions are pinned to verified immutable official commits. Permissions are contents:read;
+normal PR triggers do not receive deployment secrets. Jobs have 15–25 minute timeouts.
+Surefire forks have a 180-second bound and Docker prints fork dumps on failure. Concurrency
+supersedes outdated runs for the same ref. No critical job uses continue-on-error. Dependabot
+proposes updates; no upgrades are automatically merged. Branch requirements and review
+protection are described in REPOSITORY_PROTECTION.md.
 
-Warnings: Vite retains a 587.18 kB lazy Three.js chunk warning. Local Playwright emitted a
-NO_COLOR/FORCE_COLOR environment warning. Neither warning is suppressed. Full SAST, image
-CVE scanning and a repository-wide standard formatter remain unconfigured; compiler checks,
-.editorconfig and whitespace validation are narrower checks.
+Historical evidence is retained: initial Windows log-handle failure, its passing repair,
+and stalled/cancelled run 41429105232. The latter is not reported passing. It stalled during
+DistributedTest; exact stack/root cause was unavailable. HTTP-client shutdown was made
+bounded and a real stalled-body cancellation test added. That test also passes with the old
+close implementation on this desktop; a deterministic reproduction of the remote stall
+is not claimed. The new complete Docker run establishes the observed successful outcome.
+
+Local validation also passed: 30 Java tests, two metric tests, 10 Chromium tests; final
+anonymous public checkout passed all 30 Java tests. PyYAML parsing verified workflow syntax,
+SHA refs and job timeouts. The new CI itself has now been observed remotely.
+
+Warnings/limits: lazy Three.js chunk 587.18 kB (146.19 kB gzip), local color-environment
+warning, finite test scenarios. Compiler/static type checks, whitespace checks and
+.editorconfig are narrower than a full formatter or SAST tool. CodeQL and container CVE
+scanning are unconfigured and are not represented as passing checks. No security certification.
+
+Subsequent evidence/ownership documentation does not alter this tested application. The
+live main badge/checks identify later verification runs; no static passing badge is used.

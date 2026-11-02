@@ -1,4 +1,4 @@
-# Anonymous clean-clone verification — PASS within stated scope
+# Anonymous clean-clone verification â€” PASS within stated scope
 
 Public revision: d32c04feaa22ba1bbca4ff4e97a41c8d456fe007. Command:
 `git -c credential.helper= -c http.extraHeader= clone https://github.com/Ricoo05/searchforge-x.git work/portfolio-public-clone`,
@@ -28,3 +28,12 @@ correctly returned 404. Repackaging after the frontend build fixed that executio
 The final public clone follows frontend-build-before-Maven order and serves the actual UI.
 No repository functionality was replaced or stubbed to obtain a pass. Test data is isolated;
 the original user cluster at 8090 was not written by these checks.
+
+
+Final source follow-up: the same credential-disabled public checkout fetched b6f22ec and
+passed all 30 Java tests, zero skipped. An initial clean attempt correctly failed while its
+previous demonstration JAR was still open on Windows. Stopping only those identified test
+processes released the file; the documented build then passed. This was a test execution
+ordering correction, not an ignored test or source defect. Browser/source UI files are
+unchanged by the bounded HTTP shutdown follow-up; the new remote container job also passed
+all 10 Chromium tests on that exact code revision.

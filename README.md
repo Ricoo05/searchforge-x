@@ -5,13 +5,15 @@
 SearchForge X makes document retrieval inspectable: you can trace a query from positional
 postings and BM25 through three actual worker processes to ranked, explicitly labeled results.
 Stack: Java 21, React/TypeScript, Three.js, Docker Compose. No hosted search engine handles retrieval.
-The repository is public and MIT-licensed. Windows/Linux and security checks pass; the updated
-Docker/browser CI run is in progress. The badge above reports the actual main-branch workflow.
+The repository is public and MIT-licensed. Local validation passes 30 Java, two Python and
+10 real-backend Chromium tests. The badge above reports the actual main-branch workflow;
+[CI evidence](CI_VALIDATION_REPORT.md) distinguishes baseline passes from subsequent runs.
 
 **Try locally:** `docker compose up --build`, then open http://127.0.0.1:8090 and load the
 sample corpus. This command was exercised by GitHub's container job. See [quick start](#run-locally),
 [demo steps](DEMO_VERIFICATION.md), [CI evidence](CI_VALIDATION_REPORT.md) and
-[publication status](FINAL_GITHUB_STATUS.md). There is no public hosted backend.
+[publication status](FINAL_GITHUB_STATUS.md) and [ownership protection](REPOSITORY_PROTECTION.md).
++There is no public hosted backend.
 
 ```mermaid
 flowchart LR
@@ -58,7 +60,7 @@ java -cp target/searchforge-x-0.1.0-SNAPSHOT.jar dev.searchforge.distributed.Clu
 The 3D cluster supports orbit, zoom, pause and worker selection. Status and metrics use
 actual backend responses; motion illustrates topology/request activity rather than packet
 telemetry. Reduced motion and a WebGL fallback preserve the search workflow. The Document
-studio routes stable-ID updates; sample loading replaces IDs 1â€“6 with six original documents.
+studio routes stable-ID updates; sample loading replaces IDs 1–6 with six original documents.
 
 The presentation uses a compact paper/charcoal/copper design system, an editorial result
 list and an instrument-style diagnostics rail. UI_UX_TRANSFORMATION_REPORT.md records the
@@ -81,7 +83,7 @@ demo: `java -jar target/searchforge-x-0.1.0-SNAPSHOT.jar`.
 
 ## Verification and measurements
 
-Latest Java suite: 29 passed, 0 failed/errors/skipped. Python evaluator: 2 passed.
+Latest Java suite: 30 passed, 0 failed/errors/skipped. Python evaluator: 2 passed.
 Real subprocess tests cover mid-segment/mid-manifest writes, force/publication boundaries,
 recovery interruption, cleanup, worker loss/restart and compatible distributed rankings.
 One shutdown race was found, fixed and strengthened with 100 regression repetitions.
@@ -106,7 +108,8 @@ are not a superiority claim. Raw runs, per-query metrics, hashes and permissions
 Reproduction and limits: BENCHMARKS.md and DATA_PROVENANCE.md. No paid infrastructure or
 public hosting is involved. The public source repository is
 [Ricoo05/searchforge-x](https://github.com/Ricoo05/searchforge-x). Windows, Ubuntu and Docker
-CI passed on application/test commit 9f9ea63; evidence and scope are recorded in CHECKPOINT.md.
+CI passed on application/test commit b6f22ec, including the new browser and security jobs;
+evidence and scope are recorded in CI_VALIDATION_REPORT.md.
 
 ## Read the design and learn it
 

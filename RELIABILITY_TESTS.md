@@ -48,3 +48,30 @@ Remote Linux/Compose results and Windows follow-up are recorded in CHECKPOINT.md
 Unexecuted: real full-disk conditions, power loss, kernel crashes, network filesystems,
 production load and user-independent competency tests.
 No general crash-safety or production-readiness claim follows from the passed scenarios.
+
+
+## Portfolio follow-up: bounded cancellation shutdown
+
+Run 41429105232 stalled inside the Docker build's DistributedTest after an IOException log;
+it was cancelled and is not a passing run. A stack dump was unavailable, so a causal link
+between that stall and HTTP-client shutdown is not established. The coordinator's unbounded
+HttpClient.close() was replaced by shutdownNow plus a five-second termination bound.
+A synchronized stalled-response-body test exercises real socket cancellation; all 30 Java
+tests pass locally, zero skipped. An isolated run of this new test also passes with the old
+close implementation on this desktop, so it is not claimed to reproduce the remote hang.
+Surefire forks now have a 180-second timeout and Docker prints fork dumps on failure.
+
+Current verification source: b6f22ec, workflow run
+https://github.com/Ricoo05/searchforge-x/actions/runs/41431024879. Its final outcome must be
+observed rather than inferred from local passes. Earlier unreviewed Dependabot PR runs were
+cancelled to prioritize main; no upgrades were merged and cancelled runs are not green checks.
+Main requires Windows, Ubuntu, containers and security statuses; administrator bypass remains
+enabled. Original source is MIT-licensed; public anonymous access and clean-clone verification
+are recorded in evidence/portfolio. GitHub secret scanning and push protection are enabled.
+
+
+Final observed portfolio run: 41431024879 on b6f22ec passed all four required jobs.
+Windows/Ubuntu each passed 30 Java and two Python tests, zero skipped; Docker passed
+real worker loss/recovery and all 10 Chromium checks. Public anonymous access, MIT licensing,
+dependency scans and owner-only write access/review protection were verified. See
+FINAL_GITHUB_STATUS.md and evidence/portfolio/github-actions-41431024879.json.
