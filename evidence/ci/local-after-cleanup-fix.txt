@@ -6,10 +6,10 @@
 [INFO] --------------------------------[ jar ]---------------------------------
 [INFO]
 [INFO] --- clean:3.2.0:clean (default-clean) @ searchforge-x ---
-[INFO] Deleting C:\Users\arhit\Documents\Codex\2026-11-02\als\outputs\searchforge-x\target
+[INFO] Deleting <workspace>\outputs\searchforge-x\target
 [INFO]
 [INFO] --- resources:3.3.1:resources (default-resources) @ searchforge-x ---
-[INFO] skip non existing resourceDirectory C:\Users\arhit\Documents\Codex\2026-11-02\als\outputs\searchforge-x\src\main\resources
+[INFO] skip non existing resourceDirectory <workspace>\outputs\searchforge-x\src\main\resources
 [INFO] Copying 4 resources from web\dist to target\classes\web
 [INFO]
 [INFO] --- compiler:3.13.0:compile (default-compile) @ searchforge-x ---
@@ -17,7 +17,7 @@
 [INFO] Compiling 20 source files with javac [debug release 21] to target\classes
 [INFO]
 [INFO] --- resources:3.3.1:testResources (default-testResources) @ searchforge-x ---
-[INFO] skip non existing resourceDirectory C:\Users\arhit\Documents\Codex\2026-11-02\als\outputs\searchforge-x\src\test\resources
+[INFO] skip non existing resourceDirectory <workspace>\outputs\searchforge-x\src\test\resources
 [INFO]
 [INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ searchforge-x ---
 [INFO] Recompiling the module because of changed dependency.
@@ -50,7 +50,7 @@ request_error type=InterruptedException
 [INFO]
 [INFO]
 [INFO] --- jar:3.4.2:jar (default-jar) @ searchforge-x ---
-[INFO] Building jar: C:\Users\arhit\Documents\Codex\2026-11-02\als\outputs\searchforge-x\target\searchforge-x-0.1.0-SNAPSHOT.jar
+[INFO] Building jar: <workspace>\outputs\searchforge-x\target\searchforge-x-0.1.0-SNAPSHOT.jar
 [INFO]
 [INFO] --- shade:3.6.0:shade (default) @ searchforge-x ---
 [INFO] Including com.fasterxml.jackson.core:jackson-databind:jar:2.22.4 in the shaded jar.
@@ -72,7 +72,7 @@ request_error type=InterruptedException
 [WARNING] mvn dependency:tree -Ddetail=true and the above output.
 [WARNING] See https://maven.apache.org/plugins/maven-shade-plugin/
 [INFO] Replacing original artifact with shaded artifact.
-[INFO] Replacing C:\Users\arhit\Documents\Codex\2026-11-02\als\outputs\searchforge-x\target\searchforge-x-0.1.0-SNAPSHOT.jar with C:\Users\arhit\Documents\Codex\2026-11-02\als\outputs\searchforge-x\target\searchforge-x-0.1.0-SNAPSHOT-shaded.jar
+[INFO] Replacing <workspace>\outputs\searchforge-x\target\searchforge-x-0.1.0-SNAPSHOT.jar with <workspace>\outputs\searchforge-x\target\searchforge-x-0.1.0-SNAPSHOT-shaded.jar
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
