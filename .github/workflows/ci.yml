@@ -15,5 +15,35 @@ jobs:
           distribution: temurin
           java-version: '21'
           cache: maven
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: npm ci --no-audit --no-fund
+        working-directory: web
+      - run: npm run build
+        working-directory: web
       - run: mvn --batch-mode clean verify
       - run: java -jar target/searchforge-x-0.1.0-SNAPSHOT.jar
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m unittest discover -s scripts -p test_evaluate.py
+  containers:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: docker compose up --build -d --wait
+      - run: python scripts/container_smoke.py --seed
+      - run: docker compose stop worker1
+      - run: python scripts/container_smoke.py --missing-shard 1
+      - run: docker compose start worker1
+      - run: python scripts/container_smoke.py
+      - if: always()
+        run: docker compose logs --no-color
+      - if: always()
+        run: docker compose down --volumes

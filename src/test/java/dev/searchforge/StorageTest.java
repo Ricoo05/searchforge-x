@@ -127,4 +127,15 @@ class StorageTest {
             assertEquals("old", pinned.documents().get(1L).text());
         }
     }
+    @Test void injectedWriteFailurePreservesPriorCommittedData() throws Exception {
+        try (var e = open(directory)) { e.update(List.of(new Document(1, "old")), Set.of()); }
+        try (var e = new SearchEngine(new Analyzer(), new GenerationStore(directory, stage -> {
+            if (stage == GenerationStore.Stage.SEGMENT_MID_WRITE) throw new IOException("Simulated write failure, not actual disk exhaustion");
+        }))) {
+            assertThrows(UncheckedIOException.class, () -> e.update(List.of(new Document(1, "new")), Set.of()));
+        }
+        try (var e = open(directory)) {
+            assertEquals(1, e.snapshot().generation()); assertEquals(1, e.search("old", 0, 5).totalHits());
+        }
+    }
 }

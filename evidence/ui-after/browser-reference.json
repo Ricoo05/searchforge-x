@@ -1,0 +1,291 @@
+{
+  "origin": "http://127.0.0.1:8290",
+  "fixtureResult": {
+    "status": "COMPLETE",
+    "scoringScope": "all_shards",
+    "missingShards": [],
+    "generations": {
+      "2": 5,
+      "0": 4,
+      "1": 4
+    },
+    "totalHits": 25,
+    "hits": [
+      {
+        "id": 9000,
+        "score": 0.2900315630616412,
+        "document": {
+          "id": 9000,
+          "text": "parityfixture20261102 identical searchable fixture for ranking and pagination. <script>untrusted text</script> Unicode café 東京.",
+          "metadata": {
+            "title": "Parity fixture 00"
+          }
+        }
+      },
+      {
+        "id": 9001,
+        "score": 0.2900315630616412,
+        "document": {
+          "id": 9001,
+          "text": "parityfixture20261102 identical searchable fixture for ranking and pagination. <script>untrusted text</script> Unicode café 東京.",
+          "metadata": {
+            "title": "Parity fixture 01"
+          }
+        }
+      },
+      {
+        "id": 9002,
+        "score": 0.2900315630616412,
+        "document": {
+          "id": 9002,
+          "text": "parityfixture20261102 identical searchable fixture for ranking and pagination. <script>untrusted text</script> Unicode café 東京.",
+          "metadata": {
+            "title": "Parity fixture 02"
+          }
+        }
+      },
+      {
+        "id": 9003,
+        "score": 0.2900315630616412,
+        "document": {
+          "id": 9003,
+          "text": "parityfixture20261102 identical searchable fixture for ranking and pagination. <script>untrusted text</script> Unicode café 東京.",
+          "metadata": {
+            "title": "Parity fixture 03"
+          }
+        }
+      },
+      {
+        "id": 9004,
+        "score": 0.2900315630616412,
+        "document": {
+          "id": 9004,
+          "text": "parityfixture20261102 identical searchable fixture for ranking and pagination. <script>untrusted text</script> Unicode café 東京.",
+          "metadata": {
+            "title": "Parity fixture 04"
+          }
+        }
+      },
+      {
+        "id": 9005,
+        "score": 0.2900315630616412,
+        "document": {
+          "id": 9005,
+          "text": "parityfixture20261102 identical searchable fixture for ranking and pagination. <script>untrusted text</script> Unicode café 東京.",
+          "metadata": {
+            "title": "Parity fixture 05"
+          }
+        }
+      },
+      {
+        "id": 9006,
+        "score": 0.2900315630616412,
+        "document": {
+          "id": 9006,
+          "text": "parityfixture20261102 identical searchable fixture for ranking and pagination. <script>untrusted text</script> Unicode café 東京.",
+          "metadata": {
+            "title": "Parity fixture 06"
+          }
+        }
+      },
+      {
+        "id": 9007,
+        "score": 0.2900315630616412,
+        "document": {
+          "id": 9007,
+          "text": "parityfixture20261102 identical searchable fixture for ranking and pagination. <script>untrusted text</script> Unicode café 東京.",
+          "metadata": {
+            "title": "Parity fixture 07"
+          }
+        }
+      },
+      {
+        "id": 9008,
+        "score": 0.2900315630616412,
+        "document": {
+          "id": 9008,
+          "text": "parityfixture20261102 identical searchable fixture for ranking and pagination. <script>untrusted text</script> Unicode café 東京.",
+          "metadata": {
+            "title": "Parity fixture 08"
+          }
+        }
+      },
+      {
+        "id": 9009,
+        "score": 0.2900315630616412,
+        "document": {
+          "id": 9009,
+          "text": "parityfixture20261102 identical searchable fixture for ranking and pagination. <script>untrusted text</script> Unicode café 東京.",
+          "metadata": {
+            "title": "Parity fixture 09"
+          }
+        }
+      },
+      {
+        "id": 9010,
+        "score": 0.2900315630616412,
+        "document": {
+          "id": 9010,
+          "text": "parityfixture20261102 identical searchable fixture for ranking and pagination. <script>untrusted text</script> Unicode café 東京.",
+          "metadata": {
+            "title": "Parity fixture 10"
+          }
+        }
+      },
+      {
+        "id": 9011,
+        "score": 0.2900315630616412,
+        "document": {
+          "id": 9011,
+          "text": "parityfixture20261102 identical searchable fixture for ranking and pagination. <script>untrusted text</script> Unicode café 東京.",
+          "metadata": {
+            "title": "Parity fixture 11"
+          }
+        }
+      },
+      {
+        "id": 9012,
+        "score": 0.2900315630616412,
+        "document": {
+          "id": 9012,
+          "text": "parityfixture20261102 identical searchable fixture for ranking and pagination. <script>untrusted text</script> Unicode café 東京.",
+          "metadata": {
+            "title": "Parity fixture 12"
+          }
+        }
+      },
+      {
+        "id": 9013,
+        "score": 0.2900315630616412,
+        "document": {
+          "id": 9013,
+          "text": "parityfixture20261102 identical searchable fixture for ranking and pagination. <script>untrusted text</script> Unicode café 東京.",
+          "metadata": {
+            "title": "Parity fixture 13"
+          }
+        }
+      },
+      {
+        "id": 9014,
+        "score": 0.2900315630616412,
+        "document": {
+          "id": 9014,
+          "text": "parityfixture20261102 identical searchable fixture for ranking and pagination. <script>untrusted text</script> Unicode café 東京.",
+          "metadata": {
+            "title": "Parity fixture 14"
+          }
+        }
+      },
+      {
+        "id": 9015,
+        "score": 0.2900315630616412,
+        "document": {
+          "id": 9015,
+          "text": "parityfixture20261102 identical searchable fixture for ranking and pagination. <script>untrusted text</script> Unicode café 東京.",
+          "metadata": {
+            "title": "Parity fixture 15"
+          }
+        }
+      },
+      {
+        "id": 9016,
+        "score": 0.2900315630616412,
+        "document": {
+          "id": 9016,
+          "text": "parityfixture20261102 identical searchable fixture for ranking and pagination. <script>untrusted text</script> Unicode café 東京.",
+          "metadata": {
+            "title": "Parity fixture 16"
+          }
+        }
+      },
+      {
+        "id": 9017,
+        "score": 0.2900315630616412,
+        "document": {
+          "id": 9017,
+          "text": "parityfixture20261102 identical searchable fixture for ranking and pagination. <script>untrusted text</script> Unicode café 東京.",
+          "metadata": {
+            "title": "Parity fixture 17"
+          }
+        }
+      },
+      {
+        "id": 9018,
+        "score": 0.2900315630616412,
+        "document": {
+          "id": 9018,
+          "text": "parityfixture20261102 identical searchable fixture for ranking and pagination. <script>untrusted text</script> Unicode café 東京.",
+          "metadata": {
+            "title": "Parity fixture 18"
+          }
+        }
+      },
+      {
+        "id": 9019,
+        "score": 0.2900315630616412,
+        "document": {
+          "id": 9019,
+          "text": "parityfixture20261102 identical searchable fixture for ranking and pagination. <script>untrusted text</script> Unicode café 東京.",
+          "metadata": {
+            "title": "Parity fixture 19"
+          }
+        }
+      },
+      {
+        "id": 9020,
+        "score": 0.2900315630616412,
+        "document": {
+          "id": 9020,
+          "text": "parityfixture20261102 identical searchable fixture for ranking and pagination. <script>untrusted text</script> Unicode café 東京.",
+          "metadata": {
+            "title": "Parity fixture 20"
+          }
+        }
+      },
+      {
+        "id": 9021,
+        "score": 0.2900315630616412,
+        "document": {
+          "id": 9021,
+          "text": "parityfixture20261102 identical searchable fixture for ranking and pagination. <script>untrusted text</script> Unicode café 東京.",
+          "metadata": {
+            "title": "Parity fixture 21"
+          }
+        }
+      },
+      {
+        "id": 9022,
+        "score": 0.2900315630616412,
+        "document": {
+          "id": 9022,
+          "text": "parityfixture20261102 identical searchable fixture for ranking and pagination. <script>untrusted text</script> Unicode café 東京.",
+          "metadata": {
+            "title": "Parity fixture 22"
+          }
+        }
+      },
+      {
+        "id": 9023,
+        "score": 0.2900315630616412,
+        "document": {
+          "id": 9023,
+          "text": "parityfixture20261102 identical searchable fixture for ranking and pagination. <script>untrusted text</script> Unicode café 東京.",
+          "metadata": {
+            "title": "Parity fixture 23"
+          }
+        }
+      },
+      {
+        "id": 9024,
+        "score": 0.2900315630616412,
+        "document": {
+          "id": 9024,
+          "text": "parityfixture20261102 identical searchable fixture for ranking and pagination. <script>untrusted text</script> Unicode café 東京.",
+          "metadata": {
+            "title": "Long document title with Unicode café and repeated explanatory context. Long document title with Unicode café and repeated expla"
+          }
+        }
+      }
+    ]
+  }
+}

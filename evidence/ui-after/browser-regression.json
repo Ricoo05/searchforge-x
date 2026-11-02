@@ -1,0 +1,667 @@
+{
+  "startedAt": "2026-11-02T09:41:16.708Z",
+  "testOrigin": "http://127.0.0.1:5274",
+  "backendOrigin": "http://127.0.0.1:8290",
+  "checks": [
+    {
+      "name": "Enter submission, first page exact IDs/order/scores/titles/literal HTML/Unicode",
+      "passed": true
+    },
+    {
+      "name": "Second page exact ranked rows",
+      "passed": true
+    },
+    {
+      "name": "Last page five rows, long title, next disabled",
+      "passed": true
+    },
+    {
+      "name": "Previous page preserves results",
+      "passed": true
+    },
+    {
+      "name": "Example query \"inverted index\"",
+      "passed": true
+    },
+    {
+      "name": "Example query recovery",
+      "passed": true
+    },
+    {
+      "name": "Example query search AND ranking",
+      "passed": true
+    },
+    {
+      "name": "Zero results guidance",
+      "passed": true
+    },
+    {
+      "name": "Real parser error alert",
+      "passed": true
+    },
+    {
+      "name": "Native document ID validation",
+      "passed": true
+    },
+    {
+      "name": "Real indexed document acknowledged beside action",
+      "passed": true,
+      "action": 522.1875,
+      "feedback": 544.1875,
+      "sample": 653.078125
+    },
+    {
+      "name": "Original six-document sample load",
+      "passed": true
+    },
+    {
+      "name": "Indexed text found and rendered as literal text",
+      "passed": true
+    },
+    {
+      "name": "3D keyboard alternative and inspector close",
+      "passed": true
+    },
+    {
+      "name": "Pause and resume controls",
+      "passed": true
+    },
+    {
+      "name": "Live diagnostics refresh",
+      "passed": true
+    },
+    {
+      "name": "Slash shortcut respects text entry",
+      "passed": true
+    },
+    {
+      "name": "Twelve responsive screen checks without horizontal overflow",
+      "passed": true,
+      "responsive": [
+        {
+          "screen": "search",
+          "bodyWidth": 1425,
+          "scrollWidth": 1425,
+          "section": 1001,
+          "width": 1440
+        },
+        {
+          "screen": "index",
+          "bodyWidth": 1425,
+          "scrollWidth": 1425,
+          "section": 1001,
+          "width": 1440
+        },
+        {
+          "screen": "search",
+          "bodyWidth": 1265,
+          "scrollWidth": 1265,
+          "section": 841,
+          "width": 1280
+        },
+        {
+          "screen": "index",
+          "bodyWidth": 1265,
+          "scrollWidth": 1265,
+          "section": 841,
+          "width": 1280
+        },
+        {
+          "screen": "search",
+          "bodyWidth": 1009,
+          "scrollWidth": 1009,
+          "section": 641,
+          "width": 1024
+        },
+        {
+          "screen": "index",
+          "bodyWidth": 1009,
+          "scrollWidth": 1009,
+          "section": 641,
+          "width": 1024
+        },
+        {
+          "screen": "search",
+          "bodyWidth": 753,
+          "scrollWidth": 753,
+          "section": 415,
+          "width": 768
+        },
+        {
+          "screen": "index",
+          "bodyWidth": 753,
+          "scrollWidth": 753,
+          "section": 415,
+          "width": 768
+        },
+        {
+          "screen": "search",
+          "bodyWidth": 375,
+          "scrollWidth": 375,
+          "section": 345,
+          "width": 390
+        },
+        {
+          "screen": "index",
+          "bodyWidth": 375,
+          "scrollWidth": 375,
+          "section": 345,
+          "width": 390
+        },
+        {
+          "screen": "search",
+          "bodyWidth": 305,
+          "scrollWidth": 305,
+          "section": 275,
+          "width": 320
+        },
+        {
+          "screen": "index",
+          "bodyWidth": 305,
+          "scrollWidth": 305,
+          "section": 275,
+          "width": 320
+        }
+      ]
+    }
+  ],
+  "axeReports": [
+    {
+      "capturedAt": "2026-11-02T09:41:20.578Z",
+      "design": "instrument-v1",
+      "viewport": 1440,
+      "route": "/",
+      "performance": {
+        "lcpMs": null,
+        "cls": 0,
+        "maxInteractionMs": 32,
+        "note": "Local dev observation; max interaction duration is not field INP"
+      },
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".coordinator-pill"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                ".scene-caption > span:nth-child(2)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            }
+          ]
+        }
+      ],
+      "passRules": 23
+    },
+    {
+      "capturedAt": "2026-11-02T09:41:21.798Z",
+      "design": "instrument-v1",
+      "viewport": 1440,
+      "route": "/",
+      "performance": {
+        "lcpMs": null,
+        "cls": 0,
+        "maxInteractionMs": 32,
+        "note": "Local dev observation; max interaction duration is not field INP"
+      },
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".coordinator-pill"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                ".scene-caption > span:nth-child(2)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            }
+          ]
+        }
+      ],
+      "passRules": 23
+    },
+    {
+      "capturedAt": "2026-11-02T09:41:24.110Z",
+      "design": "instrument-v1",
+      "viewport": 1440,
+      "route": "/",
+      "performance": {
+        "lcpMs": null,
+        "cls": 0,
+        "maxInteractionMs": 32,
+        "note": "Local dev observation; max interaction duration is not field INP"
+      },
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".coordinator-pill"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                ".scene-caption > span:nth-child(2)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            }
+          ]
+        }
+      ],
+      "passRules": 23
+    },
+    {
+      "capturedAt": "2026-11-02T09:41:29.317Z",
+      "design": "instrument-v1",
+      "viewport": 1440,
+      "route": "/",
+      "performance": {
+        "lcpMs": null,
+        "cls": 0,
+        "maxInteractionMs": 32,
+        "note": "Local dev observation; max interaction duration is not field INP"
+      },
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".coordinator-pill"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                ".scene-caption > span:nth-child(2)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            }
+          ]
+        }
+      ],
+      "passRules": 23
+    },
+    {
+      "capturedAt": "2026-11-02T09:41:30.892Z",
+      "design": "instrument-v1",
+      "viewport": 1440,
+      "route": "/",
+      "performance": {
+        "lcpMs": null,
+        "cls": 0,
+        "maxInteractionMs": 40,
+        "note": "Local dev observation; max interaction duration is not field INP"
+      },
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".coordinator-pill"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                ".scene-caption > span:nth-child(2)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            }
+          ]
+        }
+      ],
+      "passRules": 23
+    },
+    {
+      "capturedAt": "2026-11-02T09:41:32.951Z",
+      "design": "instrument-v1",
+      "viewport": 1280,
+      "route": "/",
+      "performance": {
+        "lcpMs": null,
+        "cls": 0,
+        "maxInteractionMs": 40,
+        "note": "Local dev observation; max interaction duration is not field INP"
+      },
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".coordinator-pill"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                ".scene-caption > span:nth-child(2)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            }
+          ]
+        }
+      ],
+      "passRules": 23
+    },
+    {
+      "capturedAt": "2026-11-02T09:41:34.477Z",
+      "design": "instrument-v1",
+      "viewport": 1280,
+      "route": "/",
+      "performance": {
+        "lcpMs": null,
+        "cls": 0,
+        "maxInteractionMs": 40,
+        "note": "Local dev observation; max interaction duration is not field INP"
+      },
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".coordinator-pill"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                ".scene-caption > span:nth-child(2)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            }
+          ]
+        }
+      ],
+      "passRules": 23
+    },
+    {
+      "capturedAt": "2026-11-02T09:41:36.557Z",
+      "design": "instrument-v1",
+      "viewport": 1024,
+      "route": "/",
+      "performance": {
+        "lcpMs": null,
+        "cls": 0,
+        "maxInteractionMs": 40,
+        "note": "Local dev observation; max interaction duration is not field INP"
+      },
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".coordinator-pill"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                ".scene-caption > span:nth-child(2)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            }
+          ]
+        }
+      ],
+      "passRules": 23
+    },
+    {
+      "capturedAt": "2026-11-02T09:41:38.029Z",
+      "design": "instrument-v1",
+      "viewport": 1024,
+      "route": "/",
+      "performance": {
+        "lcpMs": null,
+        "cls": 0,
+        "maxInteractionMs": 40,
+        "note": "Local dev observation; max interaction duration is not field INP"
+      },
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".coordinator-pill"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                ".scene-caption > span:nth-child(2)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            }
+          ]
+        }
+      ],
+      "passRules": 23
+    },
+    {
+      "capturedAt": "2026-11-02T09:41:40.096Z",
+      "design": "instrument-v1",
+      "viewport": 768,
+      "route": "/",
+      "performance": {
+        "lcpMs": null,
+        "cls": 0,
+        "maxInteractionMs": 40,
+        "note": "Local dev observation; max interaction duration is not field INP"
+      },
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".coordinator-pill"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                ".scene-caption > span:nth-child(2)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            }
+          ]
+        }
+      ],
+      "passRules": 23
+    },
+    {
+      "capturedAt": "2026-11-02T09:41:41.570Z",
+      "design": "instrument-v1",
+      "viewport": 768,
+      "route": "/",
+      "performance": {
+        "lcpMs": null,
+        "cls": 0,
+        "maxInteractionMs": 40,
+        "note": "Local dev observation; max interaction duration is not field INP"
+      },
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".coordinator-pill"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                ".scene-caption > span:nth-child(2)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            }
+          ]
+        }
+      ],
+      "passRules": 23
+    },
+    {
+      "capturedAt": "2026-11-02T09:41:43.709Z",
+      "design": "instrument-v1",
+      "viewport": 390,
+      "route": "/",
+      "performance": {
+        "lcpMs": null,
+        "cls": 0,
+        "maxInteractionMs": 40,
+        "note": "Local dev observation; max interaction duration is not field INP"
+      },
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".coordinator-pill"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                ".scene-caption > span:nth-child(2)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            }
+          ]
+        }
+      ],
+      "passRules": 23
+    },
+    {
+      "capturedAt": "2026-11-02T09:41:45.178Z",
+      "design": "instrument-v1",
+      "viewport": 390,
+      "route": "/",
+      "performance": {
+        "lcpMs": null,
+        "cls": 0,
+        "maxInteractionMs": 40,
+        "note": "Local dev observation; max interaction duration is not field INP"
+      },
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".coordinator-pill"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                ".scene-caption > span:nth-child(2)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            }
+          ]
+        }
+      ],
+      "passRules": 23
+    },
+    {
+      "capturedAt": "2026-11-02T09:41:47.146Z",
+      "design": "instrument-v1",
+      "viewport": 320,
+      "route": "/",
+      "performance": {
+        "lcpMs": null,
+        "cls": 0,
+        "maxInteractionMs": 40,
+        "note": "Local dev observation; max interaction duration is not field INP"
+      },
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".coordinator-pill"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                ".scene-caption > span:nth-child(2)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            }
+          ]
+        }
+      ],
+      "passRules": 23
+    },
+    {
+      "capturedAt": "2026-11-02T09:41:48.673Z",
+      "design": "instrument-v1",
+      "viewport": 320,
+      "route": "/",
+      "performance": {
+        "lcpMs": null,
+        "cls": 0,
+        "maxInteractionMs": 40,
+        "note": "Local dev observation; max interaction duration is not field INP"
+      },
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".coordinator-pill"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                ".scene-caption > span:nth-child(2)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            }
+          ]
+        }
+      ],
+      "passRules": 23
+    }
+  ],
+  "consoleErrors": [],
+  "note": "Local CUA checks; timeout, WebGL loss, reduced-motion OS setting and every ingestion outcome need separate verification."
+}

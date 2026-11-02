@@ -4,6 +4,23 @@ Status: Milestone 1 locally verified; initial persistent-generation implementati
 against the documented process-crash tests. Real multi-process search passes local
 single-node equivalence and fault tests; Docker deployment remains unexecuted.
 
+The React/TypeScript interface calls the coordinator's search, ingestion and diagnostics
+endpoints. Its Three.js topology is a visual model of the configured three-worker cluster;
+worker colors and displayed metrics follow actual diagnostics. Animation illustrates request
+activity, not packet timings. Search remains usable without WebGL. GPU resources and controls
+are disposed on unmount; reduced-motion preferences and an explicit pause control are honored.
+
+```mermaid
+flowchart LR
+  UI[React + interactive 3D topology] --> C[HTTP coordinator]
+  C -->|statistics then scored query| W0[Worker JVM 0]
+  C -->|statistics then scored query| W1[Worker JVM 1]
+  C -->|statistics then scored query| W2[Worker JVM 2]
+  W0 --> S0[Independent committed segments]
+  W1 --> S1[Independent committed segments]
+  W2 --> S2[Independent committed segments]
+```
+
 Java 21, one Maven artifact, package boundaries for analyzer, index, query and node.
 Split deployment artifacts when inter-process execution requires them. Avoid empty modules.
 

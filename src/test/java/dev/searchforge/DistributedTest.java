@@ -67,6 +67,11 @@ class DistributedTest {
             }
             try (var coordinator = start("coordinator", CoordinatorMain.class, "0", directory.resolve("coordinator.ready").toString(),
                     w0.uri().toString(), w1.uri().toString(), w2.uri().toString())) {
+                var routed = post(client, coordinator.uri(), "/ingest", new Protocol.Batch(docs, Set.of()), Map.class);
+                assertEquals("COMPLETE", routed.get("status"));
+                var diagnostics = post(client, coordinator.uri(), "/diagnostics", Map.of(), List.class);
+                assertEquals(3, diagnostics.size());
+                for (Object row : diagnostics) assertEquals(30, ((Number)((Map<?, ?>)row).get("documents")).intValue());
                 for (String query : List.of("red fox", "rare OR blue", "\"red fox\"", "red AND fox", "absent", "(rare OR blue) AND fox")) {
                     var expected = local.search(query, 3, 12);
                     var actual = post(client, coordinator.uri(), "/search", new Protocol.QueryRequest(query, 3, 12, 5000), Protocol.DistributedResult.class);
@@ -78,6 +83,11 @@ class DistributedTest {
                 var partial = post(client, coordinator.uri(), "/search", new Protocol.QueryRequest("fox", 0, 10, 5000), Protocol.DistributedResult.class);
                 assertEquals("PARTIAL", partial.status()); assertEquals(List.of(1), partial.missingShards());
                 assertEquals("available_shards", partial.scoringScope()); assertEquals(60, partial.totalHits());
+                var partialWrite = post(client, coordinator.uri(), "/ingest", new Protocol.Batch(List.of(new Document(90, "fox"), new Document(91, "fox")), Set.of()), Map.class);
+                assertEquals("PARTIAL", partialWrite.get("status"));
+                var writeOutcomes = (List<?>)partialWrite.get("shards");
+                assertEquals("ACKNOWLEDGED", ((Map<?, ?>)writeOutcomes.get(0)).get("status"));
+                assertEquals("UNKNOWN", ((Map<?, ?>)writeOutcomes.get(1)).get("status"));
                 try (var restarted = worker(1, restartPort)) {
                     var restored = post(client, coordinator.uri(), "/search", new Protocol.QueryRequest("fox", 0, 10, 5000), Protocol.DistributedResult.class);
                     assertEquals("COMPLETE", restored.status()); assertEquals(90, restored.totalHits());
@@ -91,6 +101,7 @@ class DistributedTest {
             post(client, worker.uri(), "/ingest", new Protocol.Batch(List.of(new Document(3, "fox")), Set.of()), Map.class);
             var query = new Protocol.ShardQuery("fox", 10, stats.epoch(), stats.generation(), stats.statistics(), 1000);
             var request = HttpRequest.newBuilder(worker.uri().resolve("/search")).timeout(Duration.ofSeconds(5))
+                    .header("Content-Type", "application/json")
                     .POST(HttpRequest.BodyPublishers.ofByteArray(Protocol.JSON.writeValueAsBytes(query))).build();
             assertEquals(409, client.send(request, HttpResponse.BodyHandlers.discarding()).statusCode());
         }
@@ -137,9 +148,12 @@ class DistributedTest {
             for (String body : List.of("null", "{}", "{\"query\":\"AND fox\",\"offset\":0,\"limit\":10,\"timeoutMillis\":1000}",
                     "{\"query\":\"fox\",\"query\":\"cat\",\"offset\":0,\"limit\":10,\"timeoutMillis\":1000}")) {
                 var request = HttpRequest.newBuilder(URI.create("http://127.0.0.1:" + server.port() + "/search"))
-                        .timeout(Duration.ofSeconds(5)).POST(HttpRequest.BodyPublishers.ofString(body)).build();
+                        .timeout(Duration.ofSeconds(5)).header("Content-Type", "application/json").POST(HttpRequest.BodyPublishers.ofString(body)).build();
                 assertEquals(400, client.send(request, HttpResponse.BodyHandlers.discarding()).statusCode());
             }
+            var plain = HttpRequest.newBuilder(URI.create("http://127.0.0.1:" + server.port() + "/search"))
+                    .timeout(Duration.ofSeconds(5)).POST(HttpRequest.BodyPublishers.ofString("{}" )).build();
+            assertEquals(415, client.send(plain, HttpResponse.BodyHandlers.discarding()).statusCode());
         }
     }
 }

@@ -8,6 +8,22 @@ import java.util.concurrent.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ConcurrencyTest {
+    @Test void concurrentWritersNeverLoseAcceptedUpdates() throws Exception {
+        var engine = new SearchEngine(); var start = new CyclicBarrier(4); var pool = Executors.newFixedThreadPool(4);
+        try {
+            var jobs = new ArrayList<Future<?>>();
+            for (int writer = 0; writer < 4; writer++) {
+                final int selected = writer;
+                jobs.add(pool.submit(() -> {
+                    start.await(5, TimeUnit.SECONDS);
+                    for (int sequence = 1; sequence <= 50; sequence++) engine.update(List.of(new Document(selected * 50L + sequence, "accepted")), Set.of());
+                    return null;
+                }));
+            }
+            for (var job : jobs) job.get(20, TimeUnit.SECONDS);
+            assertEquals(200, engine.snapshot().generation()); assertEquals(200, engine.search("accepted", 0, 1000).totalHits());
+        } finally { pool.shutdownNow(); assertTrue(pool.awaitTermination(5, TimeUnit.SECONDS)); }
+    }
     @Test void readersNeverObservePartiallyPublishedBatch() throws Exception {
         var engine = new SearchEngine();
         var start = new CyclicBarrier(5);

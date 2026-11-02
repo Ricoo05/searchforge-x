@@ -1,0 +1,117 @@
+{
+  "aggregation": "median of three independent JVM trial statistics; nearest-rank latency percentiles",
+  "results": [
+    {
+      "variant": "baseline",
+      "documents": 10000,
+      "trials": 3,
+      "samplesPerTrial": 350,
+      "p50Ms": 0.7668,
+      "p95Ms": 7.9671,
+      "p99Ms": 8.6705,
+      "queriesPerSecond": 461.05349406097235,
+      "fourThreadQueriesPerSecond": 1225.540690592179,
+      "indexBuildMs": 443.7345,
+      "segmentBytes": 2443704,
+      "heapUsedAfterQueriesBytes": 192584344,
+      "recoveryMs": 477.3284,
+      "forcedCommitMs": 76.8714,
+      "postingsCompression": {
+        "fixedWidth": {
+          "bytes": 4904880,
+          "encodeNanos": 98770200,
+          "decodeNanos": 56048400
+        },
+        "deltaVarint": {
+          "bytes": 926058,
+          "encodeNanos": 58297100,
+          "decodeNanos": 48865000
+        }
+      }
+    },
+    {
+      "variant": "optimized",
+      "documents": 10000,
+      "trials": 3,
+      "samplesPerTrial": 350,
+      "p50Ms": 0.7325,
+      "p95Ms": 5.8503,
+      "p99Ms": 6.5775,
+      "queriesPerSecond": 686.1246386573599,
+      "fourThreadQueriesPerSecond": 1853.7043725050896,
+      "indexBuildMs": 441.9412,
+      "segmentBytes": 2443704,
+      "heapUsedAfterQueriesBytes": 83949312,
+      "recoveryMs": 483.1185,
+      "forcedCommitMs": 67.6056,
+      "postingsCompression": {
+        "fixedWidth": {
+          "bytes": 4904880,
+          "encodeNanos": 101153500,
+          "decodeNanos": 60512100
+        },
+        "deltaVarint": {
+          "bytes": 926058,
+          "encodeNanos": 60324900,
+          "decodeNanos": 26866400
+        }
+      }
+    },
+    {
+      "variant": "baseline",
+      "documents": 100000,
+      "trials": 3,
+      "samplesPerTrial": 350,
+      "p50Ms": 7.4875,
+      "p95Ms": 70.4174,
+      "p99Ms": 79.616,
+      "queriesPerSecond": 47.10170492157236,
+      "fourThreadQueriesPerSecond": 133.05543100726058,
+      "indexBuildMs": 3179.3933,
+      "segmentBytes": 24491453,
+      "heapUsedAfterQueriesBytes": 609548080,
+      "recoveryMs": 4015.6357,
+      "forcedCommitMs": 487.8632,
+      "postingsCompression": {
+        "fixedWidth": {
+          "bytes": 49015404,
+          "encodeNanos": 491796200,
+          "decodeNanos": 354212900
+        },
+        "deltaVarint": {
+          "bytes": 9249692,
+          "encodeNanos": 419930500,
+          "decodeNanos": 166939900
+        }
+      }
+    },
+    {
+      "variant": "optimized",
+      "documents": 100000,
+      "trials": 3,
+      "samplesPerTrial": 350,
+      "p50Ms": 6.0421,
+      "p95Ms": 49.2844,
+      "p99Ms": 55.8064,
+      "queriesPerSecond": 81.43571822720305,
+      "fourThreadQueriesPerSecond": 238.81121424522618,
+      "indexBuildMs": 3254.9164,
+      "segmentBytes": 24491453,
+      "heapUsedAfterQueriesBytes": 1029123496,
+      "recoveryMs": 4100.5541,
+      "forcedCommitMs": 477.5076,
+      "postingsCompression": {
+        "fixedWidth": {
+          "bytes": 49015404,
+          "encodeNanos": 389258000,
+          "decodeNanos": 291062400
+        },
+        "deltaVarint": {
+          "bytes": 9249692,
+          "encodeNanos": 400992100,
+          "decodeNanos": 177164100
+        }
+      }
+    }
+  ]
+}

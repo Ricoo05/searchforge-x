@@ -33,30 +33,37 @@ public final class Search {
         Set<Long> candidates = evaluate(index, query);
         var terms = new TreeSet<String>();
         collectTerms(query, terms);
+        // Prepare corpus-wide constants once per term rather than once per candidate.
+        var prepared = new ArrayList<PreparedTerm>();
+        for (String term : terms) {
+            var postings = index.postings(term);
+            Long df = statistics.documentFrequencies().get(term);
+            if (df == null || df < postings.size() || statistics.documents() < index.size()
+                    || statistics.totalLength() < index.totalLength()) throw new IllegalArgumentException("Incompatible global statistics");
+            prepared.add(new PreparedTerm(postings, Math.log1p((statistics.documents() - df + 0.5) / (df + 0.5))));
+        }
+        double averageLength = statistics.documents() == 0 ? 0 : (double)statistics.totalLength() / statistics.documents();
         var heap = new PriorityQueue<Hit>(BEST_FIRST.reversed());
         int capacity = offset + limit;
         for (long id : candidates) {
             if (Thread.currentThread().isInterrupted()) throw new java.util.concurrent.CancellationException();
             double score = 0;
-            for (String term : terms) {
-                var postings = index.postings(term);
-                int tf = postings.getOrDefault(id, List.of()).size();
-                if (tf > 0) {
-                    Long df = statistics.documentFrequencies().get(term);
-                    if (df == null || df < postings.size() || statistics.documents() < index.size()
-                            || statistics.totalLength() < index.totalLength()) throw new IllegalArgumentException("Incompatible global statistics");
-                    score += bm25(tf, df, statistics.documents(), index.length(id),
-                            (double) statistics.totalLength() / statistics.documents());
-                }
+            double normalization = 1.2 * (1 - 0.75 + 0.75 * index.length(id) / averageLength);
+            for (var term : prepared) {
+                var positions = term.postings().get(id);
+                int tf = positions == null ? 0 : positions.size();
+                if (tf > 0) score += term.idf() * tf * (1.2 + 1) / (tf + normalization);
             }
-            var hit = new Hit(id, score, index.documents().get(id));
-            if (heap.size() < capacity) heap.add(hit);
-            else if (BEST_FIRST.compare(hit, heap.peek()) < 0) { heap.poll(); heap.add(hit); }
+            if (heap.size() < capacity) heap.add(new Hit(id, score, index.documents().get(id)));
+            else if (score > heap.peek().score() || (score == heap.peek().score() && id < heap.peek().id())) {
+                heap.poll(); heap.add(new Hit(id, score, index.documents().get(id)));
+            }
         }
         var sorted = new ArrayList<>(heap);
         sorted.sort(BEST_FIRST);
         return new Result(index.generation(), candidates.size(), sorted.subList(Math.min(offset, sorted.size()), sorted.size()));
     }
+    private record PreparedTerm(NavigableMap<Long, List<Integer>> postings, double idf) {}
     public static double bm25(int tf, long df, long count, int length, double averageLength) {
         if (tf == 0) return 0;
         double idf = Math.log1p((count - df + 0.5) / (df + 0.5));

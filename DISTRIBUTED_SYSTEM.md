@@ -46,15 +46,19 @@ the process against its existing storage and rerunning the query. No high-availa
 
 Duplicate ingestion replaces the same IDs, preserving searchable state; generations may
 advance. This is not exactly-once delivery. Partial multi-shard ingestion is not transactional.
-The coordinator currently exposes search only; clients route ingestion to worker endpoints.
+The coordinator routes ingestion batches to their modulo-assigned workers and reports
+per-shard ACKNOWLEDGED or UNKNOWN outcomes. A missing acknowledgment is not proof that
+the write was absent. Ambiguous duplicate/delete-upsert IDs are rejected before dispatch.
 
 ## Endpoints
 
 All endpoints use POST and JSON. Workers: /stats, /search, /ingest, /health.
-Coordinator: /search and /health. Public query fields: query, offset, limit, timeoutMillis.
+Coordinator: /search, /ingest, /diagnostics and /health; GET / serves the built React app.
+All JSON endpoints require application/json; no cross-origin browser access is enabled.
+Public query fields: query, offset, limit, timeoutMillis.
 Require offset+limit <=1000 and timeoutMillis 1..30000. Worker ingress batches have at most
 1000 operations and a 4 MiB body limit. Returned text is the first 512 Unicode code points;
-metadata is persisted but not currently returned in distributed snippets.
+only title metadata is included in distributed snippets (bounded to 128 code points).
 
 No authentication or TLS is implemented. This is a trusted local development deployment.
 Compose publishes ports only on host loopback; internal containers use a private bridge.
@@ -62,7 +66,11 @@ Do not expose administrative endpoints publicly. Services have no destructive HT
 
 ## Run
 
-Build: `mvn clean verify`. Windows workspace shortcut: `./scripts/verify-local.ps1`.
+Full build: `npm ci --prefix web`, `npm run build --prefix web`, then `mvn clean verify`.
+Windows workspace shortcut: `./scripts/build.ps1`. Java-only verification is
+`./scripts/verify-local.ps1`. To launch the full local app: `./scripts/run-local.ps1`.
+Its foreground supervisor keeps the coordinator/remaining workers running if one worker
+exits, so PARTIAL behavior remains demonstrable; restart the cluster to recover that worker.
 Run the automated four-process demonstration: `./scripts/demo-cluster.ps1`.
 It seeds original sample documents, checks COMPLETE with two phrase matches, prints
 real JSON results, and terminates its own processes. Data/logs remain in workspace work/.
@@ -82,3 +90,7 @@ single-node scores/IDs, replays ingestion, stops and restarts a worker, verifies
 generation rejection, tests malformed HTTP responses and deadlines, and interrupts fanout.
 Additional network-fault servers are deliberate fault injectors, not replacements for the
 real-process equivalence test.
+
+Diagnostics report actual worker generations, documents, vocabulary and retained tokens.
+The interface labels aggregate counts as covering responding workers. Coordinator health
+alone still indicates process readiness, not full shard availability.

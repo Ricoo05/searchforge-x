@@ -1,0 +1,40 @@
+[
+  {
+    "design": "baseline",
+    "viewport": 1440,
+    "route": "/",
+    "performance": {
+      "lcpMs": 392,
+      "cls": 0.01025335647891659,
+      "maxInteractionMs": null,
+      "note": "Local dev observation; max interaction duration is not field INP"
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 81
+      }
+    ],
+    "passRules": 23
+  },
+  {
+    "design": "baseline",
+    "viewport": 1440,
+    "route": "/",
+    "performance": {
+      "lcpMs": 392,
+      "cls": 0.01025335647891659,
+      "maxInteractionMs": null,
+      "note": "Local dev observation; max interaction duration is not field INP"
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 81
+      }
+    ],
+    "passRules": 23
+  }
+]

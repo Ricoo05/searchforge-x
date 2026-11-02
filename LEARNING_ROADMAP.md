@@ -17,9 +17,18 @@ your solution before asking for the reference answer.
    is the worst retained result. Compare full sorting with bounded selection.
 7. Snapshots: trace SearchEngine.update. Explain why construction failure cannot
    modify the published index and why a reader holds one consistent generation.
-8. Storage and distributed systems: begin these lessons only when those subsystems
-   exist and their recovery/ranking tests pass. Do not memorize planned architecture
-   as though it were implemented.
+8. Storage: follow segment encoding, manifest publication and recovery in STORAGE_ENGINE.md.
+   Independently implement a varint codec and a small committed-generation scanner.
+9. Distribution: trace shared statistics and generation checks in DISTRIBUTED_SYSTEM.md.
+   Reproduce worker loss/recovery, then explain partial scores and uncertain write outcomes.
+10. Evidence: reproduce one benchmark trial and one SciFact query; manually calculate a
+    relevance metric and explain why the Lucene reference can differ slightly.
+11. Product behavior: trace the real API into web/src/main.tsx. Index a document, search
+    it, simulate an unavailable worker and verify the visible status remains accurate.
+
+Suggested order: complete JAVA_PREREQUISITES first, then DSA_CONCEPTS, then the subsystem
+exercises in BUILD_IT_YOURSELF. Move forward based on demonstrated mastery rather than
+calendar time. INTERVIEW_GUIDE provides checks, not answers to memorize.
 
 Mastery checks: explain a change, predict affected tests, implement it unaided,
 introduce and diagnose a bug, then rebuild the essential component from a blank file.

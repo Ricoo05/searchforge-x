@@ -1,0 +1,275 @@
+{
+  "startedAt": "2026-11-02T09:43:51.372Z",
+  "responsive": [
+    {
+      "screen": "search",
+      "bodyWidth": 1425,
+      "scrollWidth": 1425,
+      "width": 1440
+    },
+    {
+      "screen": "index",
+      "bodyWidth": 1425,
+      "scrollWidth": 1425,
+      "width": 1440
+    },
+    {
+      "screen": "search",
+      "bodyWidth": 1265,
+      "scrollWidth": 1265,
+      "width": 1280
+    },
+    {
+      "screen": "index",
+      "bodyWidth": 1265,
+      "scrollWidth": 1265,
+      "width": 1280
+    },
+    {
+      "screen": "search",
+      "bodyWidth": 1009,
+      "scrollWidth": 1009,
+      "width": 1024
+    },
+    {
+      "screen": "index",
+      "bodyWidth": 1009,
+      "scrollWidth": 1009,
+      "width": 1024
+    },
+    {
+      "screen": "search",
+      "bodyWidth": 753,
+      "scrollWidth": 753,
+      "width": 768
+    },
+    {
+      "screen": "index",
+      "bodyWidth": 753,
+      "scrollWidth": 753,
+      "width": 768
+    },
+    {
+      "screen": "search",
+      "bodyWidth": 375,
+      "scrollWidth": 375,
+      "width": 390
+    },
+    {
+      "screen": "index",
+      "bodyWidth": 375,
+      "scrollWidth": 375,
+      "width": 390
+    },
+    {
+      "screen": "search",
+      "bodyWidth": 305,
+      "scrollWidth": 305,
+      "width": 320
+    },
+    {
+      "screen": "index",
+      "bodyWidth": 305,
+      "scrollWidth": 305,
+      "width": 320
+    }
+  ],
+  "reports": [
+    {
+      "capturedAt": "2026-11-02T09:43:53.633Z",
+      "design": "instrument-v1",
+      "viewport": 1440,
+      "route": "/",
+      "performance": {
+        "lcpMs": 188,
+        "cls": 0,
+        "maxInteractionMs": 48,
+        "note": "Local dev observation; max interaction duration is not field INP"
+      },
+      "violations": [],
+      "incomplete": [],
+      "passRules": 23
+    },
+    {
+      "capturedAt": "2026-11-02T09:43:54.896Z",
+      "design": "instrument-v1",
+      "viewport": 1440,
+      "route": "/",
+      "performance": {
+        "lcpMs": 188,
+        "cls": 0,
+        "maxInteractionMs": 48,
+        "note": "Local dev observation; max interaction duration is not field INP"
+      },
+      "violations": [],
+      "incomplete": [],
+      "passRules": 23
+    },
+    {
+      "capturedAt": "2026-11-02T09:43:56.441Z",
+      "design": "instrument-v1",
+      "viewport": 1280,
+      "route": "/",
+      "performance": {
+        "lcpMs": 188,
+        "cls": 0,
+        "maxInteractionMs": 48,
+        "note": "Local dev observation; max interaction duration is not field INP"
+      },
+      "violations": [],
+      "incomplete": [],
+      "passRules": 23
+    },
+    {
+      "capturedAt": "2026-11-02T09:43:57.910Z",
+      "design": "instrument-v1",
+      "viewport": 1280,
+      "route": "/",
+      "performance": {
+        "lcpMs": 188,
+        "cls": 0,
+        "maxInteractionMs": 48,
+        "note": "Local dev observation; max interaction duration is not field INP"
+      },
+      "violations": [],
+      "incomplete": [],
+      "passRules": 23
+    },
+    {
+      "capturedAt": "2026-11-02T09:43:59.449Z",
+      "design": "instrument-v1",
+      "viewport": 1024,
+      "route": "/",
+      "performance": {
+        "lcpMs": 188,
+        "cls": 0,
+        "maxInteractionMs": 48,
+        "note": "Local dev observation; max interaction duration is not field INP"
+      },
+      "violations": [],
+      "incomplete": [],
+      "passRules": 23
+    },
+    {
+      "capturedAt": "2026-11-02T09:44:00.908Z",
+      "design": "instrument-v1",
+      "viewport": 1024,
+      "route": "/",
+      "performance": {
+        "lcpMs": 188,
+        "cls": 0,
+        "maxInteractionMs": 48,
+        "note": "Local dev observation; max interaction duration is not field INP"
+      },
+      "violations": [],
+      "incomplete": [],
+      "passRules": 23
+    },
+    {
+      "capturedAt": "2026-11-02T09:44:02.467Z",
+      "design": "instrument-v1",
+      "viewport": 768,
+      "route": "/",
+      "performance": {
+        "lcpMs": 188,
+        "cls": 0,
+        "maxInteractionMs": 48,
+        "note": "Local dev observation; max interaction duration is not field INP"
+      },
+      "violations": [],
+      "incomplete": [],
+      "passRules": 23
+    },
+    {
+      "capturedAt": "2026-11-02T09:44:03.909Z",
+      "design": "instrument-v1",
+      "viewport": 768,
+      "route": "/",
+      "performance": {
+        "lcpMs": 188,
+        "cls": 0,
+        "maxInteractionMs": 48,
+        "note": "Local dev observation; max interaction duration is not field INP"
+      },
+      "violations": [],
+      "incomplete": [],
+      "passRules": 23
+    },
+    {
+      "capturedAt": "2026-11-02T09:44:05.446Z",
+      "design": "instrument-v1",
+      "viewport": 390,
+      "route": "/",
+      "performance": {
+        "lcpMs": 188,
+        "cls": 0,
+        "maxInteractionMs": 48,
+        "note": "Local dev observation; max interaction duration is not field INP"
+      },
+      "violations": [],
+      "incomplete": [],
+      "passRules": 23
+    },
+    {
+      "capturedAt": "2026-11-02T09:44:06.922Z",
+      "design": "instrument-v1",
+      "viewport": 390,
+      "route": "/",
+      "performance": {
+        "lcpMs": 188,
+        "cls": 0,
+        "maxInteractionMs": 48,
+        "note": "Local dev observation; max interaction duration is not field INP"
+      },
+      "violations": [],
+      "incomplete": [],
+      "passRules": 23
+    },
+    {
+      "capturedAt": "2026-11-02T09:44:08.451Z",
+      "design": "instrument-v1",
+      "viewport": 320,
+      "route": "/",
+      "performance": {
+        "lcpMs": 188,
+        "cls": 0,
+        "maxInteractionMs": 48,
+        "note": "Local dev observation; max interaction duration is not field INP"
+      },
+      "violations": [],
+      "incomplete": [],
+      "passRules": 23
+    },
+    {
+      "capturedAt": "2026-11-02T09:44:09.939Z",
+      "design": "instrument-v1",
+      "viewport": 320,
+      "route": "/",
+      "performance": {
+        "lcpMs": 188,
+        "cls": 0,
+        "maxInteractionMs": 48,
+        "note": "Local dev observation; max interaction duration is not field INP"
+      },
+      "violations": [],
+      "incomplete": [],
+      "passRules": 23
+    },
+    {
+      "capturedAt": "2026-11-02T09:44:11.549Z",
+      "design": "instrument-v1",
+      "viewport": 1440,
+      "route": "/",
+      "performance": {
+        "lcpMs": 188,
+        "cls": 0,
+        "maxInteractionMs": 48,
+        "note": "Local dev observation; max interaction duration is not field INP"
+      },
+      "violations": [],
+      "incomplete": [],
+      "passRules": 23
+    }
+  ],
+  "consoleErrors": []
+}

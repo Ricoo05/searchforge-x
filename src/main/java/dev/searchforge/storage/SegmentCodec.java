@@ -74,6 +74,7 @@ public final class SegmentCodec {
             for (int i = 0; i < terms; i++) {
                 String term = readText(in);
                 if (!seenTerms.add(term)) throw new IOException("Duplicate term");
+                if (!snapshot.terms().contains(term)) throw new IOException("Unexpected dictionary term");
                 int df = count(in);
                 var decoded = new TreeMap<Long, List<Integer>>();
                 long id = 0;

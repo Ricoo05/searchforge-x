@@ -53,6 +53,9 @@ public final class QueryExecutor implements AutoCloseable {
         synchronized (this) {
             if (closed) return;
             closed = true;
+            // Detach queued jobs before interrupting active jobs; an interrupted worker
+            // must not dequeue another task while its result is still being canceled.
+            workers.getQueue().clear();
             for (var task : List.copyOf(pending)) task.cancel(true);
             workers.shutdownNow(); deadlines.shutdownNow();
         }

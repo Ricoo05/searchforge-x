@@ -1,0 +1,80 @@
+[INFO] Scanning for projects...
+[INFO]
+[INFO] -------------------< dev.searchforge:searchforge-x >--------------------
+[INFO] Building searchforge-x 0.1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- clean:3.2.0:clean (default-clean) @ searchforge-x ---
+[INFO] Deleting C:\Users\arhit\Documents\Codex\2026-11-02\als\outputs\searchforge-x\target
+[INFO]
+[INFO] --- resources:3.3.1:resources (default-resources) @ searchforge-x ---
+[INFO] skip non existing resourceDirectory C:\Users\arhit\Documents\Codex\2026-11-02\als\outputs\searchforge-x\src\main\resources
+[INFO]
+[INFO] --- compiler:3.13.0:compile (default-compile) @ searchforge-x ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 18 source files with javac [debug release 21] to target\classes
+[INFO]
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ searchforge-x ---
+[INFO] skip non existing resourceDirectory C:\Users\arhit\Documents\Codex\2026-11-02\als\outputs\searchforge-x\src\test\resources
+[INFO]
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ searchforge-x ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 7 source files with javac [debug release 21] to target\test-classes
+[INFO]
+[INFO] --- surefire:3.5.2:test (default-test) @ searchforge-x ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO]
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running dev.searchforge.ConcurrencyTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.175 s -- in dev.searchforge.ConcurrencyTest
+[INFO] Running dev.searchforge.DistributedTest
+request_error type=InterruptedException
+request_error type=InterruptedException
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.475 s -- in dev.searchforge.DistributedTest
+[INFO] Running dev.searchforge.EngineTest
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.129 s -- in dev.searchforge.EngineTest
+[INFO] Running dev.searchforge.QueryExecutorTest
+[ERROR] Tests run: 3, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.226 s <<< FAILURE! -- in dev.searchforge.QueryExecutorTest
+[ERROR] dev.searchforge.QueryExecutorTest.closeCancelsRunningAndQueuedWork -- Time elapsed: 0.010 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:63)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:36)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:31)
+	at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:183)
+	at dev.searchforge.QueryExecutorTest.closeCancelsRunningAndQueuedWork(QueryExecutorTest.java:44)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+[INFO] Running dev.searchforge.StorageTest
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.043 s -- in dev.searchforge.StorageTest
+[INFO]
+[INFO] Results:
+[INFO]
+[ERROR] Failures:
+[ERROR]   QueryExecutorTest.closeCancelsRunningAndQueuedWork:44 expected: <true> but was: <false>
+[INFO]
+[ERROR] Tests run: 26, Failures: 1, Errors: 0, Skipped: 0
+[INFO]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  13.343 s
+[INFO] Finished at: 2026-11-02T01:59:16+05:30
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.2:test (default-test) on project searchforge-x: There are test failures.
+[ERROR]
+[ERROR] See C:\Users\arhit\Documents\Codex\2026-11-02\als\outputs\searchforge-x\target\surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR]
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR]
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

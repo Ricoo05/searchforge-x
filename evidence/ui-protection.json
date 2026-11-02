@@ -1,0 +1,6 @@
+{
+  "protectedFiles": 29,
+  "changedProtectedFiles": [],
+  "removedSourceStringLiterals": {},
+  "note": "Source-literal inventory includes labels/content and existing string-valued attributes; API/runtime module and all Java/test sources are hash-protected."
+}

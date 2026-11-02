@@ -107,6 +107,62 @@ public final class Coordinator implements AutoCloseable {
     private Protocol.DistributedResult failed(Set<Integer> missing) {
         return new Protocol.DistributedResult("FAILED", "none", List.copyOf(missing), Map.of(), 0, List.of());
     }
+    public List<Map<String, Object>> diagnostics() throws InterruptedException {
+        if (!admission.tryAcquire()) throw new RejectedExecutionException("Coordinator overloaded");
+        try {
+            long deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(2);
+            var tasks = workers.stream().map(worker -> call(worker, "/health", Map.of(), Map.class, deadline)).toList();
+            var output = new ArrayList<Map<String, Object>>();
+            try {
+                for (int shard = 0; shard < tasks.size(); shard++) {
+                    try {
+                        Map<?, ?> health = tasks.get(shard).get();
+                        if (!(health.get("shard") instanceof Number id) || id.intValue() != shard || !"ready".equals(health.get("status")))
+                            throw new IOException("Invalid health response");
+                        var row = new TreeMap<String, Object>();
+                        row.put("shard", shard); row.put("status", "ready");
+                        for (String key : List.of("generation", "documents", "terms", "tokens")) {
+                            Object value = health.get(key);
+                            if (!(value instanceof Number number) || number.longValue() < 0) throw new IOException("Invalid health metric");
+                            row.put(key, value);
+                        }
+                        output.add(row);
+                    } catch (ExecutionException | CancellationException | IOException ex) { output.add(Map.of("shard", shard, "status", "unavailable")); }
+                }
+            } finally { tasks.forEach(task -> task.cancel(true)); }
+            return List.copyOf(output);
+        } finally { admission.release(); }
+    }
+    public Map<String, Object> ingest(Protocol.Batch batch) throws InterruptedException {
+        var ids = new HashSet<Long>();
+        for (var doc : batch.upserts()) if (!ids.add(doc.id()) || batch.deletes().contains(doc.id())) throw new IllegalArgumentException("Ambiguous batch");
+        for (long id : batch.deletes()) if (id <= 0) throw new IllegalArgumentException("Invalid deleted ID");
+        if (!admission.tryAcquire()) throw new RejectedExecutionException("Coordinator overloaded");
+        try {
+            long deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(30);
+            var tasks = new TreeMap<Integer, CompletableFuture<Map>>();
+            for (int shard = 0; shard < workers.size(); shard++) {
+                final int selected = shard;
+                var documents = batch.upserts().stream().filter(d -> d.id() % workers.size() == selected).toList();
+                var deletes = new HashSet<Long>();
+                for (long id : batch.deletes()) if (id % workers.size() == selected) deletes.add(id);
+                if (!documents.isEmpty() || !deletes.isEmpty()) tasks.put(shard, call(workers.get(shard), "/ingest", new Protocol.Batch(documents, deletes), Map.class, deadline));
+            }
+            var outcomes = new ArrayList<Map<String, Object>>(); int acknowledged = 0;
+            try {
+                for (var entry : tasks.entrySet()) {
+                    try {
+                        Object generation = entry.getValue().get().get("generation");
+                        if (!(generation instanceof Number value) || value.longValue() <= 0) throw new IOException("Invalid ingestion response");
+                        acknowledged++; outcomes.add(Map.of("shard", entry.getKey(), "status", "ACKNOWLEDGED", "generation", generation));
+                    } catch (ExecutionException | CancellationException | IOException ex) {
+                        outcomes.add(Map.of("shard", entry.getKey(), "status", "UNKNOWN"));
+                    }
+                }
+            } finally { tasks.values().forEach(task -> task.cancel(true)); }
+            return Map.of("status", acknowledged == tasks.size() ? "COMPLETE" : acknowledged == 0 ? "FAILED" : "PARTIAL", "shards", outcomes);
+        } finally { admission.release(); }
+    }
     private <T> CompletableFuture<T> call(URI worker, String path, Object body, Class<T> type, long deadline) {
         long remaining = deadline - System.nanoTime();
         if (remaining <= 0) return CompletableFuture.failedFuture(new TimeoutException());

@@ -35,7 +35,10 @@ public final class WorkerMain {
                 var snippets = result.hits().stream().map(hit -> {
                     String text = hit.document().text();
                     int end = text.offsetByCodePoints(0, Math.min(512, text.codePointCount(0, text.length())));
-                    return new Search.Hit(hit.id(), hit.score(), new dev.searchforge.index.Document(hit.id(), text.substring(0, end)));
+                    String title = hit.document().metadata().getOrDefault("title", "");
+                    int titleEnd = title.offsetByCodePoints(0, Math.min(128, title.codePointCount(0, title.length())));
+                    return new Search.Hit(hit.id(), hit.score(), new dev.searchforge.index.Document(hit.id(), text.substring(0, end),
+                            title.isEmpty() ? Map.of() : Map.of("title", title.substring(0, titleEnd))));
                 }).toList();
                 return new Protocol.ShardResult(shard, epoch, new Search.Result(result.generation(), result.totalHits(), snippets));
             }, Duration.ofMillis(request.timeoutMillis()));
@@ -50,7 +53,11 @@ public final class WorkerMain {
             for (long id : request.deletes()) if (id <= 0 || id % shards != shard) throw new IllegalArgumentException("Document belongs to another shard");
             return Map.of("generation", engine.update(request.upserts(), request.deletes()));
         });
-        server.post("/health", Map.class, ignored -> Map.of("status", "ready", "shard", shard, "generation", engine.snapshot().generation()));
+        server.post("/health", Map.class, ignored -> {
+            var snapshot = engine.snapshot();
+            return Map.of("status", "ready", "shard", shard, "generation", snapshot.generation(),
+                    "documents", snapshot.size(), "terms", snapshot.terms().size(), "tokens", snapshot.totalLength());
+        });
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             server.close(); queries.close();
             try { engine.close(); } catch (Exception ex) { System.err.println("close_failed"); }

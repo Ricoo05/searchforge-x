@@ -1,0 +1,14 @@
+{
+  "corpus_url": "https://scifact.s3-us-west-2.amazonaws.com/release/latest/data.tar.gz",
+  "corpus_sha256": "11c621288d41ac144d29b13b0f8503b3820b7d6e8b1f6ff24dff335c196d76be",
+  "qrels_url": "https://huggingface.co/datasets/BeIR/scifact-qrels/resolve/2938d17dc3b09882fdb8c12bbbe2e2dc0e75a029/test.tsv",
+  "qrels_sha256": "0864bb985e0ca2367ba217977e72004d549054b2b06666ed9d4825ac7c21284c",
+  "documents": 5183,
+  "queries": 300,
+  "judgments": 339,
+  "claims_license": "CC BY 4.0",
+  "abstracts_license": "ODC-By 1.0",
+  "license_source": "https://github.com/allenai/scifact/blob/master/LICENSE.md",
+  "attribution": "Wadden et al., Fact or Fiction: Verifying Scientific Claims (EMNLP 2020); Thakur et al., BEIR (NeurIPS 2021)",
+  "transform": "official corpus title + joined abstract; official dev claims filtered to all pinned BEIR test query IDs; BEIR qrels unchanged"
+}

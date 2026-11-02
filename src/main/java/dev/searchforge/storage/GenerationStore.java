@@ -10,7 +10,7 @@ import java.util.*;
 
 /** Exclusive owner of a directory; atomic immutable commit markers are the commit point. */
 public final class GenerationStore implements AutoCloseable {
-    public enum Stage { SEGMENT_FORCED, MANIFEST_FORCED, COMMIT_PUBLISHED }
+    public enum Stage { SEGMENT_MID_WRITE, SEGMENT_FORCED, MANIFEST_MID_WRITE, MANIFEST_FORCED, COMMIT_PUBLISHED, RECOVERY_SEGMENT_READ }
     @FunctionalInterface public interface Fault { void at(Stage stage) throws IOException; }
     private final Path directory;
     private final FileChannel lockChannel;
@@ -52,6 +52,7 @@ public final class GenerationStore implements AutoCloseable {
         if (Files.size(segment) > 256L * 1024 * 1024) throw new IOException("Segment exceeds v1 256 MiB limit");
         byte[] bytes = Files.readAllBytes(segment);
         if (!java.security.MessageDigest.isEqual(checksum, SegmentCodec.digest(bytes))) throw new IOException("Committed segment checksum mismatch");
+        fault.at(Stage.RECOVERY_SEGMENT_READ);
         var snapshot = SegmentCodec.decode(bytes, analyzer);
         if (snapshot.generation() != generation) throw new IOException("Generation mismatch");
         return snapshot;
@@ -64,18 +65,21 @@ public final class GenerationStore implements AutoCloseable {
         byte[] bytes = SegmentCodec.encode(snapshot);
         if (bytes.length > 256 * 1024 * 1024) throw new IOException("Segment exceeds v1 256 MiB limit");
         Path segment = directory.resolve("segment-" + generation + ".sfx");
-        writeForced(segment, bytes);
+        writeForced(segment, bytes, Stage.SEGMENT_MID_WRITE);
         fault.at(Stage.SEGMENT_FORCED);
         byte[] manifest = ByteBuffer.allocate(44).putInt(0x53464d31).putLong(generation).put(SegmentCodec.digest(bytes)).array();
         Path pending = directory.resolve("pending-" + generation + ".manifest");
-        writeForced(pending, manifest);
+        writeForced(pending, manifest, Stage.MANIFEST_MID_WRITE);
         fault.at(Stage.MANIFEST_FORCED);
         Files.move(pending, commit, StandardCopyOption.ATOMIC_MOVE);
         fault.at(Stage.COMMIT_PUBLISHED);
     }
-    private static void writeForced(Path path, byte[] bytes) throws IOException {
+    private void writeForced(Path path, byte[] bytes, Stage midpoint) throws IOException {
         try (var channel = FileChannel.open(path, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.WRITE)) {
-            var buffer = ByteBuffer.wrap(bytes);
+            var prefix = ByteBuffer.wrap(bytes, 0, bytes.length / 2);
+            while (prefix.hasRemaining()) channel.write(prefix);
+            fault.at(midpoint);
+            var buffer = ByteBuffer.wrap(bytes, bytes.length / 2, bytes.length - bytes.length / 2);
             while (buffer.hasRemaining()) channel.write(buffer);
             channel.force(true);
         }

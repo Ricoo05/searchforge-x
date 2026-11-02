@@ -35,6 +35,7 @@ class QueryExecutorTest {
         }
     }
     @Test void closeCancelsRunningAndQueuedWork() throws Exception {
+        for (int repetition = 0; repetition < 100; repetition++) {
         var executor = new QueryExecutor(1, 1);
         var started = new CountDownLatch(1);
         var running = executor.submit(() -> { started.countDown(); new CountDownLatch(1).await(); return 1; }, Duration.ofSeconds(10));
@@ -43,5 +44,6 @@ class QueryExecutorTest {
         executor.close();
         assertTrue(running.isCancelled()); assertTrue(queued.isCancelled());
         assertThrows(RejectedExecutionException.class, () -> executor.submit(() -> 3, Duration.ofSeconds(1)));
+        }
     }
 }

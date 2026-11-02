@@ -1,0 +1,81 @@
+[INFO] Scanning for projects...
+[INFO]
+[INFO] -------------------< dev.searchforge:searchforge-x >--------------------
+[INFO] Building searchforge-x 0.1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- clean:3.2.0:clean (default-clean) @ searchforge-x ---
+[INFO] Deleting C:\Users\arhit\Documents\Codex\2026-11-02\als\outputs\searchforge-x\target
+[INFO]
+[INFO] --- resources:3.3.1:resources (default-resources) @ searchforge-x ---
+[INFO] skip non existing resourceDirectory C:\Users\arhit\Documents\Codex\2026-11-02\als\outputs\searchforge-x\src\main\resources
+[INFO] Copying 4 resources from web\dist to target\classes\web
+[INFO]
+[INFO] --- compiler:3.13.0:compile (default-compile) @ searchforge-x ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 20 source files with javac [debug release 21] to target\classes
+[INFO]
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ searchforge-x ---
+[INFO] skip non existing resourceDirectory C:\Users\arhit\Documents\Codex\2026-11-02\als\outputs\searchforge-x\src\test\resources
+[INFO]
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ searchforge-x ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 8 source files with javac [debug release 21] to target\test-classes
+[INFO]
+[INFO] --- surefire:3.5.2:test (default-test) @ searchforge-x ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO]
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running dev.searchforge.BenchmarkCodecTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.067 s -- in dev.searchforge.BenchmarkCodecTest
+[INFO] Running dev.searchforge.ConcurrencyTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.190 s -- in dev.searchforge.ConcurrencyTest
+[INFO] Running dev.searchforge.DistributedTest
+request_error type=InterruptedException
+request_error type=InterruptedException
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.758 s -- in dev.searchforge.DistributedTest
+[INFO] Running dev.searchforge.EngineTest
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.164 s -- in dev.searchforge.EngineTest
+[INFO] Running dev.searchforge.QueryExecutorTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.289 s -- in dev.searchforge.QueryExecutorTest
+[INFO] Running dev.searchforge.StorageTest
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.721 s -- in dev.searchforge.StorageTest
+[INFO]
+[INFO] Results:
+[INFO]
+[INFO] Tests run: 29, Failures: 0, Errors: 0, Skipped: 0
+[INFO]
+[INFO]
+[INFO] --- jar:3.4.2:jar (default-jar) @ searchforge-x ---
+[INFO] Building jar: C:\Users\arhit\Documents\Codex\2026-11-02\als\outputs\searchforge-x\target\searchforge-x-0.1.0-SNAPSHOT.jar
+[INFO]
+[INFO] --- shade:3.6.0:shade (default) @ searchforge-x ---
+[INFO] Including com.fasterxml.jackson.core:jackson-databind:jar:2.22.4 in the shaded jar.
+[INFO] Including com.fasterxml.jackson.core:jackson-annotations:jar:2.22 in the shaded jar.
+[INFO] Including com.fasterxml.jackson.core:jackson-core:jar:2.22.4 in the shaded jar.
+[WARNING] Discovered module-info.class. Shading will break its strong encapsulation.
+[WARNING] jackson-core-2.22.4.jar, jackson-databind-2.22.4.jar define 1 overlapping classes:
+[WARNING]   - META-INF.versions.9.module-info
+[WARNING] jackson-annotations-2.22.jar, jackson-core-2.22.4.jar, jackson-databind-2.22.4.jar define 2 overlapping resources:
+[WARNING]   - META-INF/LICENSE
+[WARNING]   - META-INF/NOTICE
+[WARNING] jackson-annotations-2.22.jar, jackson-core-2.22.4.jar, jackson-databind-2.22.4.jar, searchforge-x-0.1.0-SNAPSHOT.jar define 1 overlapping resource:
+[WARNING]   - META-INF/MANIFEST.MF
+[WARNING] maven-shade-plugin has detected that some files are
+[WARNING] present in two or more JARs. When this happens, only one
+[WARNING] single version of the file is copied to the uber jar.
+[WARNING] Usually this is not harmful and you can skip these warnings,
+[WARNING] otherwise try to manually exclude artifacts based on
+[WARNING] mvn dependency:tree -Ddetail=true and the above output.
+[WARNING] See https://maven.apache.org/plugins/maven-shade-plugin/
+[INFO] Replacing original artifact with shaded artifact.
+[INFO] Replacing C:\Users\arhit\Documents\Codex\2026-11-02\als\outputs\searchforge-x\target\searchforge-x-0.1.0-SNAPSHOT.jar with C:\Users\arhit\Documents\Codex\2026-11-02\als\outputs\searchforge-x\target\searchforge-x-0.1.0-SNAPSHOT-shaded.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  15.958 s
+[INFO] Finished at: 2026-11-02T15:06:08+05:30
+[INFO] ------------------------------------------------------------------------
