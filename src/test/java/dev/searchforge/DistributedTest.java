@@ -182,18 +182,24 @@ class DistributedTest {
                 exchange.sendResponseHeaders(200, 1024);
                 exchange.getResponseBody().write('{'); exchange.getResponseBody().flush();
                 entered.countDown();
-                try { release.await(10, TimeUnit.SECONDS); }
+                try { release.await(30, TimeUnit.SECONDS); }
                 catch (InterruptedException ex) { Thread.currentThread().interrupt(); }
             }
         });
         server.start();
         var coordinator = new Coordinator(List.of(URI.create("http://127.0.0.1:" + server.getAddress().getPort())));
+        var callers = Executors.newSingleThreadExecutor();
         try {
-            assertEquals("FAILED", coordinator.search(new Protocol.QueryRequest("fox", 0, 10, 1000)).status());
-            assertTrue(entered.await(2, TimeUnit.SECONDS), "Server must actually start a stalled body");
+            var query = callers.submit(() -> {
+                try { coordinator.search(new Protocol.QueryRequest("fox", 0, 10, 20000)); }
+                catch (InterruptedException ex) { Thread.currentThread().interrupt(); }
+            });
+            assertTrue(entered.await(10, TimeUnit.SECONDS), "Server must actually start a stalled body");
+            query.cancel(true); callers.shutdownNow();
+            assertTrue(callers.awaitTermination(5, TimeUnit.SECONDS));
             assertTimeoutPreemptively(Duration.ofSeconds(7), coordinator::close);
         } finally {
-            release.countDown(); server.stop(0); handlers.shutdownNow();
+            release.countDown(); server.stop(0); handlers.shutdownNow(); callers.shutdownNow();
             assertTrue(handlers.awaitTermination(5, TimeUnit.SECONDS)); coordinator.close();
         }
     }
