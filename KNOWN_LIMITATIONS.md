@@ -20,8 +20,9 @@ Local page window is capped at 10,000; the distributed page window is capped at 
 Page requests can skip/repeat results under ingestion. Returned distributed snippets
 are a leading 512-code-point excerpt, not query-centered highlighted passages.
 
-Operations: no TLS/authentication; host loopback only by default. Docker Compose and remote
-GitHub Actions have not been executed in this environment. No external cloud is deployed.
+Operations: no TLS/authentication; host loopback only by default. Docker is absent locally;
+remote Linux and Compose startup/worker-loss/recovery have passed. Consult CHECKPOINT.md
+for the Windows follow-up and exact tested commit. No application hosting is deployed.
 The caller must not expose worker/admin ports publicly. Single writer ownership relies on
 local filesystem locks. Administrator paths and configured worker endpoints are trusted.
 

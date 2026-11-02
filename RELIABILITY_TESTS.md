@@ -3,8 +3,11 @@
 Remote follow-up: the first GitHub run passed Linux and Docker startup/worker-loss/recovery.
 Windows found locked temporary child log files during JUnit cleanup. DistributedTest now
 drains child pipes concurrently, joins readers and writes logs from the parent after exit;
-close is idempotent. The 29-test suite passes locally after the fix. The original remote
-failure is retained in evidence/ci/windows-cleanup-failure.txt; see CHECKPOINT.md for rerun status.
+close is idempotent. The 29-test suite passes locally after the fix. The remote rerun
+41424775458 passed Windows, Ubuntu and containers on 9f9ea63. The original failure is
+retained in evidence/ci/windows-cleanup-failure.txt, the local follow-up in
+evidence/ci/local-after-cleanup-fix.txt and remote results in
+evidence/ci/github-actions-41424775458.json.
 
 Windows 11, Temurin 21.0.13+9, Maven 3.9.9; 12 logical processors, about 16 GiB RAM.
 Latest executed clean Java suite: 29 passed, zero failures/errors/skips. Later packaging
@@ -41,6 +44,7 @@ Benchmarks: repeated independent JVM trials and a separate distributed equivalen
 Relevance: SciFact run and independent Lucene reference; metric formulas have two Python
 tests including a hand-derived two-query example. See BENCHMARKS.md for exact experiment scope.
 
-Unexecuted: Docker Compose, remote GitHub Actions, real full-disk conditions, power loss,
-kernel crashes, network filesystems, production load and user-independent competency tests.
+Remote Linux/Compose results and Windows follow-up are recorded in CHECKPOINT.md.
+Unexecuted: real full-disk conditions, power loss, kernel crashes, network filesystems,
+production load and user-independent competency tests.
 No general crash-safety or production-readiness claim follows from the passed scenarios.

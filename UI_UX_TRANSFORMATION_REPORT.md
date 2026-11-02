@@ -117,8 +117,17 @@ Three separately delegated, read-only reviewers provided distinct perspectives:
   idle requestAnimationFrame scheduling and unfinished parity evidence. Fixed the contrast
   and rendering behavior; completed the executed-check inventory and retained limitations.
 
-These are source/screenshot expert reviews, not live usability studies. The scores describe
-the reviewed intermediate version; no perfect or independently re-scored final result is claimed.
+The final read-only follow-up scored 8.1/10 for design, 8.2/10 for first-user heuristics and
+8.7/10 for frontend engineering. All original material concerns were addressed. Reviewers
+still noted mobile introductory spacing before the main task and fine topology captions
+as useful future refinements. These are source/screenshot reviews, not live usability
+studies; no perfect or 9.5/10 result is claimed.
+
+The reviewer also noted screenshot framing: a 390px requested viewport yields a 375px
+content capture because of the scrollbar. A live DOM check found clientWidth/scrollWidth
+375, the header ending at 375 and the LOCAL ENVIRONMENT label ending at 360, with no
+elements outside the content width. Thus the image-edge concern is a capture limitation,
+not confirmed application overflow. See mobile-framing-check.json.
 
 ## Remaining verification limits
 
@@ -130,4 +139,5 @@ large-device performance and accessibility user research remain future checks.
 
 Docker is unavailable locally. CI includes actual Compose startup, ingestion/search,
 worker-loss partial results and persistent recovery checks; its observed outcome belongs
-in CHECKPOINT.md. No production-readiness or hiring guarantee follows from this project.
+in CHECKPOINT.md. Follow-up run 41424775458 passed Windows, Ubuntu and containers on 9f9ea63.
+No production-readiness or hiring guarantee follows from this project.

@@ -131,3 +131,8 @@ Distributed end-to-end overhead is measured separately by NetworkBenchmarkMain o
 dedicated empty three-worker cluster. It validates IDs/scores against a single-node corpus
 on every request. The HTTP result includes serialization, two network phases, queues and
 merging; it is not a measurement of network latency alone.
+
+On the retained 10,000-document network experiment (three trials), median local p50 was
+0.8441 ms and end-to-end distributed p50 was 6.302 ms. See evidence/network-benchmark.json.
+This desktop workload observation includes the full HTTP/coordinator path described above;
+it is not a general network cost or a production throughput claim.

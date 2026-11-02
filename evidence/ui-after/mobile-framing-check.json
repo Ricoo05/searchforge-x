@@ -1,0 +1,12 @@
+{
+  "origin": "http://127.0.0.1:8090",
+  "requestedViewportWidth": 390,
+  "innerWidth": 390,
+  "clientWidth": 375,
+  "scrollWidth": 375,
+  "headerBounds": {"left": 0, "right": 375},
+  "headerEndBounds": {"left": 15, "right": 360},
+  "localEnvironmentLabelBounds": {"left": 249.53125, "right": 360},
+  "elementsOutsideContentWidth": [],
+  "note": "Read-only live DOM geometry check after a reviewer noticed full-page screenshot framing. The browser viewport override was reset afterward."
+}

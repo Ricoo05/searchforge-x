@@ -1,0 +1,349 @@
+{
+  "runId": 41424775458,
+  "testedCommit": "9f9ea636ed3cc2d4ebdb733ccdd86a1fac544581",
+  "url": "https://github.com/Ricoo05/searchforge-x/actions/runs/41424775458",
+  "jobs": [
+    {
+      "id": 125208618825,
+      "name": "containers",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 41424775458,
+      "logs_url": null,
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Run docker compose up --build -d --wait",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Run python scripts/container_smoke.py --seed",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Run docker compose stop worker1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6
+        },
+        {
+          "name": "Run python scripts/container_smoke.py --missing-shard 1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7
+        },
+        {
+          "name": "Run docker compose start worker1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8
+        },
+        {
+          "name": "Run python scripts/container_smoke.py",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9
+        },
+        {
+          "name": "Run docker compose logs --no-color",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10
+        },
+        {
+          "name": "Run docker compose down --volumes",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 21
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 22
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 23
+        }
+      ]
+    },
+    {
+      "id": 125208619254,
+      "name": "test (ubuntu-latest)",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 41424775458,
+      "logs_url": null,
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Run actions/setup-java@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Run npm ci --no-audit --no-fund",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Run npm run build",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6
+        },
+        {
+          "name": "Run mvn --batch-mode clean verify",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7
+        },
+        {
+          "name": "Run java -jar target/searchforge-x-0.1.0-SNAPSHOT.jar",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9
+        },
+        {
+          "name": "Run python -m unittest discover -s scripts -p test_evaluate.py",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18
+        },
+        {
+          "name": "Post Run actions/setup-java@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 20
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 21
+        }
+      ]
+    },
+    {
+      "id": 125208619450,
+      "name": "test (windows-latest)",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 41424775458,
+      "logs_url": null,
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Run actions/setup-java@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Run npm ci --no-audit --no-fund",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Run npm run build",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6
+        },
+        {
+          "name": "Run mvn --batch-mode clean verify",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7
+        },
+        {
+          "name": "Run java -jar target/searchforge-x-0.1.0-SNAPSHOT.jar",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9
+        },
+        {
+          "name": "Run python -m unittest discover -s scripts -p test_evaluate.py",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18
+        },
+        {
+          "name": "Post Run actions/setup-java@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 20
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 21
+        }
+      ]
+    }
+  ],
+  "logExcerpts": [
+    {
+      "jobId": 125208619450,
+      "lines": [
+        "2026-11-02T09:58:07.1816299Z [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.067 s -- in dev.searchforge.BenchmarkCodecTest",
+        "2026-11-02T09:58:07.4353040Z [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.250 s -- in dev.searchforge.ConcurrencyTest",
+        "2026-11-02T09:58:14.8945391Z [INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.454 s -- in dev.searchforge.DistributedTest",
+        "2026-11-02T09:58:15.5539829Z [INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.242 s -- in dev.searchforge.EngineTest",
+        "2026-11-02T09:58:15.5541691Z [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.378 s -- in dev.searchforge.QueryExecutorTest",
+        "2026-11-02T09:58:17.1772793Z [INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.652 s -- in dev.searchforge.StorageTest",
+        "2026-11-02T09:58:18.5938207Z [INFO] Tests run: 29, Failures: 0, Errors: 0, Skipped: 0",
+        "2026-11-02T09:58:19.7819043Z [INFO] BUILD SUCCESS",
+        "2026-11-02T09:58:22.2504692Z Ran 2 tests in 0.000s",
+        "2026-11-02T09:58:22.2505142Z OK"
+      ]
+    },
+    {
+      "jobId": 125208619254,
+      "lines": [
+        "2026-11-02T09:57:16.2411277Z [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.072 s -- in dev.searchforge.BenchmarkCodecTest",
+        "2026-11-02T09:57:17.2689150Z [INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.029 s -- in dev.searchforge.StorageTest",
+        "2026-11-02T09:57:17.5335012Z [INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.271 s -- in dev.searchforge.EngineTest",
+        "2026-11-02T09:57:17.8454089Z [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.309 s -- in dev.searchforge.QueryExecutorTest",
+        "2026-11-02T09:57:17.9631088Z [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.115 s -- in dev.searchforge.ConcurrencyTest",
+        "2026-11-02T09:57:24.1924239Z [INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.228 s -- in dev.searchforge.DistributedTest",
+        "2026-11-02T09:57:24.2099372Z [INFO] Tests run: 29, Failures: 0, Errors: 0, Skipped: 0",
+        "2026-11-02T09:57:24.9329705Z [INFO] BUILD SUCCESS",
+        "2026-11-02T09:57:25.6199298Z Ran 2 tests in 0.000s",
+        "2026-11-02T09:57:25.6199880Z OK"
+      ]
+    },
+    {
+      "jobId": 125208618825,
+      "lines": [
+        "2026-11-02T09:57:34.6486436Z #24 12.10 [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.091 s -- in dev.searchforge.BenchmarkCodecTest",
+        "2026-11-02T09:57:36.0246860Z #24 13.33 [INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.231 s -- in dev.searchforge.StorageTest",
+        "2026-11-02T09:57:36.3253777Z #24 13.63 [INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.303 s -- in dev.searchforge.EngineTest",
+        "2026-11-02T09:57:36.6661039Z #24 13.97 [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.352 s -- in dev.searchforge.QueryExecutorTest",
+        "2026-11-02T09:57:36.8210481Z #24 14.12 [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.148 s -- in dev.searchforge.ConcurrencyTest",
+        "2026-11-02T09:57:44.2035323Z #24 21.49 [INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.357 s -- in dev.searchforge.DistributedTest",
+        "2026-11-02T09:57:44.2037603Z #24 21.50 [INFO] Tests run: 29, Failures: 0, Errors: 0, Skipped: 0",
+        "2026-11-02T09:57:45.8982984Z #24 23.25 [INFO] BUILD SUCCESS",
+        "2026-11-02T09:58:13.9511245Z {\"workers\": 3, \"status\": \"COMPLETE\", \"ids\": [1, 2, 3], \"frontend\": \"served\"}",
+        "2026-11-02T09:58:18.3419616Z {\"workers\": 2, \"status\": \"PARTIAL\", \"ids\": [2, 3], \"frontend\": \"served\"}",
+        "2026-11-02T09:58:19.5883993Z {\"workers\": 3, \"status\": \"COMPLETE\", \"ids\": [1, 2, 3], \"frontend\": \"served\"}"
+      ]
+    }
+  ]
+}

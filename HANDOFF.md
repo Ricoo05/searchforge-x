@@ -17,10 +17,11 @@ earlier blue UI screenshots are historical. The original production data remains
 
 Remote Linux and Compose startup/worker-loss/recovery passed on the first GitHub run.
 Windows exposed inherited log handles in the test harness; pipe capture replaces direct
-child log redirection and the remote rerun is pending. Consult CHECKPOINT.md. Docker/WSL
+child log redirection. The rerun on 9f9ea63 passed Windows, Ubuntu and containers; both OS
+jobs passed 29 Java and two Python tests. Consult CHECKPOINT.md and evidence/ci. Docker/WSL
 remain absent locally; the container definition builds the web assets before Java.
 The user explicitly requested a GitHub upload. A private Ricoo05/searchforge-x repository is
-the selected destination; consult CHECKPOINT.md for the verified push and CI status.
+the verified destination; the requested upload and passing CI are complete.
 
 Reproduce: scripts/build.ps1 then scripts/run-local.ps1; portable workspace tools are in
 work/toolchains and work/tools at the workspace root. Data is local-only. Stop the app before

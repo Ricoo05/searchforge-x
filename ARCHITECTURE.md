@@ -1,8 +1,9 @@
 # SearchForge X architecture
 
-Status: Milestone 1 locally verified; initial persistent-generation implementation verified
-against the documented process-crash tests. Real multi-process search passes local
-single-node equivalence and fault tests; Docker deployment remains unexecuted.
+Status: custom retrieval, persistent generations and real multi-process search pass the
+documented correctness, process-crash, equivalence and fault tests. GitHub's Linux job and
+Compose startup/ingestion/worker-loss/recovery probes have executed successfully; consult
+CHECKPOINT.md for tested commits and Windows follow-up status.
 
 The React/TypeScript interface calls the coordinator's search, ingestion and diagnostics
 endpoints. Its Three.js topology is a visual model of the configured three-worker cluster;

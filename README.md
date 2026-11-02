@@ -83,8 +83,9 @@ was 0.661676, versus 0.661084 for the independently run Lucene BM25 reference. T
 are not a superiority claim. Raw runs, per-query metrics, hashes and permissions are retained.
 
 Reproduction and limits: BENCHMARKS.md and DATA_PROVENANCE.md. No paid infrastructure or
-public hosting is involved. GitHub upload was explicitly requested; verification status is
-recorded in CHECKPOINT.md.
+public hosting is involved. The private source repository is
+[Ricoo05/searchforge-x](https://github.com/Ricoo05/searchforge-x). Windows, Ubuntu and Docker
+CI passed on application/test commit 9f9ea63; evidence and scope are recorded in CHECKPOINT.md.
 
 ## Read the design and learn it
 
@@ -99,9 +100,9 @@ The original full brief is retained in REQUIREMENTS.md.
 
 ## Important remaining verification
 
-Docker/WSL are absent on this machine. GitHub Actions includes Windows/Linux correctness
-jobs and a Compose startup, worker-loss and recovery probe. Configuration alone is not a
-passing run; consult CHECKPOINT.md for the latest observed remote status.
+Docker/WSL are absent on this machine. GitHub Actions executed successfully on Windows,
+Ubuntu and Docker, including Compose startup, worker loss and recovery. See CHECKPOINT.md
+for the exact tested revision and retained evidence. The following limits remain.
 
 The engine uses full rebuilds, memory-heavy postings and a 256 MiB segment limit. There is
 no replication, global ingestion transaction, authentication, TLS, or power-loss guarantee.

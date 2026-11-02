@@ -30,8 +30,12 @@ run (41424165028, commit 00debad) passed Linux correctness and Docker Compose st
 ingestion/search, worker-loss partial results and persistent recovery. Windows found a test
 cleanup issue with child-inherited temporary log handles. The harness now drains process
 pipes and writes parent-owned logs after joining readers; close is idempotent. The original
-failure excerpt is retained. All 29 tests pass locally after that fix; its remote rerun is
-pending. Real disk-full conditions and power-loss safety remain unverified.
+failure excerpt is retained. The follow-up run 41424775458 on commit 9f9ea63 passed all three
+jobs: Windows, Ubuntu and containers. Both OS jobs passed 29 Java tests and two Python tests;
+the container job verified COMPLETE, PARTIAL after worker loss, then COMPLETE after recovery.
+Full job/step status and log excerpts are retained in
+evidence/ci/github-actions-41424775458.json. Real disk-full conditions and power-loss safety
+remain unverified.
 
 Important decisions: full immutable generation publication without a WAL; checksums plus
 startup semantic verification; shared-statistics two-phase distributed scoring; explicit
@@ -42,9 +46,10 @@ Known limits: full rebuild/write on batch, boxed in-memory postings, 256 MiB seg
 static sharding, no replicas/global ingestion transaction/authentication/TLS, small experiment
 scope. These prevent claims of production readiness, high availability or broad scalability.
 
-The remaining completion gate is the Windows CI rerun after the cleanup fix. Personal
-interview readiness is not assessed from
-repository output; independent learning exercises remain the user's separate objective.
+The implementation, local verification, requested GitHub upload and remote CI verification
+are complete. The evidence-only follow-up commit does not change the tested application or
+test sources. Personal interview readiness is not assessed from repository output;
+independent learning exercises remain the user's separate objective.
 
 UI-specific unforced checks: actual deadline expiry, WebGL context loss and OS-level reduced
 motion preference; formal screen-reader/cross-browser use. Implementations are preserved

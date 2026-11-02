@@ -81,9 +81,10 @@ Manual worker command (change shard, port, data directory and ready file for eac
 Coordinator:
 `java -cp target/searchforge-x-0.1.0-SNAPSHOT.jar dev.searchforge.distributed.CoordinatorMain 8090 data/coordinator.ready http://127.0.0.1:8091 http://127.0.0.1:8092 http://127.0.0.1:8093`
 
-Compose configuration: `docker compose up --build`. Prepared but NOT executed here:
-Docker is not installed. Image build, Linux behavior, volume ownership and Compose
-health checks still require actual verification. Never label that deployment passed yet.
+Compose configuration: `docker compose up --build`. Docker is unavailable locally, but
+GitHub's Ubuntu container job built the image, passed health checks, indexed/search-tested
+three documents, stopped worker1 to verify PARTIAL results and restarted it to verify
+persistent recovery. See CHECKPOINT.md for the exact run and tested revision.
 
 Tests: DistributedTest launches real workers/coordinator, compares six query forms with
 single-node scores/IDs, replays ingestion, stops and restarts a worker, verifies stale
