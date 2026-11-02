@@ -132,3 +132,8 @@ The engine uses full rebuilds, memory-heavy postings and a 256 MiB segment limit
 no replication, global ingestion transaction, authentication, TLS, or power-loss guarantee.
 Use trusted local data/directories; do not expose administrative ports publicly. Tested
 process-crash recovery is narrower than general fault tolerance or production readiness.
+
+## Security and quality automation
+
+See [quality gates](QUALITY_CHECKS.md) and [executed validation](QUALITY_VALIDATION.md)
+for CodeQL, image scanning, formatting and cross-browser accessibility checks.

@@ -22,5 +22,7 @@ FINOS-Core was not changed. No paid service or public backend was deployed.
 | Recruiter source-review readiness | PASS within portfolio scope | RECRUITER_REVIEW.md; personal competence unassessed |
 
 No production-readiness, account-compromise immunity, zero-vulnerability or hiring guarantee
-is claimed. Public forks/copies remain possible. Extra scanners, hosted demo and broader
-cross-browser/accessibility/hardware-failure testing remain explicit future work.
+is claimed. Public forks/copies remain possible. Additional security, formatting and browser/accessibility checks are documented in
+QUALITY_CHECKS.md with current results in QUALITY_VALIDATION.md. Hosted deployment,
+manual assistive-technology research and hardware-failure validation are outside the
+verified local portfolio scope.

@@ -34,9 +34,9 @@ anonymous public checkout passed all 30 Java tests. PyYAML parsing verified work
 SHA refs and job timeouts. The new CI itself has now been observed remotely.
 
 Warnings/limits: lazy Three.js chunk 587.18 kB (146.19 kB gzip), local color-environment
-warning, finite test scenarios. Compiler/static type checks, whitespace checks and
-.editorconfig are narrower than a full formatter or SAST tool. CodeQL and container CVE
-scanning are unconfigured and are not represented as passing checks. No security certification.
+warning, finite test scenarios. The historical run above predates the expanded quality gates. Spotless, Prettier, Ruff,
+CodeQL and runtime container CVE scanning are now configured; see QUALITY_CHECKS.md
+and QUALITY_VALIDATION.md for their scope and actual outcomes. No security certification.
 
 Subsequent evidence/ownership documentation does not alter this tested application. The
 live main badge/checks identify later verification runs; no static passing badge is used.

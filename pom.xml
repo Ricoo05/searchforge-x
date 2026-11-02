@@ -11,5 +11,9 @@
     <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-compiler-plugin</artifactId><version>3.13.0</version></plugin>
     <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-surefire-plugin</artifactId><version>3.5.2</version><configuration><forkedProcessTimeoutInSeconds>180</forkedProcessTimeoutInSeconds><forkedProcessExitTimeoutInSeconds>20</forkedProcessExitTimeoutInSeconds></configuration></plugin>
     <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-jar-plugin</artifactId><version>3.4.2</version><configuration><forceCreation>true</forceCreation><archive><manifest><mainClass>dev.searchforge.Demo</mainClass></manifest></archive></configuration></plugin>
+    <plugin><groupId>com.diffplug.spotless</groupId><artifactId>spotless-maven-plugin</artifactId><version>3.10.4</version>
+      <configuration><java><includes><include>src/**/*.java</include><include>benchmarks/lucene/src/**/*.java</include></includes><googleJavaFormat><version>1.30.0</version></googleJavaFormat></java></configuration>
+      <executions><execution><phase>validate</phase><goals><goal>check</goal></goals></execution></executions>
+    </plugin>
   </plugins></build>
 </project>

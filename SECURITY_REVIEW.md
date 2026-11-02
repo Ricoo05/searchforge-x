@@ -16,8 +16,8 @@ Evidence logs intentionally remain because they substantiate failures and tests.
 
 Risks: unauthenticated write APIs, trusted admin paths/endpoints, no TLS, no tenant isolation,
 full-generation write amplification and finite queue/body bounds. Keep all host ports on
-loopback. Do not publicly deploy this unrestricted application. CodeQL/image CVE scanning
-are not executed; paid services are not enabled. Actions are pinned and dependency-update
+loopback. Do not publicly deploy this unrestricted application. CodeQL and runtime image CVE scanning
+are configured; executed outcomes are recorded in QUALITY_VALIDATION.md. Paid services are not enabled. Actions are pinned and dependency-update
 automation is prepared, and the new remote security job passed on b6f22ec. GitHub secret scanning and secret push
 protection are enabled for the public repository.
 

@@ -45,7 +45,8 @@ status below reflects executed checks or explicitly identified source review.
 - [x] WebGL fallback and reduced-motion implementation retained and source-reviewed.
 - [ ] Force actual request timeout (network failure is verified separately).
 - [ ] Force WebGL loss/no-GPU fallback and change OS reduced-motion preference.
-- [ ] Formal screen-reader and cross-browser testing.
+- [x] Automated Chromium/Firefox/WebKit and axe coverage configured; see QUALITY_VALIDATION.md for executed results.
+- [ ] Manual screen-reader testing (not replaced by automated checks).
 
 ## Protected behavior
 

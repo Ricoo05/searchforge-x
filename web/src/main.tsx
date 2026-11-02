@@ -1,49 +1,860 @@
 import { createRoot } from 'react-dom/client';
-import { lazy, Suspense, useEffect, useRef, useState, type FormEvent } from 'react';
+import {
+  lazy,
+  Suspense,
+  useEffect,
+  useRef,
+  useState,
+  type FormEvent,
+} from 'react';
 import { samples, useEngine } from './engine';
 import './style.css';
 import './audit';
-const ClusterScene=lazy(()=>import('./ClusterScene'));
-function Icon({name,size=18}:{name:'search'|'cube'|'arrow'|'refresh'|'index'|'activity'|'close'|'pause'|'play';size?:number}) {
-  const paths={search:<><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></>,cube:<><path d="m12 3 9 5v9l-9 5-9-5V8zM3 8l9 5 9-5M12 13v9"/></>,arrow:<><path d="M5 12h14m-6-6 6 6-6 6"/></>,refresh:<><path d="M20 8a8 8 0 1 0 0 8M20 3v5h-5"/></>,index:<><path d="M4 4h16v16H4zM8 8h8M8 12h8M8 16h4"/></>,activity:<><path d="M2 12h4l3-8 6 16 3-8h4"/></>,close:<><path d="m6 6 12 12M6 18 18 6"/></>,pause:<><path d="M8 5v14M16 5v14"/></>,play:<><path d="m8 4 12 8-12 8z"/></>};
-  return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[name]}</svg>;
+const ClusterScene = lazy(() => import('./ClusterScene'));
+function Icon({
+  name,
+  size = 18,
+}: {
+  name:
+    | 'search'
+    | 'cube'
+    | 'arrow'
+    | 'refresh'
+    | 'index'
+    | 'activity'
+    | 'close'
+    | 'pause'
+    | 'play';
+  size?: number;
+}) {
+  const paths = {
+    search: (
+      <>
+        <circle cx="10.5" cy="10.5" r="6.5" />
+        <path d="m16 16 5 5" />
+      </>
+    ),
+    cube: (
+      <>
+        <path d="m12 3 9 5v9l-9 5-9-5V8zM3 8l9 5 9-5M12 13v9" />
+      </>
+    ),
+    arrow: (
+      <>
+        <path d="M5 12h14m-6-6 6 6-6 6" />
+      </>
+    ),
+    refresh: (
+      <>
+        <path d="M20 8a8 8 0 1 0 0 8M20 3v5h-5" />
+      </>
+    ),
+    index: (
+      <>
+        <path d="M4 4h16v16H4zM8 8h8M8 12h8M8 16h4" />
+      </>
+    ),
+    activity: (
+      <>
+        <path d="M2 12h4l3-8 6 16 3-8h4" />
+      </>
+    ),
+    close: (
+      <>
+        <path d="m6 6 12 12M6 18 18 6" />
+      </>
+    ),
+    pause: (
+      <>
+        <path d="M8 5v14M16 5v14" />
+      </>
+    ),
+    play: (
+      <>
+        <path d="m8 4 12 8-12 8z" />
+      </>
+    ),
+  };
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      {paths[name]}
+    </svg>
+  );
 }
-function App(){
-  const engine=useEngine();const [view,setView]=useState<'search'|'index'>('search');const [selected,setSelected]=useState<number|null>(null);const [paused,setPaused]=useState(false);
-  const [docId,setDocId]=useState('101'),[title,setTitle]=useState(''),[text,setText]=useState(''),[validation,setValidation]=useState('');
-  const input=useRef<HTMLInputElement>(null), workspace=useRef<HTMLElement>(null);
-  const total=engine.ready.reduce((sum,worker)=>sum+(worker.documents??0),0), tokens=engine.ready.reduce((sum,worker)=>sum+(worker.tokens??0),0);
-  const selectedWorker=engine.workers.find(worker=>worker.shard===selected);
-  const status=engine.checking?'CONNECTING':engine.healthError?'DISCONNECTED':engine.ready.length===engine.workers.length?'OPERATIONAL':'DEGRADED';
-  useEffect(()=>{function shortcut(event:KeyboardEvent){const target=event.target as HTMLElement;if(event.key==='/'&&!['INPUT','TEXTAREA'].includes(target.tagName)&&!target.isContentEditable){event.preventDefault();setView('search');requestAnimationFrame(()=>input.current?.focus());}}document.addEventListener('keydown',shortcut);return()=>document.removeEventListener('keydown',shortcut);},[]);
-  function run(query:string){setView('search');engine.setQuery(query);void engine.search(query);}
-  function submitDocument(event:FormEvent){event.preventDefault();const id=Number(docId);if(!Number.isSafeInteger(id)||id<1){setValidation('Choose a positive integer ID within the safe integer range.');return;}setValidation('');void engine.ingest([{id,text,metadata:{title}}]);}
-  const writeFeedback=<>
-{engine.writeError&&<div role="alert" className="notice failed"><Icon name="activity"/><p>{engine.writeError}</p></div>}{engine.writeResult&&<div role="status" className={`notice ${engine.writeResult.status.toLowerCase()}`}><Icon name="index"/><div><b>INDEXING {engine.writeResult.status}</b><p>{engine.writeResult.shards.map(shard=>`Shard ${shard.shard}: ${shard.status}${shard.generation?` · generation ${shard.generation}`:''}`).join(' / ')}</p>{engine.writeResult.status!=='COMPLETE'&&<p>UNKNOWN means the write may have committed without an acknowledgment.</p>}</div></div>}
-  </>;
-  return <div className="app-shell"><a className="skip-link" href="#search-workspace">Skip to search workspace</a>
-    <header className="topbar"><a className="brand" href="/" aria-label="SearchForge X home"><span className="brand-mark"><Icon name="cube" size={23}/></span><span>searchforge<span className="brand-x">x</span></span></a><span className="header-divider"/><span className="header-caption">DISTRIBUTED SEARCH LAB</span><div className="header-end"><span className={`system-status ${status.toLowerCase()}`}><i/>{status}</span><span className="local-label">LOCAL ENVIRONMENT</span></div></header>
-    <main className="shell" id="main-content">
-      <section className="hero"><div className="hero-copy"><div className="eyebrow"><span/> SEARCH INFRASTRUCTURE, EXPOSED</div><h1>Every query.<br/>{' '}<span>A deeper connection.</span></h1><p>Explore a search engine from the inside out. Index documents, follow the cluster, and find the signal in your data.</p><div className="hero-actions"><button className="primary" onClick={()=>{workspace.current?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});input.current?.focus({preventScroll:true});}}>Explore the engine <Icon name="arrow" size={16}/></button><span className="build-label">JAVA 21 <b>×</b> CUSTOM BM25</span></div><div className="hero-metrics"><div><strong>{engine.checking||engine.healthError?'—':total.toLocaleString()}</strong><span>DOCUMENTS AVAILABLE</span></div><div><strong>{engine.checking?'—':`${engine.ready.length}/${engine.workers.length||'—'}`}</strong><span>WORKERS RESPONDING</span></div><div><strong>{engine.latency===null?'—':engine.latency.toFixed(0)}<small>{engine.latency!==null?' ms':''}</small></strong><span>LAST QUERY ROUND TRIP</span></div></div></div>
-</section>
-      <section id="search-workspace" className="engine-workspace" ref={workspace} aria-label="Search workspace"><div className="workspace-top"><nav aria-label="Workspace"><button aria-pressed={view==='search'} className={view==='search'?'active':''} onClick={()=>setView('search')}><Icon name="search" size={16}/> Search explorer</button><button aria-pressed={view==='index'} className={view==='index'?'active':''} onClick={()=>setView('index')}><Icon name="index" size={16}/> Document studio</button></nav><span className="workspace-caption"><span className="live-dot"/> CONNECTED TO REAL SERVICES</span></div>
-      <div className="workspace-grid"><div className="main-panel">
-        {view==='search'?<section aria-label="Document search"><div className="section-title"><div><div className="eyebrow muted">01 / RETRIEVAL</div><h2>What are you looking for?</h2></div><kbd>/</kbd></div><form className="query-form" role="search" aria-label="Search documents" onSubmit={event=>{event.preventDefault();void engine.search(engine.query);}}><Icon name="search" size={22}/><input ref={input} aria-label="Search query" value={engine.query} onChange={event=>engine.setQuery(event.target.value)} placeholder={'Search documents, or try "inverted index"'} maxLength={4096}/><button className="search-submit" aria-label="Run search" disabled={engine.busy||engine.writing||!engine.query.trim()}>{engine.busy?'Searching':'Search'}<Icon name="arrow" size={17}/></button></form><div className="query-help"><span>Combine <code>AND</code>, <code>OR</code>, <code>( )</code> and <code>"phrases"</code></span><span>BM25 · TOP 10</span></div><div className="suggestions"><span>TRY</span>{['"inverted index"','recovery','search AND ranking'].map(query=><button key={query} disabled={engine.busy||engine.writing} onClick={()=>run(query)}>{query}<span>↗</span></button>)}</div>
-        {engine.error&&<div role="alert" className="notice failed"><Icon name="activity"/><div><b>Request interrupted</b><p>{engine.error}</p></div></div>}
-        {engine.busy&&<div className="search-progress" role="status"><div className="orbit-loader"><span/><span/><span/></div><h3>Connecting the dots.</h3><p>Collecting compatible shard statistics and merging ranked results.</p></div>}
-        {engine.result&&<><div className="results-toolbar" role="status" aria-live="polite" aria-atomic="true"><span><b>{engine.result.totalHits.toLocaleString()}</b> matches <span className="dim">for</span> <strong>{engine.executed}</strong></span><span>{engine.latency?.toFixed(1)} ms</span></div><div role="status" className={`result-status ${engine.result.status.toLowerCase()}`}><i/><b>{engine.result.status}</b><span>{engine.result.status==='COMPLETE'?'All shards contributed compatible results.':engine.result.status==='PARTIAL'?`Available corpus only · missing shards ${engine.result.missingShards.join(', ')}`:'No compatible result set. Check the cluster and retry.'}</span></div><div className="results">{engine.result.hits.map((hit,index)=><article className="result-card" key={hit.id}><span className="result-number">{String(engine.offset+index+1).padStart(2,'0')}</span><div className="result-body"><div className="result-meta"><span>DOC {hit.id}</span><span>SHARD {hit.id%3}</span><span className="score">BM25 {hit.score.toFixed(4)}</span></div><h3>{hit.document.metadata.title||`Document ${hit.id}`}</h3><p>{hit.document.text}</p></div><span className="result-corner"><Icon name="index" size={17}/></span></article>)}</div>{engine.result.status!=='FAILED'&&engine.result.hits.length===0&&<div className="no-results"><Icon name="search" size={28}/><h3>No matches this time.</h3><p>Try fewer terms or a different phrase.</p></div>}{engine.result.status!=='FAILED'&&<div className="pagination"><button disabled={engine.busy||engine.offset===0} onClick={()=>void engine.search(engine.executed,engine.offset-10)}>← Previous</button><span>PAGE {engine.offset/10+1}</span><button disabled={engine.busy||engine.offset+10>=engine.result.totalHits||engine.offset+20>1000} onClick={()=>void engine.search(engine.executed,engine.offset+10)}>Next →</button></div>}</>}
-        {!engine.busy&&!engine.result&&!engine.error&&<div className="empty-state"><div className="empty-illustration"><span className="empty-orbit"/><Icon name="cube" size={39}/><span className="empty-chip chip-one">tf</span><span className="empty-chip chip-two">idf</span></div><h3>{engine.checking?'Establishing a connection.':engine.healthError?'The cluster needs attention.':total===0?'A blank index. Unlimited possibilities.':'Your next discovery starts here.'}</h3><p>Search your indexed documents or load six original examples to explore the engine.</p><button className="secondary" disabled={engine.writing||engine.busy||engine.checking||!!engine.healthError} onClick={()=>{void engine.ingest(samples);engine.setQuery('search');}}>{engine.writing?'Indexing sample documents…':'Load sample corpus'}<Icon name="arrow" size={15}/></button><small>Sample IDs 1–6 will be replaced when reloaded.</small></div>}
-        </section>:<section className="studio"><div className="section-title"><div><div className="eyebrow muted">02 / INGESTION</div><h2>Give your index something to find.</h2></div><Icon name="index" size={25}/></div><p className="studio-intro">Create a document or replace an existing ID. Each shard publishes a complete index generation before acknowledging the write.</p><p className="admin-note">Local administration · Stable IDs replace documents · Cross-shard writes may partially complete.</p><form onSubmit={submitDocument}><div className="form-row"><label>DOCUMENT ID<input aria-label="Document ID" type="number" required min="1" max={Number.MAX_SAFE_INTEGER} value={docId} onChange={event=>setDocId(event.target.value)}/></label><label>DOCUMENT TITLE<input aria-label="Title" required maxLength={256} value={title} onChange={event=>setTitle(event.target.value)} placeholder="A name worth finding"/></label></div><label>SEARCHABLE CONTENT<textarea aria-label="Document text" required maxLength={1000000} rows={6} value={text} onChange={event=>setText(event.target.value)} placeholder="Add the text you want the engine to index…"/></label><div className="studio-actions"><button className="primary" disabled={engine.writing||engine.busy}>{engine.writing?'Publishing generation…':'Index document'}<Icon name="arrow" size={17}/></button><span>Routes to shard {Number.isSafeInteger(Number(docId))&&Number(docId)>0?Number(docId)%3:'—'}</span></div></form>{validation&&<div role="alert" className="notice failed">{validation}</div>}{writeFeedback}<div className="sample-strip"><div><b>Start with a sample.</b><p>Six documents about the engineering behind this system.</p></div><button className="secondary" disabled={engine.writing||engine.busy} onClick={()=>void engine.ingest(samples)}>Load sample corpus <Icon name="arrow" size={14}/></button></div></section>}
-        {view==='search'&&writeFeedback}
-      </div><aside className="diagnostics" id="cluster"><div className="aside-heading"><div><span className="eyebrow muted">LIVE TELEMETRY</span><h2>{selected===null?'Cluster pulse':`Shard 0${selected}`}</h2></div><button className="icon-button" aria-label="Refresh worker health" onClick={()=>void engine.refresh()}><Icon name="refresh" size={16}/></button></div>{engine.healthError?<div role="alert" className="notice failed">{engine.healthError}</div>:<div className="health-summary"><span className={`state-dot ${status==='OPERATIONAL'?'ready':status==='CONNECTING'?'unknown':'unavailable'}`}/><span>{engine.checking?'Checking workers…':`${engine.ready.length} of ${engine.workers.length} workers responding`}</span></div>}
-        <div className="topology"><div className="scene-header"><span><i className="tiny-square"/> LIVE CLUSTER TOPOLOGY</span><button className="icon-button" aria-label={paused?'Resume 3D animation':'Pause 3D animation'} onClick={()=>setPaused(!paused)}><Icon name={paused?'play':'pause'} size={14}/></button></div><Suspense fallback={<div className="scene-loading">Preparing 3D topology…</div>}><ClusterScene workers={engine.workers} active={engine.busy||engine.writing} selected={selected} onSelect={setSelected} paused={paused} online={!engine.checking&&!engine.healthError}/></Suspense><div className="scene-caption"><span className="coordinator-pill"><span className="pulse-dot"/> COORDINATOR</span><span>Drag to orbit · Scroll to zoom · Select a worker</span></div><div className="scene-nodes">{[0,1,2].map(shard=>{const worker=engine.workers.find(value=>value.shard===shard);return <button className={selected===shard?'selected':''} aria-pressed={selected===shard} key={shard} onClick={()=>setSelected(selected===shard?null:shard)}><i className={`state-dot ${worker?.status??'unknown'}`}/>SHARD 0{shard}<span>{worker?.status==='ready'?`${worker.documents} docs`:worker?.status??'checking'}</span></button>;})}</div><small className="scene-disclaimer">Motion illustrates topology and request activity; it is not a packet trace.</small></div>
-        {selected!==null&&<div className="inspector"><button className="inspector-close" aria-label="Close shard inspection" onClick={()=>setSelected(null)}><Icon name="close" size={14}/></button><span className="eyebrow">SELECTED IN 3D</span><strong>Worker {selected}</strong><p>{selectedWorker?.status==='ready'?`${selectedWorker.documents?.toLocaleString()} documents · generation ${selectedWorker.generation}`:selectedWorker?.status==='unavailable'?'This worker is unavailable. Queries may return partial results.':'Waiting for worker diagnostics.'}</p></div>}
-        <div className="workers">{engine.workers.map(worker=><button className={`worker-card ${selected===worker.shard?'selected':''}`} key={worker.shard} aria-pressed={selected===worker.shard} onClick={()=>setSelected(selected===worker.shard?null:worker.shard)}><div className="worker-title"><span className="worker-icon"><Icon name="cube" size={19}/></span><b>SHARD 0{worker.shard}</b><span className={`worker-status ${worker.status}`}>{worker.status==='ready'?'ONLINE':'UNAVAILABLE'}</span></div>{worker.status==='ready'?<><div className="worker-metrics"><span><b>{worker.documents?.toLocaleString()}</b>documents</span><span><b>{worker.terms?.toLocaleString()}</b>unique terms</span></div><div className="worker-foot"><span>GEN {worker.generation}</span><span>{worker.tokens?.toLocaleString()} retained tokens</span></div></>:<p className="worker-missing">No response from this shard.</p>}</button>)}</div><div className="telemetry-total"><span>RETAINED TOKENS <b>{engine.checking||engine.healthError?'—':tokens.toLocaleString()}</b></span><span>LAST CHECK <b>{engine.lastChecked?engine.lastChecked.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit',second:'2-digit'}):'—'}</b></span></div>
-        <div className="activity"><h3><Icon name="activity" size={14}/> Session activity</h3>{engine.history.length?engine.history.map((event,index)=><div className="activity-item" key={index}><i className={event.status.toLowerCase()}/><div><span>{event.query}</span><small>{event.status} · {event.milliseconds.toFixed(1)} ms</small></div></div>):<p>Your real query history appears here.</p>}</div><p className="diagnostics-note">Status refreshes every 10 seconds. Counts cover responding workers. Query time includes the browser round trip.</p></aside></div></section>
-      <footer><a className="footer-brand" href="#">SEARCHFORGE X</a><span>Custom indexing. Real processes. Inspectable results.</span><span className="footer-limit">LOCAL DEMO · TESTED PROCESS-CRASH RECOVERY</span></footer>
-    </main>
-  </div>;
+function App() {
+  const engine = useEngine();
+  const [view, setView] = useState<'search' | 'index'>('search');
+  const [selected, setSelected] = useState<number | null>(null);
+  const [paused, setPaused] = useState(false);
+  const [docId, setDocId] = useState('101'),
+    [title, setTitle] = useState(''),
+    [text, setText] = useState(''),
+    [validation, setValidation] = useState('');
+  const input = useRef<HTMLInputElement>(null),
+    workspace = useRef<HTMLElement>(null);
+  const total = engine.ready.reduce(
+      (sum, worker) => sum + (worker.documents ?? 0),
+      0,
+    ),
+    tokens = engine.ready.reduce(
+      (sum, worker) => sum + (worker.tokens ?? 0),
+      0,
+    );
+  const selectedWorker = engine.workers.find(
+    (worker) => worker.shard === selected,
+  );
+  const status = engine.checking
+    ? 'CONNECTING'
+    : engine.healthError
+      ? 'DISCONNECTED'
+      : engine.ready.length === engine.workers.length
+        ? 'OPERATIONAL'
+        : 'DEGRADED';
+  useEffect(() => {
+    function shortcut(event: KeyboardEvent) {
+      const target = event.target as HTMLElement;
+      if (
+        event.key === '/' &&
+        !['INPUT', 'TEXTAREA'].includes(target.tagName) &&
+        !target.isContentEditable
+      ) {
+        event.preventDefault();
+        setView('search');
+        requestAnimationFrame(() => input.current?.focus());
+      }
+    }
+    document.addEventListener('keydown', shortcut);
+    return () => document.removeEventListener('keydown', shortcut);
+  }, []);
+  function run(query: string) {
+    setView('search');
+    engine.setQuery(query);
+    void engine.search(query);
+  }
+  function submitDocument(event: FormEvent) {
+    event.preventDefault();
+    const id = Number(docId);
+    if (!Number.isSafeInteger(id) || id < 1) {
+      setValidation(
+        'Choose a positive integer ID within the safe integer range.',
+      );
+      return;
+    }
+    setValidation('');
+    void engine.ingest([{ id, text, metadata: { title } }]);
+  }
+  const writeFeedback = (
+    <>
+      {engine.writeError && (
+        <div role="alert" className="notice failed">
+          <Icon name="activity" />
+          <p>{engine.writeError}</p>
+        </div>
+      )}
+      {engine.writeResult && (
+        <div
+          role="status"
+          className={`notice ${engine.writeResult.status.toLowerCase()}`}
+        >
+          <Icon name="index" />
+          <div>
+            <b>INDEXING {engine.writeResult.status}</b>
+            <p>
+              {engine.writeResult.shards
+                .map(
+                  (shard) =>
+                    `Shard ${shard.shard}: ${shard.status}${shard.generation ? ` · generation ${shard.generation}` : ''}`,
+                )
+                .join(' / ')}
+            </p>
+            {engine.writeResult.status !== 'COMPLETE' && (
+              <p>
+                UNKNOWN means the write may have committed without an
+                acknowledgment.
+              </p>
+            )}
+          </div>
+        </div>
+      )}
+    </>
+  );
+  return (
+    <div className="app-shell">
+      <a className="skip-link" href="#search-workspace">
+        Skip to search workspace
+      </a>
+      <header className="topbar">
+        <a className="brand" href="/" aria-label="SearchForge X home">
+          <span className="brand-mark">
+            <Icon name="cube" size={23} />
+          </span>
+          <span>
+            searchforge<span className="brand-x">x</span>
+          </span>
+        </a>
+        <span className="header-divider" />
+        <span className="header-caption">DISTRIBUTED SEARCH LAB</span>
+        <div className="header-end">
+          <span className={`system-status ${status.toLowerCase()}`}>
+            <i />
+            {status}
+          </span>
+          <span className="local-label">LOCAL ENVIRONMENT</span>
+        </div>
+      </header>
+      <main className="shell" id="main-content">
+        <section className="hero">
+          <div className="hero-copy">
+            <div className="eyebrow">
+              <span /> SEARCH INFRASTRUCTURE, EXPOSED
+            </div>
+            <h1>
+              Every query.
+              <br /> <span>A deeper connection.</span>
+            </h1>
+            <p>
+              Explore a search engine from the inside out. Index documents,
+              follow the cluster, and find the signal in your data.
+            </p>
+            <div className="hero-actions">
+              <button
+                className="primary"
+                onClick={() => {
+                  workspace.current?.scrollIntoView({
+                    behavior: matchMedia('(prefers-reduced-motion: reduce)')
+                      .matches
+                      ? 'instant'
+                      : 'smooth',
+                  });
+                  input.current?.focus({ preventScroll: true });
+                }}
+              >
+                Explore the engine <Icon name="arrow" size={16} />
+              </button>
+              <span className="build-label">
+                JAVA 21 <b>×</b> CUSTOM BM25
+              </span>
+            </div>
+            <div className="hero-metrics">
+              <div>
+                <strong>
+                  {engine.checking || engine.healthError
+                    ? '—'
+                    : total.toLocaleString()}
+                </strong>
+                <span>DOCUMENTS AVAILABLE</span>
+              </div>
+              <div>
+                <strong>
+                  {engine.checking
+                    ? '—'
+                    : `${engine.ready.length}/${engine.workers.length || '—'}`}
+                </strong>
+                <span>WORKERS RESPONDING</span>
+              </div>
+              <div>
+                <strong>
+                  {engine.latency === null ? '—' : engine.latency.toFixed(0)}
+                  <small>{engine.latency !== null ? ' ms' : ''}</small>
+                </strong>
+                <span>LAST QUERY ROUND TRIP</span>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section
+          id="search-workspace"
+          className="engine-workspace"
+          ref={workspace}
+          aria-label="Search workspace"
+        >
+          <div className="workspace-top">
+            <nav aria-label="Workspace">
+              <button
+                aria-pressed={view === 'search'}
+                className={view === 'search' ? 'active' : ''}
+                onClick={() => setView('search')}
+              >
+                <Icon name="search" size={16} /> Search explorer
+              </button>
+              <button
+                aria-pressed={view === 'index'}
+                className={view === 'index' ? 'active' : ''}
+                onClick={() => setView('index')}
+              >
+                <Icon name="index" size={16} /> Document studio
+              </button>
+            </nav>
+            <span className="workspace-caption">
+              <span className="live-dot" /> CONNECTED TO REAL SERVICES
+            </span>
+          </div>
+          <div className="workspace-grid">
+            <div className="main-panel">
+              {view === 'search' ? (
+                <section aria-label="Document search">
+                  <div className="section-title">
+                    <div>
+                      <div className="eyebrow muted">01 / RETRIEVAL</div>
+                      <h2>What are you looking for?</h2>
+                    </div>
+                    <kbd>/</kbd>
+                  </div>
+                  <form
+                    className="query-form"
+                    role="search"
+                    aria-label="Search documents"
+                    onSubmit={(event) => {
+                      event.preventDefault();
+                      void engine.search(engine.query);
+                    }}
+                  >
+                    <Icon name="search" size={22} />
+                    <input
+                      ref={input}
+                      aria-label="Search query"
+                      value={engine.query}
+                      onChange={(event) => engine.setQuery(event.target.value)}
+                      placeholder={'Search documents, or try "inverted index"'}
+                      maxLength={4096}
+                    />
+                    <button
+                      className="search-submit"
+                      aria-label="Run search"
+                      disabled={
+                        engine.busy || engine.writing || !engine.query.trim()
+                      }
+                    >
+                      {engine.busy ? 'Searching' : 'Search'}
+                      <Icon name="arrow" size={17} />
+                    </button>
+                  </form>
+                  <div className="query-help">
+                    <span>
+                      Combine <code>AND</code>, <code>OR</code>,{' '}
+                      <code>( )</code> and <code>"phrases"</code>
+                    </span>
+                    <span>BM25 · TOP 10</span>
+                  </div>
+                  <div className="suggestions">
+                    <span>TRY</span>
+                    {['"inverted index"', 'recovery', 'search AND ranking'].map(
+                      (query) => (
+                        <button
+                          key={query}
+                          disabled={engine.busy || engine.writing}
+                          onClick={() => run(query)}
+                        >
+                          {query}
+                          <span>↗</span>
+                        </button>
+                      ),
+                    )}
+                  </div>
+                  {engine.error && (
+                    <div role="alert" className="notice failed">
+                      <Icon name="activity" />
+                      <div>
+                        <b>Request interrupted</b>
+                        <p>{engine.error}</p>
+                      </div>
+                    </div>
+                  )}
+                  {engine.busy && (
+                    <div className="search-progress" role="status">
+                      <div className="orbit-loader">
+                        <span />
+                        <span />
+                        <span />
+                      </div>
+                      <h3>Connecting the dots.</h3>
+                      <p>
+                        Collecting compatible shard statistics and merging
+                        ranked results.
+                      </p>
+                    </div>
+                  )}
+                  {engine.result && (
+                    <>
+                      <div
+                        className="results-toolbar"
+                        role="status"
+                        aria-live="polite"
+                        aria-atomic="true"
+                      >
+                        <span>
+                          <b>{engine.result.totalHits.toLocaleString()}</b>{' '}
+                          matches <span className="dim">for</span>{' '}
+                          <strong>{engine.executed}</strong>
+                        </span>
+                        <span>{engine.latency?.toFixed(1)} ms</span>
+                      </div>
+                      <div
+                        role="status"
+                        className={`result-status ${engine.result.status.toLowerCase()}`}
+                      >
+                        <i />
+                        <b>{engine.result.status}</b>
+                        <span>
+                          {engine.result.status === 'COMPLETE'
+                            ? 'All shards contributed compatible results.'
+                            : engine.result.status === 'PARTIAL'
+                              ? `Available corpus only · missing shards ${engine.result.missingShards.join(', ')}`
+                              : 'No compatible result set. Check the cluster and retry.'}
+                        </span>
+                      </div>
+                      <div className="results">
+                        {engine.result.hits.map((hit, index) => (
+                          <article className="result-card" key={hit.id}>
+                            <span className="result-number">
+                              {String(engine.offset + index + 1).padStart(
+                                2,
+                                '0',
+                              )}
+                            </span>
+                            <div className="result-body">
+                              <div className="result-meta">
+                                <span>DOC {hit.id}</span>
+                                <span>SHARD {hit.id % 3}</span>
+                                <span className="score">
+                                  BM25 {hit.score.toFixed(4)}
+                                </span>
+                              </div>
+                              <h3>
+                                {hit.document.metadata.title ||
+                                  `Document ${hit.id}`}
+                              </h3>
+                              <p>{hit.document.text}</p>
+                            </div>
+                            <span className="result-corner">
+                              <Icon name="index" size={17} />
+                            </span>
+                          </article>
+                        ))}
+                      </div>
+                      {engine.result.status !== 'FAILED' &&
+                        engine.result.hits.length === 0 && (
+                          <div className="no-results">
+                            <Icon name="search" size={28} />
+                            <h3>No matches this time.</h3>
+                            <p>Try fewer terms or a different phrase.</p>
+                          </div>
+                        )}
+                      {engine.result.status !== 'FAILED' && (
+                        <div className="pagination">
+                          <button
+                            disabled={engine.busy || engine.offset === 0}
+                            onClick={() =>
+                              void engine.search(
+                                engine.executed,
+                                engine.offset - 10,
+                              )
+                            }
+                          >
+                            ← Previous
+                          </button>
+                          <span>PAGE {engine.offset / 10 + 1}</span>
+                          <button
+                            disabled={
+                              engine.busy ||
+                              engine.offset + 10 >= engine.result.totalHits ||
+                              engine.offset + 20 > 1000
+                            }
+                            onClick={() =>
+                              void engine.search(
+                                engine.executed,
+                                engine.offset + 10,
+                              )
+                            }
+                          >
+                            Next →
+                          </button>
+                        </div>
+                      )}
+                    </>
+                  )}
+                  {!engine.busy && !engine.result && !engine.error && (
+                    <div className="empty-state">
+                      <div className="empty-illustration">
+                        <span className="empty-orbit" />
+                        <Icon name="cube" size={39} />
+                        <span className="empty-chip chip-one">tf</span>
+                        <span className="empty-chip chip-two">idf</span>
+                      </div>
+                      <h3>
+                        {engine.checking
+                          ? 'Establishing a connection.'
+                          : engine.healthError
+                            ? 'The cluster needs attention.'
+                            : total === 0
+                              ? 'A blank index. Unlimited possibilities.'
+                              : 'Your next discovery starts here.'}
+                      </h3>
+                      <p>
+                        Search your indexed documents or load six original
+                        examples to explore the engine.
+                      </p>
+                      <button
+                        className="secondary"
+                        disabled={
+                          engine.writing ||
+                          engine.busy ||
+                          engine.checking ||
+                          !!engine.healthError
+                        }
+                        onClick={() => {
+                          void engine.ingest(samples);
+                          engine.setQuery('search');
+                        }}
+                      >
+                        {engine.writing
+                          ? 'Indexing sample documents…'
+                          : 'Load sample corpus'}
+                        <Icon name="arrow" size={15} />
+                      </button>
+                      <small>
+                        Sample IDs 1–6 will be replaced when reloaded.
+                      </small>
+                    </div>
+                  )}
+                </section>
+              ) : (
+                <section className="studio">
+                  <div className="section-title">
+                    <div>
+                      <div className="eyebrow muted">02 / INGESTION</div>
+                      <h2>Give your index something to find.</h2>
+                    </div>
+                    <Icon name="index" size={25} />
+                  </div>
+                  <p className="studio-intro">
+                    Create a document or replace an existing ID. Each shard
+                    publishes a complete index generation before acknowledging
+                    the write.
+                  </p>
+                  <p className="admin-note">
+                    Local administration · Stable IDs replace documents ·
+                    Cross-shard writes may partially complete.
+                  </p>
+                  <form onSubmit={submitDocument}>
+                    <div className="form-row">
+                      <label>
+                        DOCUMENT ID
+                        <input
+                          aria-label="Document ID"
+                          type="number"
+                          required
+                          min="1"
+                          max={Number.MAX_SAFE_INTEGER}
+                          value={docId}
+                          onChange={(event) => setDocId(event.target.value)}
+                        />
+                      </label>
+                      <label>
+                        DOCUMENT TITLE
+                        <input
+                          aria-label="Title"
+                          required
+                          maxLength={256}
+                          value={title}
+                          onChange={(event) => setTitle(event.target.value)}
+                          placeholder="A name worth finding"
+                        />
+                      </label>
+                    </div>
+                    <label>
+                      SEARCHABLE CONTENT
+                      <textarea
+                        aria-label="Document text"
+                        required
+                        maxLength={1000000}
+                        rows={6}
+                        value={text}
+                        onChange={(event) => setText(event.target.value)}
+                        placeholder="Add the text you want the engine to index…"
+                      />
+                    </label>
+                    <div className="studio-actions">
+                      <button
+                        className="primary"
+                        disabled={engine.writing || engine.busy}
+                      >
+                        {engine.writing
+                          ? 'Publishing generation…'
+                          : 'Index document'}
+                        <Icon name="arrow" size={17} />
+                      </button>
+                      <span>
+                        Routes to shard{' '}
+                        {Number.isSafeInteger(Number(docId)) &&
+                        Number(docId) > 0
+                          ? Number(docId) % 3
+                          : '—'}
+                      </span>
+                    </div>
+                  </form>
+                  {validation && (
+                    <div role="alert" className="notice failed">
+                      {validation}
+                    </div>
+                  )}
+                  {writeFeedback}
+                  <div className="sample-strip">
+                    <div>
+                      <b>Start with a sample.</b>
+                      <p>
+                        Six documents about the engineering behind this system.
+                      </p>
+                    </div>
+                    <button
+                      className="secondary"
+                      disabled={engine.writing || engine.busy}
+                      onClick={() => void engine.ingest(samples)}
+                    >
+                      Load sample corpus <Icon name="arrow" size={14} />
+                    </button>
+                  </div>
+                </section>
+              )}
+              {view === 'search' && writeFeedback}
+            </div>
+            <aside className="diagnostics" id="cluster">
+              <div className="aside-heading">
+                <div>
+                  <span className="eyebrow muted">LIVE TELEMETRY</span>
+                  <h2>
+                    {selected === null ? 'Cluster pulse' : `Shard 0${selected}`}
+                  </h2>
+                </div>
+                <button
+                  className="icon-button"
+                  aria-label="Refresh worker health"
+                  onClick={() => void engine.refresh()}
+                >
+                  <Icon name="refresh" size={16} />
+                </button>
+              </div>
+              {engine.healthError ? (
+                <div role="alert" className="notice failed">
+                  {engine.healthError}
+                </div>
+              ) : (
+                <div className="health-summary">
+                  <span
+                    className={`state-dot ${status === 'OPERATIONAL' ? 'ready' : status === 'CONNECTING' ? 'unknown' : 'unavailable'}`}
+                  />
+                  <span>
+                    {engine.checking
+                      ? 'Checking workers…'
+                      : `${engine.ready.length} of ${engine.workers.length} workers responding`}
+                  </span>
+                </div>
+              )}
+              <div className="topology">
+                <div className="scene-header">
+                  <span>
+                    <i className="tiny-square" /> LIVE CLUSTER TOPOLOGY
+                  </span>
+                  <button
+                    className="icon-button"
+                    aria-label={
+                      paused ? 'Resume 3D animation' : 'Pause 3D animation'
+                    }
+                    onClick={() => setPaused(!paused)}
+                  >
+                    <Icon name={paused ? 'play' : 'pause'} size={14} />
+                  </button>
+                </div>
+                <Suspense
+                  fallback={
+                    <div className="scene-loading">Preparing 3D topology…</div>
+                  }
+                >
+                  <ClusterScene
+                    workers={engine.workers}
+                    active={engine.busy || engine.writing}
+                    selected={selected}
+                    onSelect={setSelected}
+                    paused={paused}
+                    online={!engine.checking && !engine.healthError}
+                  />
+                </Suspense>
+                <div className="scene-caption">
+                  <span className="coordinator-pill">
+                    <span className="pulse-dot" /> COORDINATOR
+                  </span>
+                  <span>Drag to orbit · Scroll to zoom · Select a worker</span>
+                </div>
+                <div className="scene-nodes">
+                  {[0, 1, 2].map((shard) => {
+                    const worker = engine.workers.find(
+                      (value) => value.shard === shard,
+                    );
+                    return (
+                      <button
+                        className={selected === shard ? 'selected' : ''}
+                        aria-pressed={selected === shard}
+                        key={shard}
+                        onClick={() =>
+                          setSelected(selected === shard ? null : shard)
+                        }
+                      >
+                        <i
+                          className={`state-dot ${worker?.status ?? 'unknown'}`}
+                        />
+                        SHARD 0{shard}
+                        <span>
+                          {worker?.status === 'ready'
+                            ? `${worker.documents} docs`
+                            : (worker?.status ?? 'checking')}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+                <small className="scene-disclaimer">
+                  Motion illustrates topology and request activity; it is not a
+                  packet trace.
+                </small>
+              </div>
+              {selected !== null && (
+                <div className="inspector">
+                  <button
+                    className="inspector-close"
+                    aria-label="Close shard inspection"
+                    onClick={() => setSelected(null)}
+                  >
+                    <Icon name="close" size={14} />
+                  </button>
+                  <span className="eyebrow">SELECTED IN 3D</span>
+                  <strong>Worker {selected}</strong>
+                  <p>
+                    {selectedWorker?.status === 'ready'
+                      ? `${selectedWorker.documents?.toLocaleString()} documents · generation ${selectedWorker.generation}`
+                      : selectedWorker?.status === 'unavailable'
+                        ? 'This worker is unavailable. Queries may return partial results.'
+                        : 'Waiting for worker diagnostics.'}
+                  </p>
+                </div>
+              )}
+              <div className="workers">
+                {engine.workers.map((worker) => (
+                  <button
+                    className={`worker-card ${selected === worker.shard ? 'selected' : ''}`}
+                    key={worker.shard}
+                    aria-pressed={selected === worker.shard}
+                    onClick={() =>
+                      setSelected(
+                        selected === worker.shard ? null : worker.shard,
+                      )
+                    }
+                  >
+                    <div className="worker-title">
+                      <span className="worker-icon">
+                        <Icon name="cube" size={19} />
+                      </span>
+                      <b>SHARD 0{worker.shard}</b>
+                      <span className={`worker-status ${worker.status}`}>
+                        {worker.status === 'ready' ? 'ONLINE' : 'UNAVAILABLE'}
+                      </span>
+                    </div>
+                    {worker.status === 'ready' ? (
+                      <>
+                        <div className="worker-metrics">
+                          <span>
+                            <b>{worker.documents?.toLocaleString()}</b>documents
+                          </span>
+                          <span>
+                            <b>{worker.terms?.toLocaleString()}</b>unique terms
+                          </span>
+                        </div>
+                        <div className="worker-foot">
+                          <span>GEN {worker.generation}</span>
+                          <span>
+                            {worker.tokens?.toLocaleString()} retained tokens
+                          </span>
+                        </div>
+                      </>
+                    ) : (
+                      <p className="worker-missing">
+                        No response from this shard.
+                      </p>
+                    )}
+                  </button>
+                ))}
+              </div>
+              <div className="telemetry-total">
+                <span>
+                  RETAINED TOKENS{' '}
+                  <b>
+                    {engine.checking || engine.healthError
+                      ? '—'
+                      : tokens.toLocaleString()}
+                  </b>
+                </span>
+                <span>
+                  LAST CHECK{' '}
+                  <b>
+                    {engine.lastChecked
+                      ? engine.lastChecked.toLocaleTimeString([], {
+                          hour: '2-digit',
+                          minute: '2-digit',
+                          second: '2-digit',
+                        })
+                      : '—'}
+                  </b>
+                </span>
+              </div>
+              <div className="activity">
+                <h3>
+                  <Icon name="activity" size={14} /> Session activity
+                </h3>
+                {engine.history.length ? (
+                  engine.history.map((event, index) => (
+                    <div className="activity-item" key={index}>
+                      <i className={event.status.toLowerCase()} />
+                      <div>
+                        <span>{event.query}</span>
+                        <small>
+                          {event.status} · {event.milliseconds.toFixed(1)} ms
+                        </small>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <p>Your real query history appears here.</p>
+                )}
+              </div>
+              <p className="diagnostics-note">
+                Status refreshes every 10 seconds. Counts cover responding
+                workers. Query time includes the browser round trip.
+              </p>
+            </aside>
+          </div>
+        </section>
+        <footer>
+          <a className="footer-brand" href="#">
+            SEARCHFORGE X
+          </a>
+          <span>Custom indexing. Real processes. Inspectable results.</span>
+          <span className="footer-limit">
+            LOCAL DEMO · TESTED PROCESS-CRASH RECOVERY
+          </span>
+        </footer>
+      </main>
+    </div>
+  );
 }
-const root=createRoot(document.getElementById('root')!);
-root.render(<App/>);
-if(import.meta.hot)import.meta.hot.dispose(()=>root.unmount());
+const root = createRoot(document.getElementById('root')!);
+root.render(<App />);
+if (import.meta.hot) import.meta.hot.dispose(() => root.unmount());
