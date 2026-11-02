@@ -12,6 +12,7 @@ public final class Protocol {
 
   public static final ObjectMapper JSON =
       JsonMapper.builder()
+          .disable(DeserializationFeature.ACCEPT_FLOAT_AS_INT)
           .enable(DeserializationFeature.FAIL_ON_TRAILING_TOKENS)
           .enable(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES)
           .enable(DeserializationFeature.FAIL_ON_MISSING_CREATOR_PROPERTIES)
