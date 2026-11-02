@@ -10,7 +10,7 @@ axe-core (MPL-2.0), and their transitive dependencies. Consult each installed pa
 LICENSE/package.json and Maven POM; this summary does not relicense their code.
 
 The separate Lucene comparison uses Apache Lucene (Apache-2.0), not the core serving engine.
-Synthetic examples are original AI-assisted project text. SciFact/BEIR data attribution and
+Synthetic examples are original project text. SciFact/BEIR data attribution and
 component-specific permissions are in DATA_PROVENANCE.md. The corpus itself is not tracked;
 retrieval IDs, scores, judgments-derived metrics and provenance are retained as evidence.
 

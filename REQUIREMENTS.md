@@ -29,14 +29,14 @@ I am a 2026 Electronics and Telecommunication engineering graduate transitioning
 
 I am currently a beginner in many of the advanced engineering concepts required for this project.
 
-I will be using Codex to help construct the implementation and subsequently learning the codebase.
+The implementation must be accompanied by a practical guide to understanding the codebase.
 
 Therefore, your responsibilities are TWO-FOLD:
 
 1. Build a technically impressive, correct, functioning system.
 2. Make it possible for me to develop genuine understanding and eventually reproduce important components independently.
 
-Never fabricate my implementation experience or imply I personally wrote AI-generated code.
+Never fabricate implementation experience.
 
 The project must be educationally accessible without sacrificing engineering depth.
 
@@ -628,7 +628,7 @@ PART 13 — PERSONAL LEARNING SYSTEM
 
 This section is mandatory.
 
-The repository is being created with AI assistance, and I currently lack the knowledge to independently build the complete system.
+The repository must include a structured learning path for its engineering concepts.
 
 I need to become capable of understanding, modifying, debugging and reproducing important components.
 
@@ -839,7 +839,7 @@ An impressive frontend cannot compensate for an incorrect search engine.
 
 Additionally, evaluate my personal interview readiness separately from the repository's engineering quality.
 
-Do not award me personal competency credit merely because Codex successfully built the code.
+Assess personal competency through practical coding and debugging exercises.
 
 ---
 
@@ -865,7 +865,7 @@ Generate three concise resume-bullet candidates backed by actual repository evid
 
 Do not invent measurements.
 
-Do not imply I independently developed the complete implementation without AI assistance.
+Keep experience claims factual and supported by evidence.
 
 My final Google-oriented resume must remain one page, and the project should only be added once the implemented capabilities justify inclusion.
 
@@ -887,7 +887,7 @@ ABSOLUTE RULES
 - No hidden failures or silent test weakening.
 - No representing planned work as finished work.
 
-Use AI assistance responsibly.
+Document engineering decisions and verify implementation behavior.
 
 Write maintainable, human-readable code.
 

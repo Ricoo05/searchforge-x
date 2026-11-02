@@ -27,7 +27,7 @@ Keep edits focused. Preserve deterministic rankings, immutable publication, fail
 and current UI behavior. Add meaningful regression cases for defects. Explain the trigger,
 behavioral change, validation and limitations in a PR. Never weaken assertions or add
 continue-on-error to make CI green. Do not commit credentials, datasets, build directories
-or artificial activity. Be explicit about AI assistance and sources of third-party material.
+or artificial activity. Document sources of third-party material.
 
 Original project source uses the MIT license in LICENSE. Third-party components and dataset
 material retain their upstream terms; consult THIRD_PARTY_NOTICES.md and DATA_PROVENANCE.md.

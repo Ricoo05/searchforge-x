@@ -1,6 +1,6 @@
 # Java prerequisites — study with this repository
 
-Do these in order. Write small programs without generated solutions, explain their output,
+Do these in order. Write small programs before consulting reference solutions, explain their output,
 and then compare your work with the relevant repository component. Request tutoring mode
 for one lesson at a time; submit your attempt before receiving the solution.
 

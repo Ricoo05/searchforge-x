@@ -1,4 +1,4 @@
-/** Run through Codex's documented CUA browser API against the isolated 5274 preview. */
+/** Run through the documented CUA browser API against the isolated 5274 preview. */
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import path from 'node:path';

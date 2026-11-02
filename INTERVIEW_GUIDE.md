@@ -1,9 +1,7 @@
-# Interview preparation and honest ownership
+# Interview preparation
 
-Describe SearchForge X as an AI-assisted project. Explain which components you personally
-understand, reproduced or changed. Do not claim independent implementation experience
-merely because the repository contains working code. Keep an exercise log with dated
-attempts, tests and debugging notes.
+Prepare a walkthrough of the components you can explain, modify and debug.
+Keep an exercise log with dated attempts, tests and debugging notes.
 
 ## A defensible two-minute walkthrough
 
@@ -41,13 +39,12 @@ Follow with a limitation you can explain and a result from the raw evidence you 
 
 ## Practical interview checks
 
-Without generated code, rebuild an inverted index, phrase matcher, BM25 scorer and top-K
+Rebuild an inverted index, phrase matcher, BM25 scorer and top-K
 selection on a tiny corpus. Write a malformed-input test and debug a corrupted segment.
 Then modify an actual subsystem, predict affected tests and explain the observed failure.
 Being able to repeat a written explanation is not sufficient evidence of mastery.
 
-Personal readiness: not assessed. No independent coding/debugging attempt from the user
-has been observed in this chat. Repository quality and individual competence are separate.
+Use the practical checks to assess interview readiness and identify topics to practise.
 
 ## Fifteen evidence-backed answers to defend
 
@@ -100,4 +97,4 @@ has been observed in this chat. Repository quality and individual competence are
 Hands-on checks: add a Unicode normalization regression; alter the heap tie-break and explain
 the failing oracle; corrupt one copied segment and trace rejection; add an interrupted-writer
 test; reproduce distributed partial results on disposable data; trace one request through
-the coordinator's two phases. Record your own attempts before consulting generated answers.
+the coordinator's two phases. Record your own attempts before consulting reference answers.

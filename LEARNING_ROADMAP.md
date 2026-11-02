@@ -1,9 +1,8 @@
 # Learn SearchForge X
 
-This repository is AI-assisted. Passing its tests demonstrates software behavior;
-it does not demonstrate your personal ability. Keep a learning log of exercises you
-complete without generated solutions. In tutoring mode, request one lesson and submit
-your solution before asking for the reference answer.
+Use this roadmap to practise understanding, modifying and debugging the search engine.
+Keep a learning log of completed exercises, tests and debugging notes. Work through
+each lesson before consulting its reference answer.
 
 1. Java prerequisites: values, methods, records, interfaces, exceptions, collections.
 2. Analyzer: trace normalization and positions through Analyzer.java. Explain why

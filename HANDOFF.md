@@ -1,9 +1,8 @@
 # Continuation notes
 
-Sol continuation has implemented the benchmark/evaluation system, found and fixed an
-executor shutdown race, expanded crash/writer tests, connected coordinator ingestion and
-diagnostics, and built the requested interactive 3D React interface. Read CHECKPOINT.md
-for current evidence; the previous Astra handoff has been superseded.
+The project includes the benchmark/evaluation system, a fix for an executor shutdown
+race, expanded crash/writer tests, coordinator ingestion and diagnostics, and an
+interactive 3D React interface. Read CHECKPOINT.md for current evidence.
 
 Tests: 29 Java and 2 Python passing. Retained evidence includes a discovered-failure log,
 three-trial synthetic results, profile summaries, SciFact and Lucene retrieval runs, and

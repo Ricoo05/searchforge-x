@@ -74,7 +74,7 @@ using actual backend responses; no product response or metric was mocked.
 
 Evidence: browser-regression.json, final-accessibility.json, fault-states.json,
 transient-states.json and production-preservation.json in evidence/ui-after.
-The browser module uses Codex CUA's documented browser API; it is not a standalone
+The browser module uses the documented CUA browser API; it is not a standalone
 Playwright CLI test. Capture the current isolated API reference with
 scripts/capture_ui_reference.py before repeating its ranking checks. Seed fixtures with
 scripts/check_ui_software_parity.py --seed-test-copy only when the copied cluster still

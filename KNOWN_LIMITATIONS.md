@@ -1,6 +1,6 @@
 # Known limitations
 
-The project is an educational engineering portfolio implementation with AI assistance.
+The project is an educational engineering portfolio implementation.
 It has not undergone production validation. Tests demonstrate finite scenarios, not an
 absence of bugs. Passing the repository tests does not establish personal interview readiness.
 

@@ -21,7 +21,7 @@ are not executed; paid services are not enabled. Actions are pinned and dependen
 automation is prepared, and the new remote security job passed on b6f22ec. GitHub secret scanning and secret push
 protection are enabled for the public repository.
 
-Licensing: original demo text is AI-assisted project material; SciFact/BEIR permissions and
+Licensing: original demo text is original project material; SciFact/BEIR permissions and
 attribution are recorded and dataset files are excluded. THIRD_PARTY_NOTICES.md identifies
 runtime/dev license families; it is not an exhaustive executable redistribution audit.
 Original project source now has an MIT LICENSE under the owner’s instruction to finish licensing

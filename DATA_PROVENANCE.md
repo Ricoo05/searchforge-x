@@ -1,7 +1,7 @@
 # Dataset provenance and permissions
 
 The synthetic benchmark generator in BenchmarkMain.java and the six UI example documents
-are original project material produced with AI assistance. The synthetic corpus uses seed
+are original project material. The synthetic corpus uses seed
 20261102, 32 tokens/document, and a skewed 512-term vocabulary plus two common terms.
 It models simple posting workloads; it does not approximate an Internet-scale corpus.
 

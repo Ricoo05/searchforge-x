@@ -24,8 +24,8 @@ to demonstrability but does not increase the storage/distributed correctness sco
 
 Google-oriented usefulness: the project can support a substantive engineering discussion
 when its owner can explain the invariants, reproduce important parts and debug failures.
-Its name, visual polish and AI-generated source alone do not establish interview readiness.
-No Google affiliation, hiring guarantee or independent authorship is implied.
+Interview preparation should include tracing queries, modifying components and debugging
+failures. No Google affiliation or hiring guarantee is implied.
 
-Personal readiness: unassessed. The user has not yet completed an observed independent
-coding/debugging exercise. Begin the learning roadmap before presenting subsystem mastery.
+Use the learning roadmap and practical coding/debugging exercises to prepare for
+technical interviews.

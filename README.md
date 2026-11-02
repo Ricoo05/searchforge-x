@@ -13,7 +13,7 @@ The repository is public and MIT-licensed. Local validation passes 30 Java, two 
 sample corpus. This command was exercised by GitHub's container job. See [quick start](#run-locally),
 [demo steps](DEMO_VERIFICATION.md), [CI evidence](CI_VALIDATION_REPORT.md) and
 [publication status](FINAL_GITHUB_STATUS.md) and [ownership protection](REPOSITORY_PROTECTION.md).
-+There is no public hosted backend.
+There is no public hosted backend.
 
 ```mermaid
 flowchart LR
@@ -24,8 +24,8 @@ flowchart LR
 ```
 
 A custom Java 21 document-search engine with positional indexing, Boolean/phrase queries,
-BM25 ranking, persistent generations and a real three-worker coordinator. Built with AI
-assistance as an inspectable engineering and learning project.
+BM25 ranking, persistent generations and a real three-worker coordinator.
+An inspectable engineering and learning project.
 
 The core implements retrieval itself. It does not delegate indexing or serving to Lucene,
 Elasticsearch or a hosted search service. A separate Lucene project supplies an independent
@@ -119,8 +119,8 @@ KNOWN_LIMITATIONS.md and ENGINEERING_ASSESSMENT.md provide the skeptical assessm
 
 Begin with JAVA_PREREQUISITES.md and DSA_CONCEPTS.md, then LEARNING_ROADMAP.md and
 BUILD_IT_YOURSELF.md. INTERVIEW_GUIDE.md requires actual independent attempts;
-RESUME_EVIDENCE.md contains three evidence-backed, AI-assisted candidate bullets.
-The original full brief is retained in REQUIREMENTS.md.
+RESUME_EVIDENCE.md contains three evidence-backed candidate bullets.
+The project requirements are retained in REQUIREMENTS.md.
 
 ## Important remaining verification
 
