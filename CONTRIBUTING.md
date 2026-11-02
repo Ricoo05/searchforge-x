@@ -3,7 +3,8 @@
 Read ARCHITECTURE.md, KNOWN_LIMITATIONS.md and SECURITY.md before proposing changes.
 Use Java 21, Maven 3.9.x, Node 24/npm, Python 3.12+, and Docker Compose for container checks.
 Run `npm ci --prefix web`, `npm run build --prefix web`, `mvn --batch-mode clean verify`,
-and `python -m unittest discover -s scripts -p test_evaluate.py` from the repository root.
+and `python -m unittest discover -s scripts -p 'test_*.py'` from the repository root.
+Run the formatter and lint checks in QUALITY_CHECKS.md before committing.
 
 For a disposable container test: `docker compose up --build -d --wait`, then
 `python scripts/container_smoke.py --seed`. Stop worker1 and run the probe with
@@ -11,11 +12,11 @@ For a disposable container test: `docker compose up --build -d --wait`, then
 write IDs 1–3, so use fresh disposable volumes, never a personal data directory.
 Use `docker compose down` to stop; add `--volumes` only to discard that disposable test data.
 
-Browser CI tests use real services: from web run `npx playwright install chromium` and
+Browser CI tests use real services: from web run `npx playwright install chromium firefox webkit` and
 `npx playwright test` while the disposable cluster is running, explicitly setting
 SFX_BROWSER_URL to its loopback URL (PowerShell: `$env:SFX_BROWSER_URL='http://127.0.0.1:8090'`).
 The tests refuse implicit local or external targets. They write IDs
-10000–10024 and 9100. Run them only against an isolated cluster. Browser reports and failure
+10000–10024, 11000 and 9100. Run them only against an isolated cluster. Browser reports and failure
 traces are generated under web/playwright-report and web/test-results and are ignored.
 
 Run `npm audit --prefix web --audit-level=low`. For Java dependencies:
