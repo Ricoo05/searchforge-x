@@ -9,7 +9,7 @@ evidence/ci/github-actions-41424775458.json. The initial failed Windows run and 
 are retained; no tests were disabled. The subsequent baseline commit changed evidence only.
 
 Prepared changes: verified official SHA-pinned checkout v6, Java v5, Node v6, Python v6,
-artifact upload v5; push-to-main/PR/manual triggers; 15–25 minute job bounds; full-history
+artifact upload v5; push-to-main/PR/manual triggers; 15â€“25 minute job bounds; full-history
 credential patterns, npm audit and resolved Maven OSV checks; Python compilation; browser
 tests inside the real Compose deployment; failure traces and Surefire artifacts.
 CI has read-only contents permission and no privileged PR trigger. Dependabot covers npm,
@@ -20,11 +20,11 @@ SHAs fetched from their official repositories, all jobs have timeouts. TypeScrip
 build passes. Playwright discovers and executes 10 tests: 10 pass, zero skipped, 38.8 s.
 Both dependency scans and the reachable-history pattern scan pass. git diff --check passes.
 
-**New remote workflow: BLOCKED pending approved publication/push.** The old passing run
-does not prove the modified workflow passes. New artifact-upload/action-version/security
-steps must be observed remotely before reporting a current-branch green result. Required
-merge-check settings are prepared conceptually (test matrix, containers, security), not
-silently enabled; plan/repository support must be verified when publication is approved.
+**Updated remote workflow:** https://github.com/Ricoo05/searchforge-x/actions/runs/41429105232
+on 48563c103d4df2767720dc44995df0f39bad1382. Windows, Ubuntu and security have passed;
+containers/browser checks are running. No final success is claimed until completion.
+Main branch protection now requires the two matrix jobs, containers and security with strict
+status checks. Administrators retain bypass; force pushes and branch deletion are disabled.
 
 Warnings: Vite retains a 587.18 kB lazy Three.js chunk warning. Local Playwright emitted a
 NO_COLOR/FORCE_COLOR environment warning. Neither warning is suppressed. Full SAST, image

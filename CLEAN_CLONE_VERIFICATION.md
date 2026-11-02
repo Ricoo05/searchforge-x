@@ -1,21 +1,30 @@
-# Clean-clone verification
+# Anonymous clean-clone verification — PASS within stated scope
 
-Authenticated clean checkout: `git clone https://github.com/Ricoo05/searchforge-x.git
-work/portfolio-clean-clone`, revision 8861c82f5aa04319ce45d927a88a1750c800ecfd.
-This directory contains no original workspace source or application data.
+Public revision: d32c04feaa22ba1bbca4ff4e97a41c8d456fe007. Command:
+`git -c credential.helper= -c http.extraHeader= clone https://github.com/Ricoo05/searchforge-x.git work/portfolio-public-clone`,
+with GIT_TERMINAL_PROMPT=0. No GitHub credentials were supplied. A separate directory contains
+only repository files plus generated dependencies/build outputs, no original application data.
 
-Java 21/Maven 3.9.9/Node 24 were supplied explicitly as prerequisites. Maven used an ordinary
-dependency cache. `mvn --batch-mode --no-transfer-progress clean verify` passed all 29 tests
-with zero skips. Python metric tests are separately exercised in the baseline remote jobs.
+Prerequisites: Java 21, Maven 3.9.9, Node 24, Python 3.12 and Playwright's downloaded Chromium.
+`npm ci --offline --no-audit --no-fund` succeeded from a verified package cache;
+`npm run build` passed. `mvn --batch-mode --no-transfer-progress clean verify` passed all
+29 Java tests, zero skips. Two Python evaluator tests and all 10 Chromium tests passed
+(19.9 s) from the public checkout. The built JAR started three workers/coordinator at 8690;
+real ingestion, phrase retrieval and built frontend serving passed.
 
-Normal `npm ci` encountered a registry download stall for a Three.js type-tooling dependency;
-offline retry correctly failed ENOTCACHED for @dimforge/rapier3d-compat 0.12.0. This is not
-reported as a clean first-attempt install. A mirror tarball is checked against the committed
-official SHA-512 integrity before cache priming; an offline retry/build result is recorded
-in evidence/portfolio/clean-clone.txt when completed. No dependency files are copied from
-the working project's node_modules. The application source and lockfile are unchanged.
+Evidence: evidence/portfolio/public-clean-clone.json and public-access.json; the public-clone
+browser log is retained with portfolio evidence. No files were copied from working node_modules.
+Maven and npm caches are ordinary dependency caches, not private configuration.
 
-The baseline remote Ubuntu/Windows checkouts and Docker build also rebuilt from GitHub with
-fresh dependency resolution. That evidence covers the baseline revision, not unpublished
-portfolio additions. Anonymous clone/public-access and a clean clone of the final public
-revision remain BLOCKED until publication approval. Do not label those checks PASS.
+Network limitation: the initial normal npm install stalled on a registry tarball. A retry
+failed honestly with ENOTCACHED. Rapier's mirror tarball was accepted only after SHA-512
+matched the committed official lockfile; Three's cache entry was likewise integrity checked.
+The lockfile still uses official registry URLs. This proves source reproducibility using
+verified cached dependencies, not reliable registry access from every network. Baseline
+remote Windows/Ubuntu/Docker builds additionally resolved dependencies on fresh runners.
+
+The earlier private checkout first packaged before a successful frontend retry; its UI check
+correctly returned 404. Repackaging after the frontend build fixed that execution-order error.
+The final public clone follows frontend-build-before-Maven order and serves the actual UI.
+No repository functionality was replaced or stubbed to obtain a pass. Test data is isolated;
+the original user cluster at 8090 was not written by these checks.

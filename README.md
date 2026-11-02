@@ -5,8 +5,8 @@
 SearchForge X makes document retrieval inspectable: you can trace a query from positional
 postings and BM25 through three actual worker processes to ranked, explicitly labeled results.
 Stack: Java 21, React/TypeScript, Three.js, Docker Compose. No hosted search engine handles retrieval.
-Existing Windows/Linux/Docker checks passed; additional portfolio checks are pending execution
-and approved publication. The repository is currently private, so the live badge may require sign-in.
+The repository is public and MIT-licensed. Windows/Linux and security checks pass; the updated
+Docker/browser CI run is in progress. The badge above reports the actual main-branch workflow.
 
 **Try locally:** `docker compose up --build`, then open http://127.0.0.1:8090 and load the
 sample corpus. This command was exercised by GitHub's container job. See [quick start](#run-locally),
@@ -58,7 +58,7 @@ java -cp target/searchforge-x-0.1.0-SNAPSHOT.jar dev.searchforge.distributed.Clu
 The 3D cluster supports orbit, zoom, pause and worker selection. Status and metrics use
 actual backend responses; motion illustrates topology/request activity rather than packet
 telemetry. Reduced motion and a WebGL fallback preserve the search workflow. The Document
-studio routes stable-ID updates; sample loading replaces IDs 1–6 with six original documents.
+studio routes stable-ID updates; sample loading replaces IDs 1â€“6 with six original documents.
 
 The presentation uses a compact paper/charcoal/copper design system, an editorial result
 list and an instrument-style diagnostics rail. UI_UX_TRANSFORMATION_REPORT.md records the
@@ -104,7 +104,7 @@ was 0.661676, versus 0.661084 for the independently run Lucene BM25 reference. T
 are not a superiority claim. Raw runs, per-query metrics, hashes and permissions are retained.
 
 Reproduction and limits: BENCHMARKS.md and DATA_PROVENANCE.md. No paid infrastructure or
-public hosting is involved. The private source repository is
+public hosting is involved. The public source repository is
 [Ricoo05/searchforge-x](https://github.com/Ricoo05/searchforge-x). Windows, Ubuntu and Docker
 CI passed on application/test commit 9f9ea63; evidence and scope are recorded in CHECKPOINT.md.
 

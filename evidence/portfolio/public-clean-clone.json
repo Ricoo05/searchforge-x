@@ -1,0 +1,48 @@
+{
+  "revision": "d32c04feaa22ba1bbca4ff4e97a41c8d456fe007",
+  "anonymousClone": true,
+  "origin": "http://127.0.0.1:8690",
+  "readyWorkers": 3,
+  "write": {
+    "status": "COMPLETE",
+    "shards": [
+      {
+        "status": "ACKNOWLEDGED",
+        "shard": 1,
+        "generation": 3
+      }
+    ]
+  },
+  "result": {
+    "status": "COMPLETE",
+    "scoringScope": "all_shards",
+    "missingShards": [],
+    "generations": {
+      "0": 1,
+      "2": 1,
+      "1": 3
+    },
+    "totalHits": 1,
+    "hits": [
+      {
+        "id": 1,
+        "score": 6.5326660869007585,
+        "document": {
+          "id": 1,
+          "text": "cleanclonephrase actual fresh clone demonstration",
+          "metadata": {
+            "title": "Clean clone document"
+          }
+        }
+      }
+    ]
+  },
+  "builtFrontendServed": true,
+  "tests": {
+    "Java": 29,
+    "Python": 2,
+    "skipped": 0
+  },
+  "frontendInstall": "npm ci --offline from integrity-verified dependency cache",
+  "frontendBuild": "PASS"
+}

@@ -1,0 +1,46 @@
+{
+  "revision": "8861c82f5aa04319ce45d927a88a1750c800ecfd",
+  "origin": "http://127.0.0.1:8590",
+  "readyWorkers": 3,
+  "write": {
+    "shards": [
+      {
+        "status": "ACKNOWLEDGED",
+        "generation": 2,
+        "shard": 1
+      }
+    ],
+    "status": "COMPLETE"
+  },
+  "result": {
+    "status": "COMPLETE",
+    "scoringScope": "all_shards",
+    "missingShards": [],
+    "generations": {
+      "0": 0,
+      "1": 2,
+      "2": 0
+    },
+    "totalHits": 1,
+    "hits": [
+      {
+        "id": 1,
+        "score": 0.5753641449035618,
+        "document": {
+          "id": 1,
+          "text": "cleanclonephrase actual fresh clone demonstration",
+          "metadata": {
+            "title": "Clean clone document"
+          }
+        }
+      }
+    ]
+  },
+  "builtFrontendServed": true,
+  "tests": {
+    "Java": 29,
+    "skipped": 0
+  },
+  "frontendInstall": "npm ci --offline after integrity-verified registry-cache priming",
+  "frontendBuild": "PASS"
+}

@@ -1,23 +1,23 @@
-# GitHub readiness status
+# Public GitHub status — SearchForge X
 
-Repository: https://github.com/Ricoo05/searchforge-x. Account: Ricoo05. Branch: main.
-Current published baseline is private. No FINOS-Core files/settings are changed in this chat.
+Repository: https://github.com/Ricoo05/searchforge-x. Public, default branch main, original
+project source MIT-licensed. Anonymous README/license/badge access and Git clone verified.
+FINOS-Core is outside this chat. No public backend, paid service or release was deployed.
 
 | Requirement | Status | Evidence |
 |---|---|---|
-| Source builds | PASS | Java clean verify and TypeScript/Vite build |
-| Application runs | PASS | Real local cluster and baseline Docker job |
-| Unit/integration/distributed tests | PASS baseline | 29 Java, zero skips |
-| Browser tests | PASS locally | 10 Playwright tests; prior 18 CUA checks |
-| GitHub Actions | PASS baseline / BLOCKED new checks | run 41424775458; pending approved push |
-| Security checks | PASS bounded scans | evidence/portfolio; SECURITY_REVIEW.md limits |
-| Docker | PASS baseline remote | Startup, COMPLETE/PARTIAL/recovered COMPLETE |
-| README/architecture | PASS | README.md, ARCHITECTURE.md |
-| Demo | PASS local / BLOCKED hosted | DEMO_VERIFICATION.md |
-| Clean clone | PASS Java baseline / pending final public flow | CLEAN_CLONE_VERIFICATION.md |
-| Public repository | BLOCKED | Awaiting explicit visibility approval |
-| Recruiter readiness | FAIL until gates pass | RECRUITER_REVIEW.md |
+| Source builds | PASS | Anonymous checkout: npm build + Maven verify |
+| Application runs | PASS | Actual JAR serves UI; three workers and coordinator |
+| Unit/integration/distributed tests | PASS | 29 Java, zero skips; two Python tests |
+| Browser tests | PASS locally | 10 Chromium tests in anonymous checkout; prior 18 CUA checks |
+| GitHub Actions | RUNNING updated workflow | run 41429105232; Windows/Ubuntu/security pass, container job running |
+| Security checks | PASS within coverage | npm/OSV/pattern scans; SECURITY_REVIEW.md limitations |
+| Docker | PASS baseline remote / updated job running | Real startup/loss/recovery on prior run |
+| README/architecture | PASS | README.md and ARCHITECTURE.md |
+| Demo | PASS local | DEMO_VERIFICATION.md; genuine screenshots |
+| Anonymous clean clone | PASS with cache/network caveat | CLEAN_CLONE_VERIFICATION.md |
+| Public repository/license | PASS | Anonymous API and LICENSE checks |
+| Recruiter readiness | Pending final updated CI | No final all-green claim before Docker/browser job completes |
 
-Prepared publication: push reviewed changes to the existing repo, select a source license,
-change visibility to public only with explicit approval, observe actual new CI, then perform
-anonymous cloning and public-link/badge verification. Nothing is claimed publicly live yet.
+CodeQL, image CVE scanning, a full standard formatter, hosted demo, all browser engines and
+formal accessibility testing are not represented as completed. There is no hosted-model dependency.

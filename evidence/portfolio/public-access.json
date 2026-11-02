@@ -1,0 +1,25 @@
+{
+  "authenticated": false,
+  "checks": {
+    "repository": {
+      "url": "https://api.github.com/repos/Ricoo05/searchforge-x",
+      "httpStatus": 200,
+      "bytes": 5500
+    },
+    "readme": {
+      "url": "https://github.com/Ricoo05/searchforge-x",
+      "httpStatus": 200,
+      "bytes": 358039
+    },
+    "badge": {
+      "url": "https://github.com/Ricoo05/searchforge-x/actions/workflows/ci.yml/badge.svg?branch=main",
+      "httpStatus": 200,
+      "bytes": 2309
+    },
+    "license": {
+      "url": "https://raw.githubusercontent.com/Ricoo05/searchforge-x/main/LICENSE",
+      "httpStatus": 200,
+      "bytes": 1064
+    }
+  }
+}

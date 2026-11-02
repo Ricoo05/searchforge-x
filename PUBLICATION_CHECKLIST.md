@@ -1,22 +1,18 @@
-# Proposed publication — approval required
+# Approved publication status
 
-Destination: existing https://github.com/Ricoo05/searchforge-x, default branch main.
-No duplicate repository, history rewrite, force push, unrelated project change, paid service,
-account-level pinning or public hosting is proposed.
+The owner explicitly requested public recruiter access on 2026-11-02 after review.
+Destination: existing https://github.com/Ricoo05/searchforge-x, branch main.
 
-- [x] Review existing code, history, runtime evidence and configuration.
-- [x] Run bounded reachable-history/current-tree credential-pattern scan.
-- [x] Run npm and resolved Maven advisory checks; retain actual results.
-- [x] Review synthetic demo material and SciFact/BEIR provenance; exclude corpus files.
-- [x] Preserve current UI and backend; new test fixtures use isolated data only.
-- [x] Prepare pinned CI actions, timeouts, reports and real browser/security checks.
-- [ ] Owner selects source license and confirms authority to apply it (MIT is a proposal).
-- [ ] Explicitly approve pushing prepared changes and changing private visibility to public.
-- [ ] Execute/inspect new remote workflow and fix any remote-only failures.
-- [ ] Verify anonymous clone, badge rendering and final public clean-clone demo.
-- [ ] Verify supported branch protection and require the passing critical jobs.
+- [x] Audit code, Git history, real tests, dataset provenance and configuration.
+- [x] Credential-pattern scan: 235 reachable blobs, no matches; bounded coverage disclosed.
+- [x] npm/OSV advisory checks pass; new remote security job passes.
+- [x] MIT license for original project code; third-party/dataset notices retained.
+- [x] Public visibility applied; anonymous repository/README/license/badge access verified.
+- [x] Anonymous clone d32c04f builds, serves real UI, passes 29 Java, two Python and 10 browser tests.
+- [x] Main protection requires Windows, Ubuntu, containers and security checks; strict mode.
+      Administrator bypass remains enabled and is disclosed; force pushes/deletions disallowed.
+- [ ] Updated Docker/browser CI run 41429105232 completes successfully (currently running).
 
-The user supplied computer access; the new brief separately requires publication approval
-after the concrete audit. This checklist does not infer visibility approval from computer
-access. No visibility change is performed before that approval. A release is optional and
-not proposed until the new workflow and anonymous reproduction pass.
+No paid hosting, public write API, profile pins, release artifacts, unrelated repository change,
+force push or history rewrite was performed. Model-provider checks are not applicable: this
+engine does not call a hosted model. Public source access does not deploy its local admin APIs.

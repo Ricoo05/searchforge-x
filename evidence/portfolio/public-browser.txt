@@ -1,0 +1,17 @@
+
+Running 10 tests using 1 worker
+
+(node:26092) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\ci\search.spec.ts:9:1 › ranked API rows, Enter, pagination and literal document text (3.5s)
+  ok  2 tests\ci\search.spec.ts:25:1 › parser error and zero results (1.4s)
+  ok  3 tests\ci\search.spec.ts:31:1 › index real document and find it (1.8s)
+  ok  4 tests\ci\search.spec.ts:39:1 › accessible worker selection, close and pause (1.6s)
+  ok  5 tests\ci\search.spec.ts:44:49 › both screens fit 1440px (1.1s)
+  ok  6 tests\ci\search.spec.ts:44:49 › both screens fit 1280px (1.2s)
+  ok  7 tests\ci\search.spec.ts:44:49 › both screens fit 1024px (1.2s)
+  ok  8 tests\ci\search.spec.ts:44:49 › both screens fit 768px (1.4s)
+  ok  9 tests\ci\search.spec.ts:44:49 › both screens fit 390px (966ms)
+  ok 10 tests\ci\search.spec.ts:44:49 › both screens fit 320px (921ms)
+
+  10 passed (19.9s)

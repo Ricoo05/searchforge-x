@@ -23,5 +23,6 @@ automation is prepared, but the new remote security job is not yet observed.
 Licensing: original demo text is AI-assisted project material; SciFact/BEIR permissions and
 attribution are recorded and dataset files are excluded. THIRD_PARTY_NOTICES.md identifies
 runtime/dev license families; it is not an exhaustive executable redistribution audit.
-No root LICENSE is added: owner license choice/ownership confirmation remains required.
+Original project source now has an MIT LICENSE under the owner’s instruction to finish licensing
+and publish. Dependencies/datasets retain their separate terms; no third-party relicensing is claimed.
 SECURITY.md provides an honest disclosure path without inventing a private contact address.
