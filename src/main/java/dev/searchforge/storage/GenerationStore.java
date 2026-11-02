@@ -97,6 +97,7 @@ public final class GenerationStore implements AutoCloseable {
   public synchronized void commit(IndexSnapshot snapshot) throws IOException {
     ensureOpen();
     long generation = snapshot.generation();
+    if (generation < 1) throw new IOException("Committed generation must be positive");
     Path commit = directory.resolve("commit-" + generation + ".manifest");
     if (Files.exists(commit)) throw new IOException("Generation already committed");
     byte[] bytes = SegmentCodec.encode(snapshot);
