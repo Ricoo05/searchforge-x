@@ -7,6 +7,8 @@ Verified GitHub configuration for Ricoo05/searchforge-x:
 - Outside contributions require a pull request and one approving code-owner review.
 - New commits dismiss stale approvals; review conversations must be resolved.
 - Main requires strict passing Windows, Ubuntu, container/browser and security checks.
+- Runtime image scanning and all three CodeQL language analyses are also required: eight
+  required checks in total. Existing code-owner reviews and force-push restrictions remain.
 - Force pushes and deletion of main are disabled.
 - GitHub secret scanning and secret push protection are enabled.
 
