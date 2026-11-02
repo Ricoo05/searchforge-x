@@ -5,7 +5,7 @@
 SearchForge X makes document retrieval inspectable: you can trace a query from positional
 postings and BM25 through three actual worker processes to ranked, explicitly labeled results.
 Stack: Java 21, React/TypeScript, Three.js, Docker Compose. No hosted search engine handles retrieval.
-The repository is public and MIT-licensed. Local validation passes 30 Java, five Python and
+The repository is public and MIT-licensed. Local validation passes 32 Java, five Python and
 42 real-backend browser tests across Chromium, Firefox and WebKit. The badge above reports the actual main-branch workflow;
 [CI evidence](CI_VALIDATION_REPORT.md) distinguishes baseline passes from subsequent runs.
 
@@ -137,3 +137,5 @@ process-crash recovery is narrower than general fault tolerance or production re
 
 See [quality gates](QUALITY_CHECKS.md) and [executed validation](QUALITY_VALIDATION.md)
 for CodeQL, image scanning, formatting and cross-browser accessibility checks.
+
+Recent correctness fixes and regression evidence: [DEFECT_FIXES.md](DEFECT_FIXES.md).
